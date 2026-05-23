@@ -3331,3 +3331,27 @@ width: 100%;
 }.nav-item:hover, .task-item:hover { background: rgba(255,255,255,0.15); cursor: pointer; }
 .triangle { width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 36px solid #ff9800; flex: 0 0 36px; margin-left: 12px; }
 .safety-count { color: #ff4f4f; font-weight: bold; }
+.safety-column h2 .safety-count { color: #ff4f4f !important; font-weight: bold; }
+.status-dropdown { position:fixed; background:#fff; border:1px solid #d5d9de; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.15); padding:6px 0; z-index:9999; min-width:160px; }
+.status-option { display:flex; align-items:center; gap:10px; padding:8px 16px; cursor:pointer; font-size:14px; color:#3d3d3d; }
+.status-option:hover { background:#f0f4ff; }
+.status-option.danger { color:#e53935; }
+.sdot { width:16px; height:16px; border-radius:2px; flex-shrink:0; }
+.sdivider { margin:4px 0; border:none; border-top:1px solid #e0e0e0; }
+.sdi-wrap { background:#fff; border:1px solid #d5d9de; border-radius:4px; box-shadow:0 4px 12px rgba(0,0,0,0.12); padding:4px 0; }
+.sdi-opt { display:flex; align-items:center; gap:10px; padding:8px 16px; cursor:pointer; font-size:13px; color:#3d3d3d; }
+.sdi-opt:hover { background:#f0f7f0; }
+.sdi-opt.danger { color:#e53935; }
+.sdi-hr { margin:4px 0; border:none; border-top:1px solid #e0e0e0; }
+.sdot2 { width:16px; height:16px; border-radius:2px; flex-shrink:0; display:inline-block; }
+.task-description { width:100%; min-height:70px; border:1px solid #d5d9de; border-radius:4px; padding:8px; font-size:13px; color:#3d3d3d; resize:vertical; box-sizing:border-box; font-family:inherit; }
+.task-description:focus { outline:none; border-color:#4a90e2; }
+.location-label { margin-top:10px; }
+.location-fields { display:flex; gap:8px; margin-top:6px; }
+.location-input { flex:1; border:1px solid #d5d9de; border-radius:4px; padding:7px 10px; font-size:13px; color:#3d3d3d; }
+.location-input:focus { outline:none; border-color:#4a90e2; }
+.add-photos-btn { display:flex; align-items:center; gap:8px; background:#1263ff; color:#fff; border:none; border-radius:4px; padding:8px 16px; font-size:13px; font-weight:500; cursor:pointer; }
+.add-photos-btn:hover { background:#0f4fd4; }
+.btn-camera-icon { width:16px; height:16px; filter:brightness(10); }
+.photos-preview { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.photos-preview img { width:80px; height:80px; object-fit:cover; border-radius:4px; border:1px solid #d5d9de; }

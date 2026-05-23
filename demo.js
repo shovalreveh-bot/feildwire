@@ -149,3 +149,128 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   };
 });
+
+window.addEventListener('DOMContentLoaded', function() {
+  var activeDropdown = null;
+  var isSafetyCtx = false;
+
+  function buildDropdown(isSafety) {
+    var d = document.createElement('div');
+    d.className = 'sdi-wrap';
+    var options = [
+      {s:'priority1', color:'#e53935', label:'Priority 1', safetyHide:true},
+      {s:'priority2', color:'#ff9800', label:'Priority 2', safetyHide:true},
+      {s:'priority3', color:'#fdd835', label:'Priority 3', safetyHide:true},
+      {s:'completed', color:'#45de67', label:'Completed', safetyHide:false},
+      {s:'verified',  color:'#81d4fa', label:'Verified',  safetyHide:false}
+    ];
+    options.forEach(function(o) {
+      if (isSafety && o.safetyHide) return;
+      var el = document.createElement('div');
+      el.className = 'sdi-opt';
+      el.innerHTML = '<span class="sdot2" style="background:'+o.color+'"></span>'+o.label;
+      d.appendChild(el);
+    });
+    var hr = document.createElement('hr');
+    hr.className = 'sdi-hr';
+    d.appendChild(hr);
+    var del = document.createElement('div');
+    del.className = 'sdi-opt danger';
+    del.innerHTML = '🗑 Delete task';
+    d.appendChild(del);
+    return d;
+  }
+
+  document.addEventListener('click', function(e) {
+    var statusRow = e.target.closest('.attribute.row.with-icon');
+    if (statusRow && statusRow.querySelector('.attr-icon.status')) {
+      if (activeDropdown) { activeDropdown.remove(); activeDropdown = null; return; }
+      activeDropdown = buildDropdown(isSafetyCtx);
+      statusRow.parentNode.insertBefore(activeDropdown, statusRow.nextSibling);
+      e.stopPropagation();
+      return;
+    }
+    if (activeDropdown && !e.target.closest('.sdi-wrap')) {
+      activeDropdown.remove(); activeDropdown = null;
+    }
+  });
+
+  var prevOpen = window.openTaskModal;
+  if (prevOpen) {
+    window.openTaskModal = function(title, isSafety) {
+      isSafetyCtx = !!isSafety;
+      if (activeDropdown) { activeDropdown.remove(); activeDropdown = null; }
+      prevOpen(title, isSafety);
+    };
+  }
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+  var lastCard = null;
+
+  // Track which card was clicked
+  document.addEventListener('click', function(e) {
+    var card = e.target.closest('.task-card');
+    if (card) lastCard = card;
+  }, true);
+
+  // Update status text when modal opens
+  var prevOpen2 = window.openTaskModal;
+  if (prevOpen2) {
+    window.openTaskModal = function(title, isSafety) {
+      prevOpen2(title, isSafety);
+      var statusB = document.querySelector('.attribute.row.with-icon .attr-icon.status');
+      if (statusB) {
+        var row = statusB.closest('.attribute.row.with-icon');
+        if (row) row.querySelector('b').innerHTML = 'In progress <i class="caret"></i>';
+      }
+    };
+  }
+
+  // Handle dropdown option clicks
+  document.addEventListener('click', function(e) {
+    var opt = e.target.closest('.sdi-opt');
+    if (!opt) return;
+    
+    if (opt.classList.contains('danger')) {
+      // Delete task
+      if (lastCard) {
+        var col = lastCard.closest('.column');
+        lastCard.remove();
+        if (col && typeof updateColumnCount === 'function') updateColumnCount(col);
+        if (typeof updateSidebarCounts === 'function') updateSidebarCounts();
+        lastCard = null;
+      }
+      var closeBtn = document.querySelector('[data-close-task-modal]');
+      if (closeBtn) closeBtn.click();
+    } else {
+      // Update status
+      var label = opt.textContent.trim();
+      var statusRow = document.querySelector('.attribute.row.with-icon .attr-icon.status');
+      if (statusRow) {
+        var row = statusRow.closest('b') || statusRow.closest('.attribute.row.with-icon').querySelector('b');
+        if (row) row.innerHTML = label + ' <i class="caret"></i>';
+      }
+    }
+
+    // Close dropdown
+    var wrap = document.querySelector('.sdi-wrap');
+    if (wrap) wrap.remove();
+  });
+});
+
+document.addEventListener('change', function(e) {
+  if (e.target.id === 'photoInput') {
+    var preview = document.getElementById('photosPreview');
+    if (!preview) return;
+    Array.from(e.target.files).forEach(function(file) {
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        var img = document.createElement('img');
+        img.src = ev.target.result;
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+});
