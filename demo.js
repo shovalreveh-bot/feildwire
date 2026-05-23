@@ -25,6 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".primary, [data-mobile-new-task]").forEach((button) => {
     button.addEventListener("click", () => openTaskModal("New task"));
   });
+  window.openTaskModal = openTaskModal;
 });
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -70,8 +71,10 @@ document.querySelectorAll('.new-task-link').forEach(function(btn) {
       card.innerHTML = '<div class="square"></div><div><div class="meta">#' + taskNum + ' | @SRE</div><div>' + title + '</div></div>';
       form.remove();
       btn.style.display = '';
-      btn.parentElement.insertBefore(card, btn);
-      updateColumnCount(btn.parentElement);
+      (btn.closest(".column") || btn.parentElement).insertBefore(card, btn);
+      updateColumnCount(btn.closest(".column") || btn.parentElement);
+      updateSidebarCounts();
+      if (window.openTaskModal) window.openTaskModal(title);
     });
 
     var buttons = document.createElement('div');
@@ -80,10 +83,11 @@ document.querySelectorAll('.new-task-link').forEach(function(btn) {
     buttons.appendChild(cancelBtn);
     form.appendChild(input);
     form.appendChild(buttons);
-    btn.parentElement.insertBefore(form, btn.nextSibling);
+    (btn.closest(".column") || btn.parentElement).insertBefore(form, btn.nextSibling);
     input.focus();
 });
   });
+  document.addEventListener("click", function(e) { var card = e.target.closest(".task-card"); if (card && window.openTaskModal) { var titleEl = card.querySelector("div > div:last-child"); var title = titleEl ? titleEl.textContent.trim() : "Task"; window.openTaskModal(title); } });
 });
 
 function updateColumnCount(column) {
@@ -91,4 +95,30 @@ function updateColumnCount(column) {
   var header = column.querySelector('h2');
   if (header) {
     header.innerHTML = header.innerHTML.replace(/\(\d+\)/, '(' + count + ')');  }
+}
+
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.nav-item').forEach(function(i) { i.classList.remove('active'); });
+    item.classList.add('active');
+  });
+});
+document.querySelectorAll('.task-item').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.task-item').forEach(function(i) { i.classList.remove('active'); });
+    item.classList.add('active');
+  });
+});
+
+function updateSidebarCounts() {
+  var total = document.querySelectorAll('.task-card').length;
+  document.querySelectorAll('.task-item').forEach(function(item) {
+    var b = item.querySelector('b');
+    if (!b) return;
+    if (item.textContent.includes('All tasks')) b.textContent = total;
+    if (item.textContent.includes('My tasks')) b.textContent = total;
+    if (item.textContent.includes('Watched tasks')) b.textContent = Math.max(0, total - 2);
+  });
 }

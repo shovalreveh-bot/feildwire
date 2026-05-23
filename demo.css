@@ -164,6 +164,11 @@ input {
 .nav-item.active,
 .task-item.active {
   background: #1263ff;
+.nav-item:hover,
+.task-item:hover {
+  background: rgba(255,255,255,0.07);
+  cursor: pointer;
+}
 }
 
 .side-icon {
@@ -3331,4 +3336,4 @@ width: 100%;
   color: #ffffff;
   font-size: 16px;
   cursor: pointer;
-}
+}.nav-item:hover, .task-item:hover { background: rgba(255,255,255,0.15); cursor: pointer; }
