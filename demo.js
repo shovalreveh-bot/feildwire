@@ -68,13 +68,14 @@ document.querySelectorAll('.new-task-link').forEach(function(btn) {
       var taskNum = allCards.length + 1;
       var card = document.createElement('div');
       card.className = 'task-card compact';
-      card.innerHTML = '<div class="square"></div><div><div class="meta">#' + taskNum + ' | @SRE</div><div>' + title + '</div></div>';
+      var shapeClass = btn.closest(".safety-column") ? "triangle" : "square";
+      card.innerHTML = "<div class=\"" + shapeClass + "\"></div><div><div class=\"meta\">#" + taskNum + " | @SRE</div><div>" + title + "</div></div></div>";
       form.remove();
       btn.style.display = '';
       (btn.closest(".column") || btn.parentElement).insertBefore(card, btn);
       updateColumnCount(btn.closest(".column") || btn.parentElement);
       updateSidebarCounts();
-      if (window.openTaskModal) window.openTaskModal(title);
+      if (window.openTaskModal) window.openTaskModal(title, !!card.closest(".safety-column"));
     });
 
     var buttons = document.createElement('div');
@@ -87,7 +88,7 @@ document.querySelectorAll('.new-task-link').forEach(function(btn) {
     input.focus();
 });
   });
-  document.addEventListener("click", function(e) { var card = e.target.closest(".task-card"); if (card && window.openTaskModal) { var titleEl = card.querySelector("div > div:last-child"); var title = titleEl ? titleEl.textContent.trim() : "Task"; window.openTaskModal(title); } });
+  document.addEventListener("click", function(e) { var card = e.target.closest(".task-card"); if (card && window.openTaskModal) { var titleEl = card.querySelector("div > div:last-child"); var title = titleEl ? titleEl.textContent.trim() : "Task"; window.openTaskModal(title, !!card.closest(".safety-column")); } });
 });
 
 function updateColumnCount(column) {
@@ -122,3 +123,29 @@ function updateSidebarCounts() {
     if (item.textContent.includes('Watched tasks')) b.textContent = Math.max(0, total - 2);
   });
 }
+
+window.addEventListener('DOMContentLoaded', function() {
+  var orig = window.openTaskModal;
+  if (!orig) return;
+  window.openTaskModal = function(title, isSafety) {
+    orig(title);
+    var tri = document.querySelector('.modal-safety-triangle');
+    if (tri) {
+      if (isSafety) {
+        tri.style.cssText = 'width:0;height:0;margin:0 auto;border-left:21px solid transparent;border-right:21px solid transparent;border-bottom:45px solid #ff4f4f;background:none;';
+      } else {
+        tri.style.cssText = 'width:34px;height:34px;margin:0;border:0;background:#45de67;';
+      }
+    }
+    var hideIcons = ['category','plan','people','cost','tags','watchers'];
+    var hideNames = ['Category','Plan','Manpower','Cost','Tags','Watchers'];
+    document.querySelectorAll('.attribute.row.with-icon').forEach(function(row) {
+      var icon = row.querySelector('.attr-icon');
+      if (icon) row.style.display = (isSafety && hideIcons.some(function(c){return icon.classList.contains(c);})) ? 'none' : '';
+    });
+    document.querySelectorAll('.attribute.row:not(.with-icon)').forEach(function(row) {
+      var txt = row.querySelector('span') ? row.querySelector('span').textContent.trim() : '';
+      row.style.display = (isSafety && hideNames.indexOf(txt) >= 0) ? 'none' : '';
+    });
+  };
+});

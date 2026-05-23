@@ -1646,14 +1646,6 @@ fw-button {
   width: 34px;
 }
 
-.modal-safety-triangle {
-  width: 34px;
-  height: 34px;
-  margin: 0;
-  border: 0;
-  background: #45de67;
-}
-
 .description {
   color: #777777;
   font-size: 14px;
@@ -3337,3 +3329,5 @@ width: 100%;
   font-size: 16px;
   cursor: pointer;
 }.nav-item:hover, .task-item:hover { background: rgba(255,255,255,0.15); cursor: pointer; }
+.triangle { width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 36px solid #ff9800; flex: 0 0 36px; margin-left: 12px; }
+.safety-count { color: #ff4f4f; font-weight: bold; }
