@@ -3405,3 +3405,154 @@ width: 100%;
 .dot-red    { background: #ff4f4f; }
 .dot-orange { background: #ff8a32; }
 .dot-yellow { background: #ffd149; }
+
+/* ── Modal navigation arrows ── */
+.task-modal-backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.modal-nav-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  color: #202428;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+
+.modal-nav-btn:hover { background: #ffffff; }
+
+/* ── Title inline edit ── */
+.title-pencil-btn {
+  border: none;
+  background: none;
+  color: #8b9299;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.task-name:hover .title-pencil-btn { opacity: 1; }
+
+.title-edit-input {
+  font-size: 15px;
+  border: 1px solid #0d5bff;
+  border-radius: 3px;
+  padding: 2px 6px;
+  width: 100%;
+  outline: none;
+  color: #1a1d21;
+}
+
+/* ── Interactive attribute rows ── */
+.attr-interactive {
+  cursor: pointer;
+  position: relative;
+}
+
+.attr-interactive:hover { background: #f5f6f7; }
+
+.attr-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 300;
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #dde0e4;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.14);
+  padding: 4px 0;
+}
+
+.attr-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 13px;
+  color: #202428;
+  cursor: pointer;
+}
+
+.attr-dropdown button:hover { background: #f0f4ff; }
+
+.attr-inline-input {
+  font-size: 13px;
+  border: 1px solid #0d5bff;
+  border-radius: 3px;
+  padding: 2px 6px;
+  width: 120px;
+  outline: none;
+  color: #1a1d21;
+}
+
+.attr-pencil {
+  color: #8b9299;
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+/* ── Checklist ── */
+.modal-checklist {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+}
+
+.checklist-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checklist-new-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.checklist-text-input {
+  flex: 1;
+  border: 1px solid #0d5bff;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 13px;
+  outline: none;
+}
+
+/* ── Activity feed ── */
+.activity-feed {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* ── Action links ── */
+.action-link {
+  color: #0d5bff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.action-link:hover { text-decoration: underline; }

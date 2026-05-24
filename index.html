@@ -393,6 +393,7 @@
     </div>
 
     <div class="task-modal-backdrop" hidden data-task-modal>
+      <button class="modal-nav-btn modal-prev-btn" type="button" data-modal-prev aria-label="Previous task">&#8249;</button>
       <div class="task-modal" role="dialog" aria-modal="true" aria-label="Task details">
         <button class="task-modal-close" type="button" aria-label="Close task" data-close-task-modal>×</button>
         <table class="task-view-table">
@@ -403,51 +404,39 @@
                 <div class="pin pin-team-label"></div>
               </div>
               <div class="description">
-                <div class="floorplan-name truncate">#20 | @SRE</div>
+                <div class="floorplan-name truncate" data-modal-task-meta>#1 | @SRE</div>
               </div>
               <div class="description">
                 <div class="task-name">
                   <span class="title-no-edit" data-modal-task-title></span>
-                  <span class="title-edit" data-modal-task-title-edit></span>
+                  <input class="title-edit-input" data-modal-title-input type="text" hidden>
+                  <button class="title-pencil-btn" data-modal-edit-pencil type="button" title="Edit title">✎</button>
                 </div>
               </div>
             </td>
             <td class="header-attributes">
-              <h1>
-                <span>Task Attributes</span>
-                <span class="attribute-cog"></span>
-              </h1>
+              <h1><span>Task Attributes</span><span class="attribute-cog"></span></h1>
             </td>
           </tr>
           <tr class="modal-body">
             <td class="entity-holder">
-              <div class="drag-and-drop-container">
-                <div class="mask">
-                  <div class="mask-dash">
-                    <div class="mask-content">
-                      <div class="upload-icon-wrapper">↑</div>
-                      <div class="instruction-text heading">Upload files</div>
-                      <div class="instruction-text drop-here">Drag and drop your files here</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <section class="fw-related-tasks section">
                 <p>Related Tasks:</p>
+                <ul class="modal-related-list" data-modal-related></ul>
                 <div class="related-task-action">
-                  <span>+ New task</span>
+                  <span class="action-link" data-modal-new-related>+ New task</span>
                   <span class="divider">|</span>
-                  <span>+ Existing task</span>
+                  <span class="action-link">+ Existing task</span>
                 </div>
               </section>
 
               <section class="check-items section">
                 <p>Checklist:</p>
+                <ul class="modal-checklist" data-modal-checklist></ul>
                 <div class="checklist-action">
-                  <span>+ New item</span>
+                  <span class="action-link" data-modal-add-item>+ New item</span>
                   <span class="divider">|</span>
-                  <span>+ Add checklist</span>
+                  <span class="action-link">+ Add checklist</span>
                 </div>
               </section>
 
@@ -458,51 +447,92 @@
                   <button type="button">All ▾</button>
                   <button type="button">Oldest first ↑</button>
                 </div>
-                <div class="fw-bubble">
-                  <div class="user">shoval revach</div>
-                  <div class="highlight-box">
-                    <time>5:18 PM</time>
-                    <div class="comment" data-modal-task-comment></div>
-                    <div class="log-entry">Changed manpower to 4 months</div>
-                  </div>
-                </div>
+                <div class="activity-feed" data-modal-activity></div>
               </section>
 
               <div class="message-box">
                 <button class="message-attach" type="button">⌁</button>
-                <input type="text" placeholder="Enter message here...">
-                <button class="share-btn" type="button">Share ▾</button>
+                <input type="text" placeholder="Enter message here..." data-modal-message-input>
+                <button class="share-btn" type="button" data-modal-share>Share ▾</button>
               </div>
             </td>
             <td class="entity-attributes-holder">
               <div class="entity-attributes task-attributes">
-                <div class="attribute row with-icon"><span><i class="attr-icon status"></i>Status</span><b><span data-modal-status>Priority 2</span> <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon category"></i>Category</span><b>&mdash; <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon assignee"></i>Assignee</span><b>shoval <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon plan"></i>Plan</span><b>&mdash; <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon location"></i>Location</span><b>&mdash; <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon date"></i>Start date</span><b>&mdash; <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon date"></i>End date</span><b>&mdash; <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon people"></i>Manpower</span><b>4 Months</b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon cost"></i>Cost</span><b>&mdash;</b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon tags"></i>Tags</span><b>&mdash; <i class="caret"></i></b></div>
-                <div class="attribute row with-icon"><span><i class="attr-icon watchers"></i>Watchers</span><b>SRE <i class="caret"></i></b></div>
-                <div class="attribute row"><span>Status</span><b><span data-modal-status>Priority 2</span> ▾</b></div>
-                <div class="attribute row"><span>Category</span><b>— ▾</b></div>
-                <div class="attribute row"><span>Assignee</span><b>shoval ▾</b></div>
-                <div class="attribute row"><span>Plan</span><b>— ▾</b></div>
-                <div class="attribute row"><span>Location</span><b>— ▾</b></div>
-                <div class="attribute row"><span>Start date</span><b>— ▾</b></div>
-                <div class="attribute row"><span>End date</span><b>— ▾</b></div>
-                <div class="attribute row"><span>Manpower</span><b>4 Months</b></div>
-                <div class="attribute row"><span>Cost</span><b>—</b></div>
-                <div class="attribute row"><span>Tags</span><b>— ▾</b></div>
-                <div class="attribute row"><span>Watchers</span><b>SRE ▾</b></div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="status">
+                  <span><i class="attr-icon status"></i>Status</span>
+                  <b><span data-modal-status>Priority 2</span> <i class="caret"></i></b>
+                  <div class="attr-dropdown" hidden data-status-dropdown>
+                    <button type="button" data-status-option="Safety">Safety</button>
+                    <button type="button" data-status-option="Priority 1">Priority 1</button>
+                    <button type="button" data-status-option="Priority 2">Priority 2</button>
+                    <button type="button" data-status-option="Priority 3">Priority 3</button>
+                    <button type="button" data-status-option="Completed">Completed</button>
+                    <button type="button" data-status-option="Verified">Verified</button>
+                  </div>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="category" data-attr-editable="text">
+                  <span><i class="attr-icon category"></i>Category</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="assignee">
+                  <span><i class="attr-icon assignee"></i>Assignee</span>
+                  <b data-attr-value>shoval <i class="caret"></i></b>
+                  <div class="attr-dropdown" hidden data-assignee-dropdown>
+                    <button type="button" data-assignee="meow lover">meow lover</button>
+                    <button type="button" data-assignee="Sapir Kats">Sapir Kats</button>
+                    <button type="button" data-assignee="shoval revach">shoval revach</button>
+                  </div>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="plan" data-attr-editable="text">
+                  <span><i class="attr-icon plan"></i>Plan</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="location" data-attr-editable="text">
+                  <span><i class="attr-icon location"></i>Location</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="start-date" data-attr-editable="date">
+                  <span><i class="attr-icon date"></i>Start date</span>
+                  <b data-attr-value>&mdash;</b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="end-date" data-attr-editable="date">
+                  <span><i class="attr-icon date"></i>End date</span>
+                  <b data-attr-value>&mdash;</b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="manpower" data-attr-editable="text">
+                  <span><i class="attr-icon people"></i>Manpower</span>
+                  <b data-attr-value>&mdash; <span class="attr-pencil">✎</span></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="cost" data-attr-editable="text">
+                  <span><i class="attr-icon cost"></i>Cost</span>
+                  <b data-attr-value>&mdash; <span class="attr-pencil">✎</span></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="tags" data-attr-editable="text">
+                  <span><i class="attr-icon tags"></i>Tags</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="watchers" data-attr-editable="text">
+                  <span><i class="attr-icon watchers"></i>Watchers</span>
+                  <b data-attr-value>SRE <i class="caret"></i></b>
+                </div>
+
               </div>
             </td>
           </tr>
         </table>
       </div>
+      <button class="modal-nav-btn modal-next-btn" type="button" data-modal-next aria-label="Next task">&#8250;</button>
     </div>
 
     <script src="demo.js"></script>
