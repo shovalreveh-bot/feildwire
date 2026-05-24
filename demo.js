@@ -139,6 +139,38 @@ function syncCounts() {
   var total = document.querySelectorAll('.board .task-card').length;
   var myTasksEl = document.querySelector('[data-my-tasks-count]');
   if (myTasksEl) myTasksEl.textContent = total;
+  var allTasksEl = document.querySelector('[data-all-tasks-count]');
+  if (allTasksEl) allTasksEl.textContent = total;
 }
 
-document.addEventListener('DOMContentLoaded', syncCounts);
+document.addEventListener('DOMContentLoaded', function() {
+  syncCounts();
+
+  var contextMenu = document.querySelector('[data-task-context-menu]');
+  var contextTarget = null;
+
+  document.querySelector('.board').addEventListener('contextmenu', function(e) {
+    var card = e.target.closest('.task-card');
+    if (!card) return;
+    e.preventDefault();
+    contextTarget = card;
+    contextMenu.style.left = e.pageX + 'px';
+    contextMenu.style.top = e.pageY + 'px';
+    contextMenu.hidden = false;
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!contextMenu.contains(e.target)) {
+      contextMenu.hidden = true;
+    }
+  });
+
+  document.querySelector('[data-delete-task]').addEventListener('click', function() {
+    if (contextTarget) {
+      contextTarget.remove();
+      contextTarget = null;
+      syncCounts();
+    }
+    contextMenu.hidden = true;
+  });
+});
