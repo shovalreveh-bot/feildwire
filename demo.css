@@ -3594,7 +3594,7 @@ width: 100%;
   display: inline-block;
   width: 24px;
   height: 24px;
-  border-radius: 5px;
+  border-radius: 0;
   flex-shrink: 0;
 }
 
