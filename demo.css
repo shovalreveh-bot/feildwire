@@ -168,8 +168,37 @@ input {
 
 .side-icon {
   width: 18px;
+  height: 20px;
+  flex: 0 0 20px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.side-icon--forms {
+  width: 20px;
+  height: 20px;
+  flex-basis: 18px;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.fa-side-icon {
+  position: relative;
+  width: 18px;
   height: 18px;
   flex: 0 0 18px;
+  color: #ffffff;
+}
+
+.paperclip-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 17.2a2 2 0 0 1-2.83-2.83l8.49-8.48'/%3E%3C/svg%3E") center / 18px 18px no-repeat;
+}
+
+.paperclip-icon::after {
+  content: none;
 }
 
 .project-management {
@@ -268,9 +297,60 @@ input {
   cursor: pointer;
 }
 
-.bottom-svg-icon {
+.bottom-item img {
   width: 19px;
   height: 19px;
+  object-fit: contain;
+}
+
+.bottom-css-icon {
+  position: relative;
+  display: block;
+  width: 19px;
+  height: 19px;
+  color: #ffffff;
+}
+
+.cog-icon::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 5px dotted currentColor;
+  border-radius: 50%;
+}
+
+.cog-icon::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2f3235;
+}
+
+.trash-icon::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  width: 11px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 2px 2px;
+}
+
+.trash-icon::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  width: 13px;
+  height: 2px;
+  background: currentColor;
+  box-shadow: 3px -2px 0 -1px currentColor;
 }
 
 .app {
