@@ -115,7 +115,7 @@ document.querySelectorAll('.new-task-link').forEach(function(btn) {
       form.remove();
       btn.style.display = '';
       btn.parentElement.insertBefore(card, btn);
-      updateColumnCount(btn.parentElement);
+      syncCounts();
     });
 
     var buttons = document.createElement('div');
@@ -130,9 +130,15 @@ document.querySelectorAll('.new-task-link').forEach(function(btn) {
   });
 });
 
-function updateColumnCount(column) {
-  var count = column.querySelectorAll('.task-card').length;
-  var header = column.querySelector('h2');
-  if (header) {
-    header.innerHTML = header.innerHTML.replace(/\(\d+\)/, '(' + count + ')');  }
+function syncCounts() {
+  document.querySelectorAll('.board .column').forEach(function(col) {
+    var count = col.querySelectorAll('.task-card').length;
+    var countEl = col.querySelector('.header-count');
+    if (countEl) countEl.textContent = '(' + count + ')';
+  });
+  var total = document.querySelectorAll('.board .task-card').length;
+  var myTasksEl = document.querySelector('[data-my-tasks-count]');
+  if (myTasksEl) myTasksEl.textContent = total;
 }
+
+document.addEventListener('DOMContentLoaded', syncCounts);
