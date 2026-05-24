@@ -3556,3 +3556,57 @@ width: 100%;
 }
 
 .action-link:hover { text-decoration: underline; }
+
+/* ── Status dropdown (styled) ── */
+.status-dropdown {
+  left: 0;
+  right: 0;
+  min-width: unset;
+  padding: 6px 0;
+}
+
+.status-option {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 14px !important;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 13px;
+  color: #202428;
+  cursor: pointer;
+}
+
+.status-option:hover { background: #f0f4ff; }
+
+.status-option.is-active {
+  color: #0d5bff;
+  font-weight: 700;
+}
+
+.status-swatch {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.status-dropdown-divider {
+  height: 1px;
+  background: #eef0f2;
+  margin: 4px 0;
+}
+
+.status-delete {
+  color: #e53935 !important;
+}
+
+.status-delete:hover { background: #fff5f5 !important; }
+
+.status-trash {
+  font-size: 15px;
+}

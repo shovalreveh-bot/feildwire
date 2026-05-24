@@ -462,13 +462,14 @@
                 <div class="attribute row with-icon attr-interactive" data-attr="status">
                   <span><i class="attr-icon status"></i>Status</span>
                   <b><span data-modal-status>Priority 2</span> <i class="caret"></i></b>
-                  <div class="attr-dropdown" hidden data-status-dropdown>
-                    <button type="button" data-status-option="Safety">Safety</button>
-                    <button type="button" data-status-option="Priority 1">Priority 1</button>
-                    <button type="button" data-status-option="Priority 2">Priority 2</button>
-                    <button type="button" data-status-option="Priority 3">Priority 3</button>
-                    <button type="button" data-status-option="Completed">Completed</button>
-                    <button type="button" data-status-option="Verified">Verified</button>
+                  <div class="attr-dropdown status-dropdown" hidden data-status-dropdown>
+                    <button class="status-option" type="button" data-status-option="Priority 1"><span class="status-swatch" style="background:#ff4f4f"></span>Priority 1</button>
+                    <button class="status-option" type="button" data-status-option="Priority 2"><span class="status-swatch" style="background:#ff8a32"></span>Priority 2</button>
+                    <button class="status-option" type="button" data-status-option="Priority 3"><span class="status-swatch" style="background:#ffd149"></span>Priority 3</button>
+                    <button class="status-option" type="button" data-status-option="Completed"><span class="status-swatch" style="background:#4caf50"></span>Completed</button>
+                    <button class="status-option" type="button" data-status-option="Verified"><span class="status-swatch" style="background:#64b5f6"></span>Verified</button>
+                    <div class="status-dropdown-divider"></div>
+                    <button class="status-option status-delete" type="button" data-status-delete><span class="status-trash">🗑</span>Delete task</button>
                   </div>
                 </div>
 

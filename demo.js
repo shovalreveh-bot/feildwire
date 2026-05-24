@@ -209,7 +209,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   if (statusRow && statusDropdown) {
     statusRow.addEventListener('click', function (e) {
-      if (e.target.closest('[data-status-option]')) return;
+      if (e.target.closest('[data-status-option]') || e.target.closest('[data-status-delete]')) return;
       statusDropdown.hidden = !statusDropdown.hidden;
     });
 
@@ -218,9 +218,22 @@ window.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('[data-modal-status]').forEach(function (el) {
           el.textContent = opt.dataset.statusOption;
         });
+        // highlight the active option
+        statusDropdown.querySelectorAll('.status-option').forEach(function (o) { o.classList.remove('is-active'); });
+        opt.classList.add('is-active');
         statusDropdown.hidden = true;
       });
     });
+
+    var deleteFromStatus = statusDropdown.querySelector('[data-status-delete]');
+    if (deleteFromStatus) {
+      deleteFromStatus.addEventListener('click', function () {
+        var card = modalTaskCards[modalCurrentIdx];
+        if (card) { card.remove(); syncCounts(); }
+        statusDropdown.hidden = true;
+        closeModal();
+      });
+    }
   }
 
   /* ══════════════════════════════════════════
