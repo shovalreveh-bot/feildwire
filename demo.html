@@ -81,7 +81,25 @@
       </header>
 
       <section class="toolbar">
-        <button class="primary" type="button">＋ New task</button>
+        <div class="new-task-btn-wrapper">
+          <button class="primary" type="button" data-new-task-btn>＋ New task</button>
+          <div class="task-type-menu" hidden data-task-type-menu>
+            <button class="task-type-option task-type-safety" type="button" data-task-type="safety">
+              <span class="task-type-tri"></span>
+              Safety task
+            </button>
+            <div class="task-type-divider">General task by priority</div>
+            <button class="task-type-option" type="button" data-task-type="p1">
+              <span class="task-type-dot dot-red"></span>Priority 1
+            </button>
+            <button class="task-type-option" type="button" data-task-type="p2">
+              <span class="task-type-dot dot-orange"></span>Priority 2
+            </button>
+            <button class="task-type-option" type="button" data-task-type="p3">
+              <span class="task-type-dot dot-yellow"></span>Priority 3
+            </button>
+          </div>
+        </div>
         <button type="button">＋ Import tasks</button>
         <button type="button">▣ Generate reports</button>
         <button type="button">Actions ▾</button>
@@ -458,7 +476,7 @@
             </td>
             <td class="entity-attributes-holder">
               <div class="entity-attributes task-attributes">
-                <div class="attribute row with-icon"><span><i class="attr-icon status"></i>Status</span><b>Completed <i class="caret"></i></b></div>
+                <div class="attribute row with-icon"><span><i class="attr-icon status"></i>Status</span><b><span data-modal-status>Priority 2</span> <i class="caret"></i></b></div>
                 <div class="attribute row with-icon"><span><i class="attr-icon category"></i>Category</span><b>&mdash; <i class="caret"></i></b></div>
                 <div class="attribute row with-icon"><span><i class="attr-icon assignee"></i>Assignee</span><b>shoval <i class="caret"></i></b></div>
                 <div class="attribute row with-icon"><span><i class="attr-icon plan"></i>Plan</span><b>&mdash; <i class="caret"></i></b></div>
@@ -469,7 +487,7 @@
                 <div class="attribute row with-icon"><span><i class="attr-icon cost"></i>Cost</span><b>&mdash;</b></div>
                 <div class="attribute row with-icon"><span><i class="attr-icon tags"></i>Tags</span><b>&mdash; <i class="caret"></i></b></div>
                 <div class="attribute row with-icon"><span><i class="attr-icon watchers"></i>Watchers</span><b>SRE <i class="caret"></i></b></div>
-                <div class="attribute row"><span>Status</span><b>Completed ▾</b></div>
+                <div class="attribute row"><span>Status</span><b><span data-modal-status>Priority 2</span> ▾</b></div>
                 <div class="attribute row"><span>Category</span><b>— ▾</b></div>
                 <div class="attribute row"><span>Assignee</span><b>shoval ▾</b></div>
                 <div class="attribute row"><span>Plan</span><b>— ▾</b></div>
