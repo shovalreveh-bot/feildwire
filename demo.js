@@ -52,6 +52,11 @@ window.addEventListener('DOMContentLoaded', function () {
       el.textContent = cfg.label;
     });
 
+    // highlight the matching status option
+    document.querySelectorAll('.status-option').forEach(function (o) { o.classList.remove('is-active'); });
+    var activeOpt = document.querySelector('[data-status-option="' + cfg.label + '"]');
+    if (activeOpt) activeOpt.classList.add('is-active');
+
     if (safetyTriangle) safetyTriangle.hidden = !cfg.isSafety;
     if (pinLabel) {
       pinLabel.hidden = cfg.isSafety;
