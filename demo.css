@@ -3627,3 +3627,16 @@ width: 100%;
   height: 16px;
   fill: #e53935;
 }
+
+/* ── Safety task modal ── show only Status + Assignee in attributes ── */
+.task-modal-backdrop.is-safety .attribute.row[data-attr="category"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="plan"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="location"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="start-date"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="end-date"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="manpower"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="cost"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="tags"],
+.task-modal-backdrop.is-safety .attribute.row[data-attr="watchers"] {
+  display: none;
+}

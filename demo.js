@@ -63,6 +63,9 @@ window.addEventListener('DOMContentLoaded', function () {
       pinLabel.className = 'pin pin-team-label' + (cfg.pinClass ? ' ' + cfg.pinClass : '');
     }
 
+    // Toggle the safety-mode skin on the modal
+    backdrop.classList.toggle('is-safety', cfg.isSafety);
+
     // Close any open attr dropdowns
     document.querySelectorAll('.attr-dropdown').forEach(function (d) { d.hidden = true; });
   }
@@ -220,12 +223,15 @@ window.addEventListener('DOMContentLoaded', function () {
 
     statusDropdown.querySelectorAll('[data-status-option]').forEach(function (opt) {
       opt.addEventListener('click', function () {
+        var newStatus = opt.dataset.statusOption;
         document.querySelectorAll('[data-modal-status]').forEach(function (el) {
-          el.textContent = opt.dataset.statusOption;
+          el.textContent = newStatus;
         });
         // highlight the active option
         statusDropdown.querySelectorAll('.status-option').forEach(function (o) { o.classList.remove('is-active'); });
         opt.classList.add('is-active');
+        // switch between safety / regular layouts when status changes
+        backdrop.classList.toggle('is-safety', newStatus === 'Safety');
         statusDropdown.hidden = true;
       });
     });
