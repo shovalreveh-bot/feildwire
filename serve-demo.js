@@ -18,7 +18,7 @@ const contentTypes = {
 
 const server = http.createServer((request, response) => {
   const rawPath = (request.url || "/").split("?")[0];
-  const requestedPath = rawPath === "/" ? "/demo.html" : rawPath;
+  const requestedPath = rawPath === "/" ? "/index.html" : rawPath;
   const filePath = path.resolve(root, `.${decodeURIComponent(requestedPath)}`);
 
   if (!filePath.startsWith(root)) {
@@ -43,5 +43,5 @@ const server = http.createServer((request, response) => {
 });
 
 server.listen(port, "127.0.0.1", () => {
-  console.log(`Demo server: http://127.0.0.1:${port}/demo.html`);
+  console.log(`Demo server: http://127.0.0.1:${port}/`);
 });
