@@ -78,8 +78,8 @@ html.board-open {
   height: 52px;
   display: flex;
   align-items: center;
-  gap: 44px;
-  padding: 0 17px 0 14px;
+  gap: 10px;
+  padding: 0 10px;
   border-bottom: 1px solid #464a4e;
   background: #303234;
   font-family: Lato, sans-serif;
@@ -118,24 +118,26 @@ html.board-open {
 }
 
 .section-title {
-  margin: 24px 20px 20px;
+  margin: 16px 10px 8px;
+  padding: 0;
   color: #b7bec8;
   font-family: Lato, sans-serif;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1.42857143;
-  letter-spacing: 1.85px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
 }
 
 .nav-item,
 .task-item {
   position: relative;
-  height: 37px;
+  height: 40px;
   display: flex;
   align-items: center;
-  gap: 17px;
-  padding: 0 18px 0 18px;
+  gap: 12px;
+  padding: 0 10px;
   color: #ffffff;
   text-decoration: none;
   font-family: Lato, sans-serif;
