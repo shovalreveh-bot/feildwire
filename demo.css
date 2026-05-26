@@ -1665,11 +1665,12 @@ fw-button {
 }
 
 .modal-safety-triangle {
-  width: 34px;
-  height: 34px;
+  width: 0;
+  height: 0;
   margin: 0;
-  border: 0;
-  background: #45de67;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 34px solid #ff4f4f;
 }
 
 .description {
@@ -3618,6 +3619,16 @@ width: 100%;
   width: 24px;
   height: 24px;
   border-radius: 0;
+  flex-shrink: 0;
+}
+
+.status-swatch-tri {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 24px solid #ff4f4f;
   flex-shrink: 0;
 }
 
