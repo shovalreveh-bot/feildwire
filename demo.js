@@ -113,6 +113,18 @@ window.addEventListener('DOMContentLoaded', function () {
   renderProjects();
 
   /* ══════════════════════════════════════════
+     PROJECT MANAGEMENT COLLAPSIBLE SECTION
+  ══════════════════════════════════════════ */
+  var pmHeader  = document.querySelector('[data-pm-header]');
+  var pmContent = document.querySelector('[data-pm-content]');
+  if (pmHeader && pmContent) {
+    pmHeader.addEventListener('click', function () {
+      var collapsed = pmContent.classList.toggle('collapsed');
+      pmHeader.classList.toggle('collapsed', collapsed);
+    });
+  }
+
+  /* ══════════════════════════════════════════
      COUNT SYNC
   ══════════════════════════════════════════ */
   function syncCounts() {
