@@ -52,6 +52,22 @@ input {
   z-index: 100;
 }
 
+.sidebar-nav-scroll {
+  flex: 1 1 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+.sidebar-nav-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav-scroll::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 2px;
+}
+
 .project-header {
   height: 52px;
   display: flex;
@@ -309,7 +325,7 @@ input {
   min-height: 100vh;
   margin-left: 275px;
   background: #f5f6f7;
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .topbar {
