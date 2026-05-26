@@ -48,7 +48,9 @@ input {
   width: 275px;
   background: #2f3235;
   color: #ffffff;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   z-index: 100;
 }
 
@@ -199,12 +201,10 @@ input {
 }
 
 .task-nav {
-  position: absolute;
-  right: 0;
-  bottom: 47px;
-  left: 0;
+  margin-top: auto;
   border-top: 1px solid #474b4f;
   padding-top: 18px;
+  flex-shrink: 0;
 }
 
 .task-nav::after {
@@ -228,10 +228,7 @@ input {
 }
 
 .sidebar-bottom-menu {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  flex-shrink: 0;
   height: 47px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -239,6 +236,7 @@ input {
   justify-items: center;
   padding: 0 44px;
   background: #2f3235;
+  border-top: 1px solid #474b4f;
 }
 
 .bottom-item {
@@ -310,13 +308,16 @@ input {
 }
 
 .app {
-  min-height: calc(100vh - 52px);
-  height: calc(100vh - 52px);
+  min-height: 100vh;
   margin-left: 275px;
   background: #f5f6f7;
+  overflow-x: auto;
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   height: 52px;
   display: flex;
   align-items: center;
