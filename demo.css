@@ -15,7 +15,6 @@ html, body {
 
 body {
   margin: 0;
-  overflow-x: hidden;
   overflow-y: auto;
   background: #f5f6f7;
   color: #202428;
@@ -630,12 +629,12 @@ input {
 }
 
 .board {
-  height: 739px;
+  min-height: calc(100vh - 130px);
   display: flex;
   align-items: flex-start;
   gap: 12px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   padding: 24px 20px 80px;
 }
 
