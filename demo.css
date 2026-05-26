@@ -38,20 +38,23 @@ input {
   font: inherit;
 }
 
-.board-page {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
+/* html gets this class when board page is open */
+html.board-open {
+  overflow-y: hidden;
 }
 
 .sidebar {
-  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: 275px;
   background: #2f3235;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  z-index: 100;
 }
 
 .sidebar-nav-scroll {
@@ -324,12 +327,11 @@ input {
 }
 
 .app {
-  flex: 1 1 0;
-  min-width: 0;
+  margin-left: 275px;
+  height: 100vh;
   background: #f5f6f7;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .topbar {
@@ -657,8 +659,6 @@ input {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  overflow-x: auto;
-  overflow-y: auto;
   padding: 20px 16px 32px;
 }
 

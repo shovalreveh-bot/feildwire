@@ -64,6 +64,7 @@ window.addEventListener('DOMContentLoaded', function () {
     if (headerName) headerName.textContent = name;
     if (projectsPage) projectsPage.hidden = true;
     if (boardPage)    boardPage.hidden    = false;
+    document.documentElement.classList.add('board-open');
   }
 
   function showNewProjModal() {
