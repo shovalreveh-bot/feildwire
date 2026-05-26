@@ -16,6 +16,84 @@
     </div>
 
     <div class="demo-shell">
+
+    <!-- ══════════════ PROJECTS PAGE ══════════════ -->
+    <div class="projects-page" data-projects-page>
+      <header class="proj-topbar">
+        <div class="proj-topbar-logo">
+          <span class="fw-logo-text">FIELDWIRE</span>
+          <span class="fw-by-hilti">BY <span class="fw-hilti-red">HILTI</span></span>
+        </div>
+        <nav class="proj-topbar-nav">
+          <a href="#" class="proj-nav-link active">Projects</a>
+          <a href="#" class="proj-nav-link">People</a>
+          <a href="#" class="proj-nav-link">Account</a>
+          <a href="#" class="proj-nav-link">Templates</a>
+          <a href="#" class="proj-nav-link">Integrations</a>
+        </nav>
+        <div class="proj-topbar-right">
+          <button class="proj-notif-btn" type="button" aria-label="Notifications"><span class="proj-notif-badge">3</span></button>
+          <button class="proj-help-btn" type="button" aria-label="Help">?</button>
+          <div class="proj-plan-info">
+            <strong>Basic Plan</strong>
+            <span class="proj-upgrade">Upgrade Now</span>
+          </div>
+          <button class="proj-user-btn" type="button">shoval ▾</button>
+          <span class="proj-flag-icon"></span>
+        </div>
+      </header>
+
+      <main class="proj-content">
+        <div class="proj-inner">
+          <div class="proj-tabs-row">
+            <button class="proj-tab active" type="button">My projects (<span data-proj-count>2</span>)</button>
+          </div>
+          <div class="proj-toolbar-row">
+            <button class="proj-new-btn" type="button" data-open-new-project>+ New project</button>
+            <div class="proj-toolbar-right">
+              <button class="proj-sort-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M4 8h8M6 12h4" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Sort
+              </button>
+              <button class="proj-filter-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 3h12l-4.5 5.5V14l-3-1.5V8.5L2 3z" stroke="#555" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                Filter projects
+              </button>
+              <label class="proj-search-label">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#888" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <input class="proj-search-input" type="search" placeholder="Search projects">
+              </label>
+            </div>
+          </div>
+          <div class="proj-cards-grid" data-proj-grid>
+            <!-- rendered by JS -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ══════════════ NEW PROJECT MODAL ══════════════ -->
+    <div class="new-proj-backdrop" hidden data-new-project-modal>
+      <div class="new-proj-dialog">
+        <div class="new-proj-header">
+          <h3>New project</h3>
+          <button class="new-proj-close" type="button" data-close-new-project aria-label="Close">✕</button>
+        </div>
+        <div class="new-proj-body">
+          <label class="new-proj-field">
+            <span>Project name</span>
+            <input type="text" placeholder="Enter project name" data-new-project-name autocomplete="off">
+          </label>
+        </div>
+        <div class="new-proj-footer">
+          <button class="new-proj-cancel" type="button" data-close-new-project>Cancel</button>
+          <button class="new-proj-create" type="button" data-create-project>Create project</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ BOARD PAGE ══════════════ -->
+    <div class="board-page" hidden data-board-page>
     <aside class="sidebar">
       <div class="project-header">
         <div class="helmet">F</div>
@@ -535,6 +613,8 @@
       </div>
       <button class="modal-nav-btn modal-next-btn" type="button" data-modal-next aria-label="Next task">&#8250;</button>
     </div>
+
+    </div><!-- /board-page -->
 
     <script src="demo.js"></script>
   </body>

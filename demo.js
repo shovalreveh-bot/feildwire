@@ -1,6 +1,117 @@
 window.addEventListener('DOMContentLoaded', function () {
 
   /* ══════════════════════════════════════════
+     PROJECTS PAGE
+  ══════════════════════════════════════════ */
+  var projectsPage   = document.querySelector('[data-projects-page]');
+  var boardPage      = document.querySelector('[data-board-page]');
+  var newProjModal   = document.querySelector('[data-new-project-modal]');
+  var newProjInput   = document.querySelector('[data-new-project-name]');
+  var createProjBtn  = document.querySelector('[data-create-project]');
+  var projGrid       = document.querySelector('[data-proj-grid]');
+  var projCountEl    = document.querySelector('[data-proj-count]');
+
+  var projects = [
+    { name: 'house',              members: 3 },
+    { name: 'Sample project - SRE', members: 7 }
+  ];
+
+  function memberIcon() {
+    return '<svg width="14" height="12" viewBox="0 0 16 13" fill="none"><circle cx="6" cy="4" r="2.5" stroke="#9ca5ae" stroke-width="1.4"/><path d="M1 12c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="#9ca5ae" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="4" r="2" stroke="#9ca5ae" stroke-width="1.3"/><path d="M14 12c0-2-1.3-3.7-3-4.4" stroke="#9ca5ae" stroke-width="1.3" stroke-linecap="round"/></svg>';
+  }
+
+  function crownIcon() {
+    return '<svg width="14" height="12" viewBox="0 0 16 13" fill="none"><path d="M2 10h12M2 10L1 4l4 3 3-5 3 5 4-3-1 6H2z" stroke="#c8cdd2" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+  }
+
+  function starIcon() {
+    return '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><polygon points="8,2 10,6.5 15,7.2 11.5,10.5 12.5,15.5 8,13 3.5,15.5 4.5,10.5 1,7.2 6,6.5" stroke="#c8cdd2" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+  }
+
+  function dotsIcon() {
+    return '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="3.5" r="1.2" fill="#9ca5ae"/><circle cx="8" cy="8" r="1.2" fill="#9ca5ae"/><circle cx="8" cy="12.5" r="1.2" fill="#9ca5ae"/></svg>';
+  }
+
+  function renderProjects() {
+    if (!projGrid) return;
+    if (projCountEl) projCountEl.textContent = projects.length;
+
+    var html = projects.map(function (p) {
+      return '<div class="proj-card" data-open-project="' + p.name.replace(/"/g, '&quot;') + '">' +
+        '<div class="proj-card-top">' +
+          '<span class="proj-card-name">' + p.name + '</span>' +
+          '<div class="proj-card-icons">' +
+            '<button class="proj-icon-btn" type="button" title="Admin">' + crownIcon() + '</button>' +
+            '<button class="proj-icon-btn" type="button" title="Star">' + starIcon() + '</button>' +
+            '<button class="proj-icon-btn" type="button" title="More">' + dotsIcon() + '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="proj-card-bottom">' +
+          '<span class="proj-members">' + p.members + ' ' + memberIcon() + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    html += '<div class="proj-card proj-card--new" data-open-new-project>' +
+      '<span class="proj-new-label">+ New project</span>' +
+    '</div>';
+
+    projGrid.innerHTML = html;
+  }
+
+  function openProject(name) {
+    var headerName = document.querySelector('.project-header strong');
+    if (headerName) headerName.textContent = name;
+    if (projectsPage) projectsPage.hidden = true;
+    if (boardPage)    boardPage.hidden    = false;
+  }
+
+  function showNewProjModal() {
+    if (!newProjModal) return;
+    newProjModal.hidden = false;
+    if (newProjInput) { newProjInput.value = ''; newProjInput.focus(); }
+    if (createProjBtn) createProjBtn.disabled = true;
+  }
+
+  function hideNewProjModal() {
+    if (newProjModal) newProjModal.hidden = true;
+  }
+
+  function doCreateProject() {
+    if (!newProjInput) return;
+    var name = newProjInput.value.trim();
+    if (!name) return;
+    projects.push({ name: name, members: 1 });
+    renderProjects();
+    hideNewProjModal();
+  }
+
+  // Input → enable/disable create button
+  if (newProjInput) {
+    newProjInput.addEventListener('input', function () {
+      if (createProjBtn) createProjBtn.disabled = newProjInput.value.trim() === '';
+    });
+    newProjInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') doCreateProject();
+    });
+  }
+
+  if (createProjBtn) createProjBtn.addEventListener('click', doCreateProject);
+
+  // Back to projects: click sidebar project header
+  var projHeader = document.querySelector('.project-header');
+  if (projHeader) {
+    projHeader.style.cursor = 'pointer';
+    projHeader.title = 'Back to projects';
+    projHeader.addEventListener('click', function () {
+      if (boardPage)    boardPage.hidden    = true;
+      if (projectsPage) projectsPage.hidden = false;
+    });
+  }
+
+  renderProjects();
+
+  /* ══════════════════════════════════════════
      COUNT SYNC
   ══════════════════════════════════════════ */
   function syncCounts() {
@@ -463,6 +574,22 @@ window.addEventListener('DOMContentLoaded', function () {
      GLOBAL CLICK — close floating menus
   ══════════════════════════════════════════ */
   document.addEventListener('click', function (e) {
+    // projects page — open project card
+    var projCard = e.target.closest('[data-open-project]');
+    if (projCard && !e.target.closest('.proj-icon-btn')) {
+      openProject(projCard.dataset.openProject);
+      return;
+    }
+    // projects page — open new project modal
+    if (e.target.closest('[data-open-new-project]')) {
+      showNewProjModal();
+      return;
+    }
+    // close new project modal
+    if (e.target.closest('[data-close-new-project]') || e.target === newProjModal) {
+      hideNewProjModal();
+      return;
+    }
     // close context menu
     if (contextMenu && !contextMenu.hidden && !contextMenu.contains(e.target)) {
       contextMenu.hidden = true;
