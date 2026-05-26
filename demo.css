@@ -3613,30 +3613,43 @@ width: 100%;
   height: 52px;
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 0 20px 0 20px;
-  background: #1c1e20;
+  padding: 0 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e8ec;
+  position: relative;
 }
 
 .proj-topbar-logo {
   display: flex;
-  align-items: baseline;
-  gap: 5px;
-  margin-right: 32px;
-  white-space: nowrap;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fw-logo-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.fw-logo-words {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1;
 }
 
 .fw-logo-text {
   font-family: Lato, sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: 1.5px;
-  color: #ffffff;
+  color: #202428;
 }
 
 .fw-by-hilti {
   font-family: Lato, sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 400;
   color: #9ca5ae;
   letter-spacing: 0.5px;
@@ -3647,10 +3660,13 @@ width: 100%;
   font-weight: 700;
 }
 
+/* Nav centered absolutely so logo + right don't affect its position */
 .proj-topbar-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: stretch;
-  flex: 1;
   height: 52px;
 }
 
@@ -3659,7 +3675,7 @@ width: 100%;
   align-items: center;
   padding: 0 16px;
   height: 52px;
-  color: #c8cdd2;
+  color: #4a5059;
   text-decoration: none;
   font-family: Lato, sans-serif;
   font-size: 14px;
@@ -3667,22 +3683,23 @@ width: 100%;
   border-bottom: 2px solid transparent;
   box-sizing: border-box;
   transition: color 0.15s;
+  white-space: nowrap;
 }
 
 .proj-nav-link:hover {
-  color: #ffffff;
+  color: #202428;
 }
 
 .proj-nav-link.active {
-  color: #ffffff;
+  color: #202428;
   border-bottom-color: #1265ff;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .proj-topbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-left: auto;
 }
 
@@ -3693,25 +3710,23 @@ width: 100%;
   border: 0;
   background: transparent;
   cursor: pointer;
-  color: #c8cdd2;
-  font-size: 17px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 
-.proj-notif-btn::before {
-  content: "🔔";
-  font-size: 15px;
-  filter: grayscale(1) brightness(2);
+.proj-notif-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
 .proj-notif-badge {
   position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 15px;
-  height: 15px;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #e8001f;
   color: #fff;
@@ -3726,10 +3741,10 @@ width: 100%;
 .proj-help-btn {
   width: 22px;
   height: 22px;
-  border: 1.5px solid #7a8490;
+  border: 1.5px solid #9ca5ae;
   border-radius: 50%;
   background: transparent;
-  color: #c8cdd2;
+  color: #4a5059;
   font-size: 12px;
   font-weight: 700;
   font-family: Lato, sans-serif;
@@ -3750,21 +3765,21 @@ width: 100%;
   font-family: Lato, sans-serif;
   font-size: 11px;
   font-weight: 700;
-  color: #ffffff;
+  color: #202428;
   line-height: 1.2;
 }
 
 .proj-upgrade {
   font-family: Lato, sans-serif;
   font-size: 10px;
-  color: #9ca5ae;
+  color: #1265ff;
   line-height: 1.2;
 }
 
 .proj-user-btn {
   border: 0;
   background: transparent;
-  color: #ffffff;
+  color: #202428;
   font-family: Lato, sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -3773,10 +3788,11 @@ width: 100%;
 }
 
 .proj-flag-icon {
-  width: 20px;
-  height: 14px;
-  background: linear-gradient(180deg, #3c3fff 33%, #fff 33%, #fff 66%, #e8001f 66%);
+  width: 22px;
+  height: 15px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 15'%3E%3Crect width='22' height='15' fill='%23b22234'/%3E%3Crect y='1.15' width='22' height='1.15' fill='white'/%3E%3Crect y='3.46' width='22' height='1.15' fill='white'/%3E%3Crect y='5.77' width='22' height='1.15' fill='white'/%3E%3Crect y='8.08' width='22' height='1.15' fill='white'/%3E%3Crect y='10.38' width='22' height='1.15' fill='white'/%3E%3Crect y='12.69' width='22' height='1.15' fill='white'/%3E%3Crect width='9' height='8' fill='%233c3b6e'/%3E%3C/svg%3E") center/cover no-repeat;
   border-radius: 2px;
+  display: inline-block;
   display: inline-block;
 }
 
