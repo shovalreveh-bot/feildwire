@@ -555,9 +555,8 @@ window.addEventListener('DOMContentLoaded', function () {
       if (!card) return;
       e.preventDefault();
       contextTarget = card;
-      var zoom = parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
-      contextMenu.style.left = (e.pageX / zoom) + 'px';
-      contextMenu.style.top  = (e.pageY / zoom) + 'px';
+      contextMenu.style.left = e.pageX + 'px';
+      contextMenu.style.top  = e.pageY + 'px';
       contextMenu.hidden = false;
     });
   }
