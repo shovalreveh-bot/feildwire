@@ -130,8 +130,8 @@ html.board-open {
   height: 32px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 14px;
+  gap: 8px;
+  padding: 0 12px;
   color: #ffffff;
   text-decoration: none;
   font-family: Lato, sans-serif;
@@ -147,26 +147,26 @@ html.board-open {
 }
 
 .side-icon {
-  width: 18px;
-  height: 20px;
-  flex: 0 0 20px;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
   object-fit: contain;
   object-position: center;
 }
 
 .side-icon--forms {
-  width: 20px;
-  height: 20px;
-  flex-basis: 18px;
-  margin-left: -1px;
-  margin-right: -1px;
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .fa-side-icon {
   position: relative;
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
   color: #ffffff;
 }
 
@@ -224,26 +224,27 @@ html.board-open {
 }
 
 .nav-item.has-premium {
-  padding-right: 55px;
+  padding-right: 32px;
 }
 
 .premium-badge {
   position: absolute;
-  right: 27px;
-  top: 9px;
-  width: 14px;
-  height: 19px;
-  border: 2px solid #9ca5ae;
-  border-radius: 8px 8px 3px 3px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 15px;
+  border: 1.5px solid #9ca5ae;
+  border-radius: 6px 6px 2px 2px;
 }
 
 .premium-badge::before {
   content: "";
   position: absolute;
-  left: 3px;
-  top: 3px;
-  width: 4px;
-  height: 4px;
+  left: 2px;
+  top: 2px;
+  width: 3px;
+  height: 3px;
   border: 1px solid #9ca5ae;
   border-radius: 50%;
 }
@@ -251,13 +252,13 @@ html.board-open {
 .premium-badge::after {
   content: "";
   position: absolute;
-  left: 4px;
-  bottom: -6px;
+  left: 3px;
+  bottom: -5px;
   width: 0;
   height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 6px solid #9ca5ae;
+  border-left: 2.5px solid transparent;
+  border-right: 2.5px solid transparent;
+  border-top: 5px solid #9ca5ae;
 }
 
 .task-nav {
