@@ -332,7 +332,6 @@ html.board-open {
   background: #f5f6f7;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .topbar {
@@ -661,8 +660,23 @@ html.board-open {
   align-items: flex-start;
   gap: 10px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 20px 16px 32px;
-  border-top: 3px solid #0d5bff;
+  scrollbar-width: thin;
+  scrollbar-color: #b0b7c0 #e5e8ec;
+}
+
+.board::-webkit-scrollbar {
+  height: 8px;
+}
+
+.board::-webkit-scrollbar-track {
+  background: #e5e8ec;
+}
+
+.board::-webkit-scrollbar-thumb {
+  background: #b0b7c0;
+  border-radius: 4px;
 }
 
 .column {
