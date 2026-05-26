@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fieldwire Safety Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="demo.css">
+  </head>
+  <body>
+    <div class="device-switch" aria-label="Preview size">
+      <button class="active" type="button" data-view-mode="desktop">Desktop</button>
+      <button type="button" data-view-mode="mobile">Mobile</button>
+    </div>
+
+    <div class="demo-shell">
+
+    <!-- ══════════════ PROJECTS PAGE ══════════════ -->
+    <div class="projects-page" data-projects-page>
+      <header class="proj-topbar">
+        <div class="proj-topbar-logo">
+          <svg class="fw-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="18" fill="#F5A623"/>
+            <path d="M18 8 C12 8 8 13 8 18 C8 14 12 11 18 11 C24 11 28 14 28 18 C28 13 24 8 18 8Z" fill="#1a1a1a"/>
+            <rect x="9" y="17" width="18" height="3" rx="1.5" fill="#1a1a1a"/>
+            <rect x="16" y="20" width="4" height="7" rx="1" fill="#1a1a1a"/>
+          </svg>
+          <div class="fw-logo-words">
+            <span class="fw-logo-text">FIELDWIRE</span>
+            <span class="fw-by-hilti">BY <span class="fw-hilti-red">HILTI</span></span>
+          </div>
+        </div>
+        <nav class="proj-topbar-nav">
+          <a href="#" class="proj-nav-link active">Projects</a>
+          <a href="#" class="proj-nav-link">People</a>
+          <a href="#" class="proj-nav-link">Account</a>
+          <a href="#" class="proj-nav-link">Templates</a>
+          <a href="#" class="proj-nav-link">Integrations</a>
+        </nav>
+        <div class="proj-topbar-right">
+          <button class="proj-notif-btn" type="button" aria-label="Notifications">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 2.5 C7 2.5 5 5 5 8 L5 13 L3 14.5 L17 14.5 L15 13 L15 8 C15 5 13 2.5 10 2.5Z" stroke="#555" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M8 14.5 C8 15.6 8.9 16.5 10 16.5 C11.1 16.5 12 15.6 12 14.5" stroke="#555" stroke-width="1.4"/>
+              <line x1="10" y1="2.5" x2="10" y2="1" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <span class="proj-notif-badge">3</span>
+          </button>
+          <button class="proj-help-btn" type="button" aria-label="Help">?</button>
+          <div class="proj-plan-info">
+            <strong>Basic Plan</strong>
+            <span class="proj-upgrade">Upgrade Now</span>
+          </div>
+          <button class="proj-user-btn" type="button">shoval ▾</button>
+          <span class="proj-flag-icon"></span>
+        </div>
+      </header>
+
+      <main class="proj-content">
+        <div class="proj-inner">
+          <div class="proj-tabs-row">
+            <button class="proj-tab active" type="button">My projects (<span data-proj-count>2</span>)</button>
+          </div>
+          <div class="proj-toolbar-row">
+            <button class="proj-new-btn" type="button" data-open-new-project>+ New project</button>
+            <div class="proj-toolbar-right">
+              <button class="proj-sort-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M4 8h8M6 12h4" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Sort
+              </button>
+              <button class="proj-filter-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 3h12l-4.5 5.5V14l-3-1.5V8.5L2 3z" stroke="#555" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                Filter projects
+              </button>
+              <label class="proj-search-label">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#888" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <input class="proj-search-input" type="search" placeholder="Search projects">
+              </label>
+            </div>
+          </div>
+          <div class="proj-cards-grid" data-proj-grid>
+            <!-- rendered by JS -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ══════════════ NEW PROJECT MODAL ══════════════ -->
+    <div class="new-proj-backdrop" hidden data-new-project-modal>
+      <div class="new-proj-dialog">
+        <div class="new-proj-header">
+          <h3>New project</h3>
+          <button class="new-proj-close" type="button" data-close-new-project aria-label="Close">✕</button>
+        </div>
+        <div class="new-proj-body">
+          <label class="new-proj-field">
+            <span>Project name</span>
+            <input type="text" placeholder="Enter project name" data-new-project-name autocomplete="off">
+          </label>
+        </div>
+        <div class="new-proj-footer">
+          <button class="new-proj-cancel" type="button" data-close-new-project>Cancel</button>
+          <button class="new-proj-create" type="button" data-create-project>Create project</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ BOARD PAGE ══════════════ -->
+    <div class="board-page" hidden data-board-page>
+    <aside class="sidebar">
+      <div class="project-header">
+        <div class="helmet"><svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1L1 6.5V12.5H5.5V8.5H8.5V12.5H13V6.5L7 1Z" fill="#282c2f"/></svg></div>
+        <strong>house</strong>
+        <span class="chevron"></span>
+      </div>
+
+      <div class="sidebar-nav-scroll">
+      <nav class="nav-section">
+        <div class="section-title">FIELD MANAGEMENT</div>
+        <a class="nav-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Plans.svg" class="side-icon" alt="">Plans</a>
+        <a class="nav-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Specifications.svg" class="side-icon" alt="">Specifications</a>
+        <a class="nav-item active" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Tasks.svg" class="side-icon" alt="">Tasks</a>
+        <a class="nav-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Camera.svg" class="side-icon" alt="">Photos</a>
+        <a class="nav-item" href="#"><span class="fa-side-icon paperclip-icon"></span>Files</a>
+        <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Form.svg" class="side-icon side-icon--forms" alt="">Forms<span class="premium-badge"></span></a>
+        <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/cube.png" class="side-icon" alt="">3D Models<span class="premium-badge"></span></a>
+      </nav>
+
+      <nav class="nav-section project-management">
+        <div class="section-title pm-section-header" data-pm-header>
+          <span>PROJECT MANAGEMENT</span>
+          <span class="pm-chevron"></span>
+        </div>
+        <div class="pm-section-content" data-pm-content>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Rfi.svg" class="side-icon" alt="">RFIs<span class="premium-badge"></span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/submittals-stamp.svg" class="side-icon" alt="">Submittals<span class="premium-badge"></span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/change_order.svg" class="side-icon" alt="">Change Orders<span class="premium-badge"></span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/calculator.svg" class="side-icon" alt="">Budget<span class="premium-badge"></span></a>
+        </div>
+      </nav>
+      </div>
+
+      <div class="sidebar-section-divider"></div>
+
+      <nav class="task-nav">
+        <div class="sidebar-header">Tasks</div>
+        <a class="task-item active" href="#"><img src="https://app.fieldwire.com/assets/images/menu/myTasks.svg" class="side-icon" alt="">My tasks<span class="task-count" data-my-tasks-count>19</span></a>
+        <a class="task-item" href="#"><img src="https://app.fieldwire.com/assets/images/eye-icon-solid.svg" class="side-icon" alt="">Watched tasks<span class="task-count">22</span></a>
+        <a class="task-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/allTasks.svg" class="side-icon" alt="">All tasks<span class="task-count" data-all-tasks-count>24</span></a>
+        <a class="task-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Add.png" class="side-icon" alt="">New category</a>
+      </nav>
+
+      <div class="sidebar-bottom-menu">
+        <a class="bottom-item people" href="#" aria-label="People">
+          <img src="https://app.fieldwire.com/assets/images/menu/People.svg" alt="">
+        </a>
+        <button class="bottom-item settings" type="button" aria-label="Settings">
+          <span class="bottom-css-icon cog-icon"></span>
+        </button>
+        <button class="bottom-item trash" type="button" aria-label="Trash">
+          <span class="bottom-css-icon trash-icon"></span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="app">
+      <header class="topbar">
+        <button class="hamburger" type="button" aria-label="Menu"></button>
+        <label class="search">
+          <input type="search" placeholder="Search">
+          <span>⌕</span>
+        </label>
+        <div class="account">
+          <span class="notification">3</span>
+          <span class="help">?</span>
+          <strong>Basic Plan</strong>
+          <span>Upgrade Now</span>
+          <span>shoval⌄</span>
+          <span class="flag"></span>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <div class="new-task-btn-wrapper">
+          <button class="primary" type="button" data-new-task-btn>＋ New task</button>
+          <div class="task-type-menu" hidden data-task-type-menu>
+            <button class="task-type-option task-type-safety" type="button" data-task-type="safety">
+              <span class="task-type-tri"></span>Safety
+            </button>
+            <button class="task-type-option" type="button" data-task-type="p1">
+              <span class="task-type-dot dot-red"></span>Priority 1
+            </button>
+            <button class="task-type-option" type="button" data-task-type="p2">
+              <span class="task-type-dot dot-orange"></span>Priority 2
+            </button>
+            <button class="task-type-option" type="button" data-task-type="p3">
+              <span class="task-type-dot dot-yellow"></span>Priority 3
+            </button>
+          </div>
+        </div>
+        <button type="button">＋ Import tasks</button>
+        <button type="button">▣ Generate reports</button>
+        <button type="button">Actions ▾</button>
+        <div class="toolbar-spacer"></div>
+        <label class="task-search">
+          <span class="icon search-icon"></span>
+          <input type="search" placeholder="Search task titles">
+        </label>
+        <button class="toolbar-action" type="button"><span class="icon sort-icon"></span>Sort</button>
+        <button class="toolbar-action" type="button"><span class="icon filter-icon"></span>Filters <span class="pill">1</span></button>
+        <div class="view-group" aria-label="View mode">
+          <button class="view active" type="button" aria-label="Grid view"><span class="icon grid-icon"></span></button>
+          <button class="view" type="button" aria-label="Calendar view"><span class="icon calendar-icon"></span></button>
+          <button class="view" type="button" aria-label="Priority view"><span class="icon sliders-icon"></span></button>
+          <button class="view" type="button" aria-label="Chart view"><span class="icon chart-icon"></span></button>
+        </div>
+      </section>
+
+      <section class="board" aria-label="Task board">
+        <article class="column safety-column">
+          <h2><span data-e2e="task-priority-header-text-SAFETY" title="SAFETY">Safety</span> <span class="header-count">(0)</span></h2>
+          <div class="column-rule"></div>
+          <button class="new-task-link" type="button" data-open-safety>+ New task</button>
+        </article>
+
+        <article class="column">
+          <h2><span data-e2e="task-priority-header-text-DUE_TODAY" title="DUE_TODAY">Due today</span> <span class="header-count">(0)</span></h2>
+          <div class="column-rule"></div>
+        </article>
+
+        <article class="column">
+          <h2><span data-e2e="task-priority-header-text-PRIORITY_1" title="PRIORITY_1">Priority 1</span> <span class="header-count">(2)</span></h2>
+          <div class="column-rule"></div>
+          <div class="task-card">
+            <div class="pin red"></div>
+            <div>
+              <div class="meta">#1 | @SRE | העמד...</div>
+              <div class="title">קיר חוץ</div>
+            </div>
+          </div>
+          <div class="task-card priority-one-extra">
+            <div class="square red-square"></div>
+            <div>
+              <div class="meta has-check-data"><span>#8 | @SKA</span><span class="check-item-data">0/2 <i></i></span></div>
+              <div class="title">&#1495;&#1497;&#1494;&#1493;&#1511; &#1490;&#1491;&#1512; &#1489;&#1496;&#1497;&#1495;&#1493;&#1514; &#1511;&#1493;&#1502;&#1492; 3</div>
+            </div>
+          </div>
+          <button class="new-task-link" type="button">+ New task</button>
+        </article>
+
+        <article class="column">
+          <h2><span data-e2e="task-priority-header-text-PRIORITY_2" title="PRIORITY_2">Priority 2</span> <span class="header-count">(11)</span></h2>
+          <div class="column-rule"></div>
+          <div class="task-card compact"><div class="square"></div><div><div class="meta">#2 | @SRE</div><div class="title">שבירת קיר קיים</div></div></div>
+          <div class="task-card compact"><div class="square"></div><div><div class="meta">#3 | @SRE</div><div class="title empty">Enter title</div></div></div>
+          <div class="task-card compact"><div class="pin orange"></div><div><div class="meta">#10 | @SRE | חשמל...</div><div class="title empty">Enter title</div></div></div>
+          <div class="task-card compact"><div class="pin orange"></div><div><div class="meta">#11 | @SRE | חשמל...</div><div class="title empty">Enter title</div></div></div>
+          <div class="task-card compact"><div class="square"></div><div><div class="meta">#13 | @SRE</div><div class="title empty">Enter title</div></div></div>
+        </article>
+
+        <article class="column">
+          <h2><span data-e2e="task-priority-header-text-PRIORITY_3" title="PRIORITY_3">Priority 3</span> <span class="header-count">(1)</span></h2>
+          <div class="column-rule"></div>
+          <div class="task-card">
+            <div class="pin yellow"></div>
+            <div>
+              <div class="meta">#4 | @SRE | תוכנית...</div>
+              <div class="title empty">Enter title</div>
+            </div>
+          </div>
+          <button class="new-task-link" type="button">+ New task</button>
+        </article>
+
+        <article class="column">
+          <h2><span data-e2e="task-priority-header-text-COMPLETED" title="COMPLETED">Completed</span> <span class="header-count">(0)</span></h2>
+          <div class="column-rule"></div>
+          <button class="new-task-link" type="button">+ New task</button>
+        </article>
+
+        <article class="column">
+          <h2><span data-e2e="task-priority-header-text-VERIFIED" title="VERIFIED">Verified</span> <span class="header-count">(0)</span></h2>
+          <div class="column-rule"></div>
+          <button class="new-task-link" type="button">+ New task</button>
+        </article>
+      </section>
+    </main>
+
+    <section class="mobile-app" data-mobile-app aria-label="Fieldwire mobile app preview">
+      <div class="mobile-status">
+        <span>59</span>
+        <span class="mobile-status-spacer"></span>
+        <span>17:51</span>
+      </div>
+
+      <div class="mobile-drawer-scrim" hidden data-mobile-drawer>
+        <aside class="mobile-drawer" aria-label="Mobile navigation">
+          <header class="mobile-drawer-header">
+            <h2>house</h2>
+            <span class="drawer-home-icon"></span>
+            <span class="drawer-plans-icon"></span>
+            <span class="drawer-history-icon"></span>
+          </header>
+          <nav class="mobile-drawer-nav">
+            <button class="active" type="button"><span class="drawer-plan"></span>Plans</button>
+            <button type="button"><span class="drawer-spec"></span>Specifications</button>
+            <button type="button" data-mobile-drawer-close><span class="drawer-tasks"></span>Tasks</button>
+            <button type="button"><span class="drawer-camera"></span>Photos</button>
+            <button type="button"><span class="drawer-forms"></span>Forms <i></i></button>
+            <button type="button"><span class="drawer-files"></span>Files</button>
+            <button type="button"><span class="drawer-people"></span>People</button>
+            <button type="button"><span class="drawer-settings"></span>Settings</button>
+          </nav>
+          <section class="mobile-drawer-tasks">
+            <h3>Tasks</h3>
+            <button type="button"><span class="drawer-star"></span>My Tasks <b>6</b></button>
+            <button type="button"><span class="drawer-eye"></span>Watched Tasks <b>7</b></button>
+            <button class="active" type="button"><span class="drawer-grid"></span>All Tasks <b>9</b></button>
+            <button type="button"><span class="drawer-plus"></span>Create category</button>
+          </section>
+        </aside>
+      </div>
+
+      <section class="mobile-screen mobile-list-screen is-active" data-mobile-screen="list">
+        <header class="mobile-topbar">
+          <button class="mobile-icon-button mobile-menu-button" type="button" aria-label="Menu" data-mobile-open-drawer></button>
+          <div class="mobile-title-block">
+            <h1>Tasks</h1>
+            <p>All Tasks</p>
+          </div>
+          <button class="mobile-icon-button mobile-sort-button" type="button" aria-label="Sort"></button>
+          <button class="mobile-icon-button mobile-print-button" type="button" aria-label="Print"></button>
+          <button class="mobile-icon-button mobile-filter-button" type="button" aria-label="Filter"></button>
+          <button class="mobile-icon-button mobile-search-button" type="button" aria-label="Search"></button>
+        </header>
+
+        <div class="mobile-task-list">
+          <section class="mobile-priority">
+            <h2>PRIORITY 1 <span>(2)</span></h2>
+            <button class="mobile-task-row" type="button" data-open-mobile-detail data-mobile-task-title="קיר חוץ">
+              <span class="mobile-pin mobile-pin-red"></span>
+              <span><b>#1 | @SRE | תוכניות עבודה משפ...</b><strong>קיר חוץ</strong></span>
+            </button>
+            <button class="mobile-task-row" type="button" data-open-mobile-detail data-mobile-task-title="חיזוק גדר בטיחות קומה 3">
+              <span class="mobile-square mobile-pin-red"></span>
+              <span><b>#8 | @SKA</b><strong>חיזוק גדר בטיחות קומה 3</strong></span>
+            </button>
+          </section>
+
+          <section class="mobile-priority">
+            <h2>PRIORITY 2 <span>(6)</span></h2>
+            <button class="mobile-task-row" type="button" data-open-mobile-detail data-mobile-task-title="שבירת קיר קיים">
+              <span class="mobile-square mobile-pin-orange"></span>
+              <span><b>#2 | @SRE</b><strong>שבירת קיר קיים</strong></span>
+            </button>
+            <button class="mobile-task-row" type="button" data-open-mobile-detail data-mobile-task-title="Enter title">
+              <span class="mobile-square mobile-pin-orange"></span>
+              <span><b>#3 | @SRE</b><strong class="muted">Enter title</strong></span>
+            </button>
+            <button class="mobile-task-row" type="button" data-open-mobile-detail data-mobile-task-title="Enter title">
+              <span class="mobile-pin mobile-pin-orange"></span>
+              <span><b>#10 | @SRE | תוכניות עבודה משפ...</b><strong class="muted">Enter title</strong></span>
+            </button>
+            <button class="mobile-task-row" type="button" data-open-mobile-detail data-mobile-task-title="Enter title">
+              <span class="mobile-pin mobile-pin-orange"></span>
+              <span><b>#11 | @SRE | תוכניות עבודה משפ...</b><strong class="muted">Enter title</strong></span>
+            </button>
+          </section>
+
+          <section class="mobile-priority">
+            <h2>PRIORITY 3 <span>(1)</span></h2>
+          </section>
+        </div>
+
+        <button class="mobile-fab" type="button" data-mobile-new-task aria-label="New task">+</button>
+      </section>
+
+      <section class="mobile-screen mobile-detail-screen" data-mobile-screen="detail">
+        <header class="mobile-detail-header">
+          <button class="mobile-back-button" type="button" data-mobile-back-list aria-label="Back"></button>
+          <span class="mobile-square mobile-pin-orange"></span>
+          <div class="mobile-detail-title">
+            <b>#12 | @SRE</b>
+            <strong data-mobile-detail-title>Enter title</strong>
+          </div>
+          <button class="mobile-gear-button" type="button" data-mobile-open-attributes aria-label="Task attributes"></button>
+          <button class="mobile-more-button" type="button" aria-label="More"></button>
+        </header>
+
+        <main class="mobile-detail-body" data-mobile-detail-empty>
+          <p>No activity</p>
+        </main>
+
+        <main class="mobile-detail-body mobile-detail-activity" hidden data-mobile-detail-activity>
+          <h2>CHECKLIST</h2>
+          <div class="mobile-checklist-card">
+            <label><input type="checkbox"> <span>כיסוי חוטי חשמל חשופים</span></label>
+            <label><input type="checkbox"> <span>סידור חוטי חשמל לפי מיקום</span></label>
+          </div>
+          <h2>MESSAGES</h2>
+          <div class="mobile-message-log">
+            <b>מאי 10, 2026</b>
+            <p>You: Changed title to <span data-mobile-log-title>מפגע חשמלי</span></p>
+            <p>You: Created check item: "כיסוי חוטי חשמל חשופים"</p>
+          </div>
+        </main>
+
+        <div class="mobile-comment-bar">
+          <button class="mobile-comment-icon" type="button" aria-label="Comment"></button>
+          <input type="text" placeholder="Comment">
+          <button class="mobile-send-button" type="button" aria-label="Send"></button>
+        </div>
+
+        <nav class="mobile-bottom-actions">
+          <button class="mobile-bottom-comment" type="button" aria-label="Messages"></button>
+          <button class="mobile-bottom-check" type="button" aria-label="Checklist"></button>
+          <button class="mobile-bottom-camera" type="button" aria-label="Camera"></button>
+          <button class="mobile-bottom-attach" type="button" data-mobile-attach aria-label="Attach"></button>
+        </nav>
+
+        <div class="mobile-attach-menu" hidden data-mobile-attach-menu>
+          <b>Attach</b>
+          <button type="button">Related task</button>
+          <button type="button">File</button>
+          <button type="button">Checklist</button>
+          <button type="button">Scribble</button>
+        </div>
+      </section>
+
+      <section class="mobile-screen mobile-attributes-screen" data-mobile-screen="attributes">
+        <header class="mobile-attributes-header">
+          <button class="mobile-back-button" type="button" data-mobile-back-detail aria-label="Back"></button>
+          <h1>Task Attributes</h1>
+        </header>
+
+        <div class="mobile-attributes-list">
+          <button class="mobile-attribute-row title-icon" type="button"><span>TITLE</span><b data-mobile-attributes-title>מפגע חשמלי</b></button>
+          <button class="mobile-attribute-row status-icon" type="button"><span>STATUS</span><b>Priority 2</b></button>
+          <button class="mobile-attribute-row category-icon" type="button"><span>CATEGORY</span><b class="muted">Assign Category</b></button>
+          <button class="mobile-attribute-row assignee-icon" type="button" data-mobile-assignee><span>ASSIGNEE</span><b>shoval revach</b></button>
+          <button class="mobile-attribute-row plan-icon" type="button"><span>PLAN</span><b class="muted">Move task to plan</b></button>
+          <button class="mobile-attribute-row location-icon" type="button"><span>LOCATION</span><b class="muted">Set location</b></button>
+          <button class="mobile-attribute-row date-icon" type="button"><span>START DATE</span><b class="muted">Set start date</b></button>
+          <button class="mobile-attribute-row date-icon" type="button"><span>END DATE</span><b class="muted">Set end date</b></button>
+          <button class="mobile-attribute-row people-icon" type="button"><span>MANPOWER</span><b class="muted">Set manpower</b></button>
+        </div>
+
+        <div class="mobile-picker" hidden data-mobile-assignee-picker>
+          <div class="mobile-picker-card">
+            <header><h2>Assignee</h2><span class="mobile-picker-search"></span></header>
+            <button type="button"><span class="avatar"></span><b class="blue">meow lover</b></button>
+            <button type="button"><span class="avatar"></span><b>Sapir Kats</b></button>
+            <button type="button"><span class="avatar"></span><b>shoval revach</b></button>
+            <button type="button"><span class="plus-avatar">+</span><b>Invite user</b></button>
+          </div>
+        </div>
+      </section>
+
+      <div class="mobile-title-dialog" hidden data-mobile-title-dialog>
+        <div class="mobile-dialog-card">
+          <label>Title</label>
+          <textarea maxlength="255" data-mobile-title-input></textarea>
+          <span><b data-mobile-title-count>0</b>/255</span>
+          <div>
+            <button type="button" data-mobile-title-cancel>CANCEL</button>
+            <button type="button" data-mobile-title-confirm disabled>CONFIRM</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-nav-bar">
+        <span></span><span></span><span></span>
+      </div>
+    </section>
+    </div>
+
+    <div class="task-context-menu" hidden data-task-context-menu>
+      <button class="task-context-item is-disabled" type="button" disabled>Re-open</button>
+      <div class="task-context-group">
+        <div class="task-context-label">Move to...</div>
+        <button class="task-context-item" type="button">Completed</button>
+        <button class="task-context-item" type="button">Verified</button>
+      </div>
+      <div class="task-context-group">
+        <button class="task-context-item" type="button">Duplicate</button>
+        <button class="task-context-item" type="button">Manage tags</button>
+        <button class="task-context-item" type="button">Add checklist</button>
+      </div>
+      <div class="task-context-group">
+        <button class="task-context-item danger" type="button" data-delete-task>Delete</button>
+      </div>
+    </div>
+
+    <div class="task-modal-backdrop" hidden data-task-modal>
+      <button class="modal-nav-btn modal-prev-btn" type="button" data-modal-prev aria-label="Previous task">&#8249;</button>
+      <div class="task-modal" role="dialog" aria-modal="true" aria-label="Task details">
+        <button class="task-modal-close" type="button" aria-label="Close task" data-close-task-modal>×</button>
+        <table class="task-view-table">
+          <tr class="modal-header">
+            <td class="header-entity">
+              <div class="center">
+                <div class="modal-safety-triangle"></div>
+                <div class="pin pin-team-label"></div>
+              </div>
+              <div class="description">
+                <div class="floorplan-name truncate" data-modal-task-meta>#1 | @SRE</div>
+              </div>
+              <div class="description">
+                <div class="task-name">
+                  <span class="title-no-edit" data-modal-task-title></span>
+                  <input class="title-edit-input" data-modal-title-input type="text" hidden>
+                  <button class="title-pencil-btn" data-modal-edit-pencil type="button" title="Edit title">✎</button>
+                </div>
+              </div>
+            </td>
+            <td class="header-attributes">
+              <h1><span>Task Attributes</span><span class="attribute-cog"></span></h1>
+            </td>
+          </tr>
+          <tr class="modal-body">
+            <td class="entity-holder">
+              <section class="fw-related-tasks section">
+                <p>Related Tasks:</p>
+                <ul class="modal-related-list" data-modal-related></ul>
+                <div class="related-task-action">
+                  <span class="action-link" data-modal-new-related>+ New task</span>
+                  <span class="divider">|</span>
+                  <span class="action-link">+ Existing task</span>
+                </div>
+              </section>
+
+              <section class="check-items section">
+                <p>Checklist:</p>
+                <ul class="modal-checklist" data-modal-checklist></ul>
+                <div class="checklist-action">
+                  <span class="action-link" data-modal-add-item>+ New item</span>
+                  <span class="divider">|</span>
+                  <span class="action-link">+ Add checklist</span>
+                </div>
+              </section>
+
+              <section class="messages section">
+                <p>Activity:</p>
+                <div class="activity-toolbar">
+                  <span>Show:</span>
+                  <button type="button">All ▾</button>
+                  <button type="button">Oldest first ↑</button>
+                </div>
+                <div class="activity-feed" data-modal-activity></div>
+              </section>
+
+              <div class="message-box">
+                <button class="message-attach" type="button">⌁</button>
+                <input type="text" placeholder="Enter message here..." data-modal-message-input>
+                <button class="share-btn" type="button" data-modal-share>Share ▾</button>
+              </div>
+            </td>
+            <td class="entity-attributes-holder">
+              <div class="entity-attributes task-attributes">
+
+                <div class="attribute row with-icon attr-interactive" data-attr="status">
+                  <span><i class="attr-icon status"></i>Status</span>
+                  <b><span data-modal-status>Priority 2</span> <i class="caret"></i></b>
+                  <div class="attr-dropdown status-dropdown" hidden data-status-dropdown>
+                    <button class="status-option" type="button" data-status-option="Priority 1"><span class="status-swatch" style="background:#ff4f4f"></span>Priority 1</button>
+                    <button class="status-option" type="button" data-status-option="Priority 2"><span class="status-swatch" style="background:#ff8a32"></span>Priority 2</button>
+                    <button class="status-option" type="button" data-status-option="Priority 3"><span class="status-swatch" style="background:#ffd149"></span>Priority 3</button>
+                    <button class="status-option" type="button" data-status-option="Completed"><span class="status-swatch" style="background:#4caf50"></span>Completed</button>
+                    <button class="status-option" type="button" data-status-option="Verified"><span class="status-swatch" style="background:#64b5f6"></span>Verified</button>
+                    <div class="status-dropdown-divider"></div>
+                    <button class="status-option status-delete" type="button" data-status-delete><span class="status-trash"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14h1V4h-5V3H9zm2 5h2v10h-2V8zm-4 0h2v10H7V8zm8 0h2v10h-2V8z"/></svg></span>Delete task</button>
+                  </div>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="category" data-attr-editable="text">
+                  <span><i class="attr-icon category"></i>Category</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="assignee">
+                  <span><i class="attr-icon assignee"></i>Assignee</span>
+                  <b data-attr-value>shoval <i class="caret"></i></b>
+                  <div class="attr-dropdown" hidden data-assignee-dropdown>
+                    <button type="button" data-assignee="meow lover">meow lover</button>
+                    <button type="button" data-assignee="Sapir Kats">Sapir Kats</button>
+                    <button type="button" data-assignee="shoval revach">shoval revach</button>
+                  </div>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="plan" data-attr-editable="text">
+                  <span><i class="attr-icon plan"></i>Plan</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="location" data-attr-editable="text">
+                  <span><i class="attr-icon location"></i>Location</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="start-date" data-attr-editable="date">
+                  <span><i class="attr-icon date"></i>Start date</span>
+                  <b data-attr-value>&mdash;</b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="end-date" data-attr-editable="date">
+                  <span><i class="attr-icon date"></i>End date</span>
+                  <b data-attr-value>&mdash;</b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="manpower" data-attr-editable="text">
+                  <span><i class="attr-icon people"></i>Manpower</span>
+                  <b data-attr-value>&mdash; <span class="attr-pencil">✎</span></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="cost" data-attr-editable="text">
+                  <span><i class="attr-icon cost"></i>Cost</span>
+                  <b data-attr-value>&mdash; <span class="attr-pencil">✎</span></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="tags" data-attr-editable="text">
+                  <span><i class="attr-icon tags"></i>Tags</span>
+                  <b data-attr-value>&mdash; <i class="caret"></i></b>
+                </div>
+
+                <div class="attribute row with-icon attr-interactive" data-attr="watchers" data-attr-editable="text">
+                  <span><i class="attr-icon watchers"></i>Watchers</span>
+                  <b data-attr-value>SRE <i class="caret"></i></b>
+                </div>
+
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <button class="modal-nav-btn modal-next-btn" type="button" data-modal-next aria-label="Next task">&#8250;</button>
+    </div>
+
+    </div><!-- /board-page -->
+
+    <script src="demo.js"></script>
+  </body>
+</html>
