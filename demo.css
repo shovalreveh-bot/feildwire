@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box;
 }
+
+[hidden] {
+  display: none !important;
+}
 html {
   zoom: 0.80;
 }
