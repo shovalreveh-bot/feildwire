@@ -189,10 +189,12 @@ window.addEventListener('DOMContentLoaded', function () {
   var checklistEl    = document.querySelector('[data-modal-checklist]');
 
   var TYPE_CONFIG = {
-    safety: { label: 'Safety',     pinClass: null,     isSafety: true  },
-    p1:     { label: 'Priority 1', pinClass: 'red',    isSafety: false },
-    p2:     { label: 'Priority 2', pinClass: 'orange', isSafety: false },
-    p3:     { label: 'Priority 3', pinClass: 'yellow', isSafety: false },
+    safety:    { label: 'Safety',     pinClass: null,     isSafety: true  },
+    p1:        { label: 'Priority 1', pinClass: 'red',    isSafety: false },
+    p2:        { label: 'Priority 2', pinClass: 'orange', isSafety: false },
+    p3:        { label: 'Priority 3', pinClass: 'yellow', isSafety: false },
+    completed: { label: 'Completed',  pinClass: null,     isSafety: false },
+    verified:  { label: 'Verified',   pinClass: null,     isSafety: false },
   };
 
   function openTaskModal(title, type) {
@@ -240,6 +242,13 @@ window.addEventListener('DOMContentLoaded', function () {
   var modalCurrentIdx  = -1;
 
   function cardType(card) {
+    if (card.dataset.currentStatus) {
+      var map = {
+        'Safety': 'safety', 'Priority 1': 'p1', 'Priority 2': 'p2',
+        'Priority 3': 'p3', 'Completed': 'completed', 'Verified': 'verified'
+      };
+      return map[card.dataset.currentStatus] || 'p2';
+    }
     if (card.closest('.safety-column')) return 'safety';
     if (card.querySelector('.pin.red') || card.querySelector('.red-square')) return 'p1';
     if (card.querySelector('.pin.yellow')) return 'p3';
@@ -272,6 +281,11 @@ window.addEventListener('DOMContentLoaded', function () {
       else if (attr === 'manpower' || attr === 'cost') el.innerHTML = '&mdash; <span class="attr-pencil">✎</span>';
       else el.innerHTML = '&mdash; <i class="caret"></i>';
     });
+
+    // Show Completed / Verified only from the second visit onwards
+    var sd = document.querySelector('[data-status-dropdown]');
+    if (sd) sd.classList.toggle('show-advanced', !!card.dataset.visited);
+    card.dataset.visited = 'true';
 
     openTaskModal(titleText, cardType(card));
   }
@@ -397,6 +411,24 @@ window.addEventListener('DOMContentLoaded', function () {
       statusDropdown.hidden = !statusDropdown.hidden;
     });
 
+    var statusShapes = {
+      'Safety':     '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><polygon points="30,5 55,55 5,55" fill="#FF4F4F"/></svg>',
+      'Priority 1': '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FF4F4F" stroke="#1A1D21" stroke-opacity="0.25"/></svg>',
+      'Priority 2': '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>',
+      'Priority 3': '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="#FFD149"/></svg>',
+      'Completed':  '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#4caf50" stroke="#1A1D21" stroke-opacity="0.25"/></svg>',
+      'Verified':   '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#64b5f6" stroke="#1A1D21" stroke-opacity="0.25"/></svg>'
+    };
+
+    var statusColMap = {
+      'Safety':     '.safety-column',
+      'Priority 1': '[data-e2e="task-priority-header-text-PRIORITY_1"]',
+      'Priority 2': '[data-e2e="task-priority-header-text-PRIORITY_2"]',
+      'Priority 3': '[data-e2e="task-priority-header-text-PRIORITY_3"]',
+      'Completed':  '[data-e2e="task-priority-header-text-COMPLETED"]',
+      'Verified':   '[data-e2e="task-priority-header-text-VERIFIED"]'
+    };
+
     statusDropdown.querySelectorAll('[data-status-option]').forEach(function (opt) {
       opt.addEventListener('click', function () {
         var newStatus = opt.dataset.statusOption;
@@ -409,6 +441,35 @@ window.addEventListener('DOMContentLoaded', function () {
         // switch between safety / regular layouts when status changes
         backdrop.classList.toggle('is-safety', newStatus === 'Safety');
         statusDropdown.hidden = true;
+
+        // Update card icon and move to correct column
+        var card = modalTaskCards[modalCurrentIdx];
+        if (card) {
+          card.dataset.currentStatus = newStatus;
+          var pinCol = card.querySelector('.fw-pin-col');
+          if (pinCol && statusShapes[newStatus]) pinCol.innerHTML = statusShapes[newStatus];
+
+          var selector = statusColMap[newStatus];
+          var targetCol = selector && (selector.startsWith('.') ?
+            document.querySelector(selector) :
+            (document.querySelector(selector) && document.querySelector(selector).closest('.column')));
+          if (targetCol && card.closest('.column') !== targetCol) {
+            var link = targetCol.querySelector('.new-task-link');
+            targetCol.insertBefore(card, link || null);
+            syncCounts();
+          }
+
+          if (newStatus === 'Verified') {
+            setTimeout(function () {
+              closeModal();
+              card.classList.add('is-completing');
+              card.addEventListener('animationend', function () {
+                card.remove();
+                syncCounts();
+              }, { once: true });
+            }, 2500);
+          }
+        }
       });
     });
 
@@ -577,6 +638,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
       input.addEventListener('input', function () {
         confirmBtn.disabled = input.value.trim() === '';
+      });
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && input.value.trim()) {
+          confirmBtn.click();
+        }
       });
 
       cancelBtn.addEventListener('click', function () {
