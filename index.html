@@ -624,17 +624,19 @@
           <tr class="modal-header">
             <td class="header-entity">
               <div class="center">
-                <div class="modal-safety-triangle"></div>
-                <div class="pin pin-team-label"></div>
+                <div class="modal-pin-container" data-modal-pin-container></div>
+                <div class="pin pin-team-label" data-pin-team-label></div>
               </div>
               <div class="description">
                 <div class="floorplan-name truncate" data-modal-task-meta>#1 | @SRE</div>
               </div>
               <div class="description">
-                <div class="task-name">
+                <div class="break-word task-name">
                   <span class="title-no-edit" data-modal-task-title></span>
-                  <input class="title-edit-input" data-modal-title-input type="text" hidden>
-                  <button class="title-pencil-btn" data-modal-edit-pencil type="button" title="Edit title">✎</button>
+                  <span class="title-edit pointer" data-modal-title-edit>
+                    <span data-modal-title-edit-text></span>
+                    <span class="edit-material-icon material-symbols-outlined">edit</span>
+                  </span>
                 </div>
               </div>
             </td>

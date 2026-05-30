@@ -1402,13 +1402,14 @@ fw-button {
   text-align: center;
 }
 
-.modal-safety-triangle {
-  width: 0;
-  height: 0;
-  margin: 0 auto;
-  border-left: 21px solid transparent;
-  border-right: 21px solid transparent;
-  border-bottom: 45px solid #ff4f4f;
+.modal-pin-container {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-pin-svg {
+  width: 44px;
+  height: 44px;
 }
 
 .description {
@@ -1429,8 +1430,30 @@ fw-button {
   line-height: 28px;
 }
 
+.title-no-edit {
+  display: inline;
+}
+
 .title-edit {
   display: none;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.task-name:hover .title-no-edit {
+  display: none;
+}
+
+.task-name:hover .title-edit {
+  display: inline-flex;
+}
+
+.edit-material-icon {
+  font-size: 16px;
+  line-height: 1;
+  color: #8b9299;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
 }
 
 .modal-body {

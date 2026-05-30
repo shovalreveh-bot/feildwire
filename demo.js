@@ -181,21 +181,31 @@ window.addEventListener('DOMContentLoaded', function () {
   var backdrop       = document.querySelector('[data-task-modal]');
   var closeBtn       = document.querySelector('[data-close-task-modal]');
   var modalTitleSpan = document.querySelector('[data-modal-task-title]');
-  var modalTitleInput= document.querySelector('[data-modal-title-input]');
+  var modalTitleEditText = document.querySelector('[data-modal-title-edit-text]');
   var modalMetaEl    = document.querySelector('[data-modal-task-meta]');
-  var safetyTriangle = backdrop && backdrop.querySelector('.modal-safety-triangle');
-  var pinLabel       = backdrop && backdrop.querySelector('.pin-team-label');
+  var pinContainer   = backdrop && backdrop.querySelector('[data-modal-pin-container]');
+  var pinLabel       = backdrop && backdrop.querySelector('[data-pin-team-label]');
   var activityFeed   = document.querySelector('[data-modal-activity]');
   var checklistEl    = document.querySelector('[data-modal-checklist]');
 
   var TYPE_CONFIG = {
-    safety:    { label: 'Safety',     pinClass: null,     isSafety: true  },
-    p1:        { label: 'Priority 1', pinClass: 'red',    isSafety: false },
-    p2:        { label: 'Priority 2', pinClass: 'orange', isSafety: false },
-    p3:        { label: 'Priority 3', pinClass: 'yellow', isSafety: false },
-    completed: { label: 'Completed',  pinClass: null,     isSafety: false },
-    verified:  { label: 'Verified',   pinClass: null,     isSafety: false },
+    safety:    { label: 'Safety',     color: '#ff4f4f', shape: 'triangle', isSafety: true  },
+    p1:        { label: 'Priority 1', color: '#ff4f4f', shape: 'square',   isSafety: false },
+    p2:        { label: 'Priority 2', color: '#ff8a32', shape: 'square',   isSafety: false },
+    p3:        { label: 'Priority 3', color: '#ffd149', shape: 'pin',      isSafety: false },
+    completed: { label: 'Completed',  color: '#4caf50', shape: 'square',   isSafety: false },
+    verified:  { label: 'Verified',   color: '#64b5f6', shape: 'square',   isSafety: false },
   };
+
+  function makePinSVG(shape, color) {
+    if (shape === 'triangle') {
+      return '<svg class="modal-pin-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><polygon points="30,4 56,56 4,56" fill="' + color + '"/></svg>';
+    }
+    if (shape === 'pin') {
+      return '<svg class="modal-pin-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="' + color + '"/></svg>';
+    }
+    return '<svg class="modal-pin-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-opacity="0.25"><g transform="translate(9,9)" stroke="#1A1D21" fill="' + color + '"><rect x="0.5" y="0.5" width="41" height="41"/></g></g></svg>';
+  }
 
   function openTaskModal(title, type) {
     title = title || 'New task';
@@ -204,8 +214,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     backdrop.hidden = false;
 
-    if (modalTitleSpan)  modalTitleSpan.textContent  = title;
-    if (modalTitleInput) { modalTitleInput.value = title; modalTitleInput.hidden = true; modalTitleSpan.hidden = false; }
+    if (modalTitleSpan)     modalTitleSpan.textContent     = title;
+    if (modalTitleEditText) modalTitleEditText.textContent = title;
 
     document.querySelectorAll('[data-modal-status]').forEach(function (el) {
       el.textContent = cfg.label;
@@ -216,10 +226,9 @@ window.addEventListener('DOMContentLoaded', function () {
     var activeOpt = document.querySelector('[data-status-option="' + cfg.label + '"]');
     if (activeOpt) activeOpt.classList.add('is-active');
 
-    if (safetyTriangle) safetyTriangle.hidden = !cfg.isSafety;
+    if (pinContainer) pinContainer.innerHTML = makePinSVG(cfg.shape, cfg.color);
     if (pinLabel) {
       pinLabel.hidden = cfg.isSafety;
-      pinLabel.className = 'pin pin-team-label' + (cfg.pinClass ? ' ' + cfg.pinClass : '');
     }
 
     // Toggle the safety-mode skin on the modal
