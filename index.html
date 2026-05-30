@@ -240,21 +240,30 @@
           </div>
           <div class="fw-header-right">
             <label class="task-search">
-              <span class="icon search-icon"></span>
+              <svg class="toolbar-search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="4.25" stroke="#9aa1a9" stroke-width="1.6"/><line x1="9.2" y1="9.2" x2="13" y2="13" stroke="#9aa1a9" stroke-width="1.6" stroke-linecap="round"/></svg>
               <input type="search" placeholder="Search task titles">
             </label>
             <button class="toolbar-btn toolbar-btn-icon" type="button" aria-label="Sort">
-              <span class="icon sort-icon"></span>Sort
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><line x1="0" y1="1" x2="15" y2="1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="0" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="0" y1="10" x2="6" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Sort
             </button>
             <button class="toolbar-btn toolbar-btn-icon" type="button" aria-label="Filters">
-              <span class="material-symbols-outlined" style="font-size:15px;line-height:1;vertical-align:-2px;">tune</span>
+              <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><line x1="0" y1="2" x2="15" y2="2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><line x1="0" y1="6.5" x2="15" y2="6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><line x1="0" y1="11" x2="15" y2="11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="4" cy="2" r="2" fill="white" stroke="currentColor" stroke-width="1.7"/><circle cx="11" cy="6.5" r="2" fill="white" stroke="currentColor" stroke-width="1.7"/><circle cx="6" cy="11" r="2" fill="white" stroke="currentColor" stroke-width="1.7"/></svg>
               Filters <span class="fw-badge">1</span>
             </button>
             <div class="fw-segmented-buttons" aria-label="View mode">
-              <button class="fw-seg-btn fw-seg-btn-active" type="button" aria-label="Kanban"><span class="icon grid-icon"></span></button>
-              <button class="fw-seg-btn" type="button" aria-label="Calendar"><span class="icon calendar-icon"></span></button>
-              <button class="fw-seg-btn" type="button" aria-label="Gantt"><span class="icon sliders-icon"></span></button>
-              <button class="fw-seg-btn" type="button" aria-label="Analytics"><span class="icon chart-icon"></span></button>
+              <button class="fw-seg-btn fw-seg-btn-active" type="button" aria-label="Kanban">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="2.5" cy="2.5" r="2" fill="currentColor"/><circle cx="7" cy="2.5" r="2" fill="currentColor"/><circle cx="11.5" cy="2.5" r="2" fill="currentColor"/><circle cx="2.5" cy="7" r="2" fill="currentColor"/><circle cx="7" cy="7" r="2" fill="currentColor"/><circle cx="11.5" cy="7" r="2" fill="currentColor"/></svg>
+              </button>
+              <button class="fw-seg-btn" type="button" aria-label="Calendar">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6"/><line x1="1" y1="5" x2="13" y2="5" stroke="currentColor" stroke-width="1.6"/><line x1="5" y1="1" x2="5" y2="13" stroke="currentColor" stroke-width="1.4" stroke-dasharray="0"/></svg>
+              </button>
+              <button class="fw-seg-btn" type="button" aria-label="Gantt">
+                <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="1.5" x2="9" y2="1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="6.5" x2="14" y2="6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="11.5" x2="8" y2="11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <button class="fw-seg-btn" type="button" aria-label="Analytics">
+                <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="0,12 4,7 8,9 13,1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="13" cy="1" r="1.5" fill="currentColor"/></svg>
+              </button>
             </div>
           </div>
         </div>
@@ -271,10 +280,7 @@
             <button class="fw-filter-chip" type="button">Time <span class="fw-chip-caret">▾</span></button>
             <button class="fw-filter-chip" type="button">Overdue</button>
             <button class="fw-filter-chip" type="button">Show archived tasks</button>
-            <button class="fw-filter-chip fw-filter-chip--selected" type="button">
-              <span class="material-symbols-outlined" style="font-size:13px;line-height:1;vertical-align:-1px;">check</span>
-              Watching
-            </button>
+            <button class="fw-filter-chip fw-filter-chip--selected" type="button">&#10003; Watching</button>
           </div>
           <button class="fw-clear-filters" type="button">Clear filters</button>
         </div>
