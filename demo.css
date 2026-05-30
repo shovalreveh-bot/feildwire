@@ -851,13 +851,12 @@ html.board-open {
 .fw-safety-bottom-new-task {
   display: block;
   width: 100%;
-  margin-top: 23px;
+  margin-top: 14px;
   border: 0;
   background: transparent;
   color: #8b9299;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 400;
+  font: inherit;
   text-align: center;
 }
 
