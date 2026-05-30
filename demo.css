@@ -884,8 +884,9 @@ html.board-open {
 }
 
 .fw-shape {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
+  margin: 4px;
   flex-shrink: 0;
 }
 
