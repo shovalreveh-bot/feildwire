@@ -330,7 +330,11 @@ html.board-open {
 }
 
 .expanded-header {
+  font-size: 11px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9aa1a9;
 }
 
 .sidebar-header {
@@ -488,9 +492,84 @@ html.board-open {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: #17202a;
   font-size: 13px;
+}
+
+.notif-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: none;
+  color: #555e68;
+  cursor: pointer;
+  padding: 0;
+}
+
+.notif-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 7px;
+  background: #e0001b;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.help-btn {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid #9aa1a9;
+  background: none;
+  color: #555e68;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.account-plan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.plan-name {
+  font-weight: 700;
+  font-size: 12px;
+  color: #17202a;
+}
+
+.plan-upgrade {
+  font-size: 11px;
+  color: #0d5bff;
+}
+
+.account-user {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+  color: #17202a;
+  cursor: pointer;
 }
 
 .notification {
