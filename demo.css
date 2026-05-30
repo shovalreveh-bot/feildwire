@@ -848,7 +848,7 @@ html.board-open {
   background: #cfd1d6;
 }
 
-.new-task-link {
+.fw-safety-bottom-new-task {
   display: block;
   width: 100%;
   margin-top: 23px;
@@ -861,7 +861,7 @@ html.board-open {
   text-align: center;
 }
 
-.new-task-link:hover {
+.fw-safety-bottom-new-task:hover {
   color: #0d5bff;
 }
 
@@ -2243,7 +2243,7 @@ body.mobile-view .safety-editor {
   width: 100%;
 }
 
-body.mobile-view .new-task-link {
+body.mobile-view .fw-safety-bottom-new-task {
   margin-top: 12px;
   text-align: left;
 }
