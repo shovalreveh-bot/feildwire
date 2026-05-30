@@ -721,7 +721,7 @@ html.board-open {
   align-items: center;
   gap: 8px;
   padding: 0 20px 0 20px;
-  height: 64px;
+  height: 65px;
   flex-shrink: 0;
   border-top: 1px solid #e8eaed;
   overflow-x: auto;
