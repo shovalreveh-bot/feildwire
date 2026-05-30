@@ -506,8 +506,8 @@ html.board-open {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 0 20px;
-  height: 56px;
+  padding: 0 16px;
+  height: 65px;
   flex-shrink: 0;
 }
 
@@ -614,7 +614,7 @@ html.board-open {
   align-items: center;
   gap: 8px;
   padding: 0 20px 0 20px;
-  height: 44px;
+  height: 64px;
   flex-shrink: 0;
   border-top: 1px solid #e8eaed;
   overflow-x: auto;
@@ -709,7 +709,7 @@ html.board-open {
 }
 
 .column h2 {
-  height: 22px;
+  height: 30px;
   margin: 0;
   color: #3d3d3d;
   font-family: Lato, sans-serif;
