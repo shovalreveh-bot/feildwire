@@ -494,102 +494,195 @@ html.board-open {
 
 .toolbar {
   flex-shrink: 0;
-  height: 64px;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 16px 0 20px;
+  flex-direction: column;
   border-bottom: 1px solid #d5d9de;
   background: #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,.06);
   overflow: visible;
 }
 
-.toolbar button {
+.fw-header-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px 0 20px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.fw-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.fw-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   height: 34px;
+  padding: 0 12px;
   border: 1px solid #c8cdd2;
   border-radius: 3px;
   background: #ffffff;
   color: #202428;
-  padding: 0 12px;
   font-size: 13px;
+  font-family: Lato, sans-serif;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.toolbar .toolbar-action {
-  min-width: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: #2b2f33;
-  font-size: 13px;
-  font-weight: 400;
-  white-space: nowrap;
+.toolbar-btn:hover {
+  background: #f5f6f7;
 }
 
-.toolbar .primary {
+.toolbar-btn-primary {
   border-color: #0547cf;
   background: #0d5bff;
   color: #ffffff;
 }
 
-.toolbar-spacer {
+.toolbar-btn-primary:hover {
+  background: #0850e8;
+}
+
+.toolbar-btn-icon {
+  gap: 5px;
+}
+
+.actions-btn {
+  gap: 4px;
+}
+
+.fw-badge {
+  display: inline-grid;
+  min-width: 17px;
+  height: 17px;
+  place-items: center;
+  border-radius: 50%;
+  background: #0d5bff;
+  color: #ffffff;
+  font-size: 11px;
+  padding: 0 3px;
+}
+
+.fw-segmented-buttons {
+  display: inline-flex;
+  height: 34px;
+}
+
+.fw-seg-btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid #c8cdd2;
+  border-radius: 0;
+  background: #ffffff;
+  color: #202428;
+  margin-left: -1px;
+  cursor: pointer;
+}
+
+.fw-seg-btn:first-child {
+  margin-left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.fw-seg-btn:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
+.fw-seg-btn-active {
+  border-color: #0d5bff;
+  background: #0d5bff;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.fw-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px 0 20px;
+  height: 44px;
+  flex-shrink: 0;
+  border-top: 1px solid #e8eaed;
+  overflow-x: auto;
+}
+
+.fw-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   flex: 1;
 }
 
+.fw-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 27px;
+  padding: 0 10px;
+  border: 1px solid #c8cdd2;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #202428;
+  font-size: 13px;
+  font-family: Lato, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.fw-filter-chip:hover {
+  background: #f5f6f7;
+}
+
+.fw-filter-chip--selected {
+  border-color: #0d5bff;
+  background: #e8f0ff;
+  color: #0d5bff;
+}
+
+.fw-chip-caret {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.fw-clear-filters {
+  flex-shrink: 0;
+  height: 27px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: #0d5bff;
+  font-size: 13px;
+  font-family: Lato, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.fw-clear-filters:hover {
+  text-decoration: underline;
+}
+
 .task-search {
-  width: 180px;
+  width: 200px;
   height: 34px;
   padding-left: 10px;
 }
 
 .task-search input {
   font-size: 13px;
-}
-
-.pill {
-  display: inline-grid;
-  width: 18px;
-  height: 18px;
-  place-items: center;
-  border-radius: 50%;
-  background: #0d5bff;
-  color: #ffffff;
-  font-size: 12px;
-}
-
-.view-group {
-  display: inline-flex;
-  height: 34px;
-}
-
-.toolbar .view-group .view {
-  width: 34px;
-  min-width: 34px;
-  height: 34px;
-  padding: 0;
-  display: inline-grid;
-  place-items: center;
-  border-radius: 0;
-  border-color: #c8cdd2;
-  margin-left: -1px;
-}
-
-.toolbar .view-group .view:first-child {
-  margin-left: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-.toolbar .view-group .view:last-child {
-  border-radius: 0 3px 3px 0;
-}
-
-.toolbar .view-group .view.active {
-  border-color: #0d5bff;
-  background: #0d5bff;
-  color: #ffffff;
-  z-index: 1;
 }
 
 .icon {

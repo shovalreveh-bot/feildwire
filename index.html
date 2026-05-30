@@ -214,38 +214,72 @@
       </header>
 
       <section class="toolbar">
-        <div class="new-task-btn-wrapper">
-          <button class="primary" type="button" data-new-task-btn>＋ New task</button>
-          <div class="task-type-menu" hidden data-task-type-menu>
-            <button class="task-type-option task-type-safety" type="button" data-task-type="safety">
-              <span class="task-type-tri"></span>Safety
+        <!-- Row 1: actions -->
+        <div class="fw-header-row">
+          <div class="fw-header-left">
+            <div class="new-task-btn-wrapper">
+              <button class="toolbar-btn toolbar-btn-primary" type="button" data-new-task-btn>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                New task
+              </button>
+              <div class="task-type-menu" hidden data-task-type-menu>
+                <button class="task-type-option task-type-safety" type="button" data-task-type="safety"><span class="task-type-tri"></span>Safety</button>
+                <button class="task-type-option" type="button" data-task-type="p1"><span class="task-type-dot dot-red"></span>Priority 1</button>
+                <button class="task-type-option" type="button" data-task-type="p2"><span class="task-type-dot dot-orange"></span>Priority 2</button>
+                <button class="task-type-option" type="button" data-task-type="p3"><span class="task-type-dot dot-yellow"></span>Priority 3</button>
+              </div>
+            </div>
+            <button class="toolbar-btn" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+              Import tasks
             </button>
-            <button class="task-type-option" type="button" data-task-type="p1">
-              <span class="task-type-dot dot-red"></span>Priority 1
+            <button class="toolbar-btn" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="18" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h8M8 13h6M8 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Generate reports
             </button>
-            <button class="task-type-option" type="button" data-task-type="p2">
-              <span class="task-type-dot dot-orange"></span>Priority 2
-            </button>
-            <button class="task-type-option" type="button" data-task-type="p3">
-              <span class="task-type-dot dot-yellow"></span>Priority 3
+            <button class="toolbar-btn actions-btn" type="button">Actions
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </button>
           </div>
+          <div class="fw-header-right">
+            <label class="task-search">
+              <span class="icon search-icon"></span>
+              <input type="search" placeholder="Search task titles">
+            </label>
+            <button class="toolbar-btn toolbar-btn-icon" type="button" aria-label="Sort">
+              <span class="icon sort-icon"></span>Sort
+            </button>
+            <button class="toolbar-btn toolbar-btn-icon" type="button" aria-label="Filters">
+              <span class="material-symbols-outlined" style="font-size:15px;line-height:1;vertical-align:-2px;">tune</span>
+              Filters <span class="fw-badge">1</span>
+            </button>
+            <div class="fw-segmented-buttons" aria-label="View mode">
+              <button class="fw-seg-btn fw-seg-btn-active" type="button" aria-label="Kanban"><span class="icon grid-icon"></span></button>
+              <button class="fw-seg-btn" type="button" aria-label="Calendar"><span class="icon calendar-icon"></span></button>
+              <button class="fw-seg-btn" type="button" aria-label="Gantt"><span class="icon sliders-icon"></span></button>
+              <button class="fw-seg-btn" type="button" aria-label="Analytics"><span class="icon chart-icon"></span></button>
+            </div>
+          </div>
         </div>
-        <button type="button">＋ Import tasks</button>
-        <button type="button">▣ Generate reports</button>
-        <button type="button">Actions ▾</button>
-        <div class="toolbar-spacer"></div>
-        <label class="task-search">
-          <span class="icon search-icon"></span>
-          <input type="search" placeholder="Search task titles">
-        </label>
-        <button class="toolbar-action" type="button"><span class="icon sort-icon"></span>Sort</button>
-        <button class="toolbar-action" type="button"><span class="icon filter-icon"></span>Filters <span class="pill">1</span></button>
-        <div class="view-group" aria-label="View mode">
-          <button class="view active" type="button" aria-label="Grid view"><span class="icon grid-icon"></span></button>
-          <button class="view" type="button" aria-label="Calendar view"><span class="icon calendar-icon"></span></button>
-          <button class="view" type="button" aria-label="Priority view"><span class="icon sliders-icon"></span></button>
-          <button class="view" type="button" aria-label="Chart view"><span class="icon chart-icon"></span></button>
+        <!-- Row 2: filter chips -->
+        <div class="fw-filter-bar">
+          <div class="fw-filter-chips">
+            <button class="fw-filter-chip" type="button">Status <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Category <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Assignee <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Creator <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Plan <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Tags <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Locations <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Time <span class="fw-chip-caret">▾</span></button>
+            <button class="fw-filter-chip" type="button">Overdue</button>
+            <button class="fw-filter-chip" type="button">Show archived tasks</button>
+            <button class="fw-filter-chip fw-filter-chip--selected" type="button">
+              <span class="material-symbols-outlined" style="font-size:13px;line-height:1;vertical-align:-1px;">check</span>
+              Watching
+            </button>
+          </div>
+          <button class="fw-clear-filters" type="button">Clear filters</button>
         </div>
       </section>
 
