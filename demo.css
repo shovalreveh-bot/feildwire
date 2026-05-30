@@ -175,35 +175,38 @@ html.board-open {
 }
 
 .side-icon {
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 -2px 0 -4px !important;
+  flex: none;
+  vertical-align: middle;
   object-fit: contain;
   object-position: center;
 }
 
 .task-item .side-icon {
-  width: 15px;
-  height: 15px;
-  flex: 0 0 15px;
-  margin-right: 2px;
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 -2px 0 -4px !important;
+  flex: none;
 }
 
 .side-icon--forms {
-  width: 20px;
-  height: 20px;
-  flex-basis: 18px;
-  margin-left: -1px;
-  margin-right: -1px;
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 -2px 0 -4px !important;
+  flex: none;
 }
 
 .fa-side-icon {
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 -2px 0 -4px !important;
+  flex: none;
   font-size: 15px;
-  line-height: 16px;
+  line-height: 26px;
   text-align: center;
+  vertical-align: middle;
   color: #ffffff;
 }
 
