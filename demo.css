@@ -66,7 +66,7 @@ html.board-open {
 }
 
 .project-header {
-  height: 52px;
+  height: 40px;
   display: flex;
   align-items: center;
   gap: 10px;
