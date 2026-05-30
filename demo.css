@@ -732,16 +732,19 @@ html.board-open {
 .fw-filter-chip {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   height: 32px;
   padding: 0 10px;
-  border: 1px solid #c8cdd2;
-  border-radius: 14px;
-  background: #ffffff;
-  color: #202428;
+  border: 1px solid #cfd1d6;
+  border-radius: 30px;
+  background: #fff;
+  color: #303234;
   font-size: 13px;
   font-family: Lato, sans-serif;
+  line-height: 20px;
   white-space: nowrap;
+  overflow: hidden;
   cursor: pointer;
 }
 
