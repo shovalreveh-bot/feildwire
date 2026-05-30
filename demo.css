@@ -696,13 +696,15 @@ html.board-open {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 16px 12px 24px;
 }
 
 .column {
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 0 0 162px;
+  width: 162px;
+  min-width: 162px;
   color: #202428;
 }
 
@@ -782,6 +784,7 @@ html.board-open {
   padding: 6px 8px 6px 2px;
   overflow: hidden;
   min-width: 0;
+  font-size: 12px;
 }
 
 .heading.truncate {
