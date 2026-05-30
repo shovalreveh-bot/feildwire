@@ -753,7 +753,7 @@ html.board-open {
 
 .task-card {
   position: relative;
-  min-height: 56px;
+  min-height: 44px;
   display: grid;
   grid-template-columns: 52px 1fr;
   border: 1px solid #cfd1d6;
