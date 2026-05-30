@@ -414,12 +414,30 @@ html.board-open {
 }
 
 .hamburger {
-  width: 18px;
-  height: 14px;
+  width: 24px;
+  height: 33px;
+  padding: 11px 9px 11px 0;
   border: 0;
-  border-top: 1.5px solid #aeb4bb;
-  border-bottom: 1.5px solid #aeb4bb;
-  background: linear-gradient(#aeb4bb, #aeb4bb) center / 100% 1px no-repeat;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  height: 1.5px;
+  background: #aeb4bb;
+}
+.hamburger {
+  position: relative;
+}
+.hamburger::before {
+  box-shadow: 0 5px 0 #aeb4bb;
 }
 
 .search,
@@ -432,11 +450,30 @@ html.board-open {
 }
 
 .search {
-  width: 245px;
+  flex: 1;
   height: 25px;
+  max-width: 500px;
+  position: relative;
 }
 
-.search input,
+.search .search-icon {
+  position: absolute;
+  left: 9px;
+  pointer-events: none;
+}
+
+.search input {
+  min-width: 0;
+  flex: 1;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 6px 28px 6px 32px;
+  color: #717171;
+  font-size: 13px;
+  background: none;
+}
+
 .task-search input {
   min-width: 0;
   flex: 1;
@@ -447,20 +484,13 @@ html.board-open {
   font-size: 13px;
 }
 
-.search span,
-.task-search span {
-  padding-right: 9px;
-  color: #1f2933;
-  font-size: 22px;
-}
-
 .account {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   color: #17202a;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .notification {
