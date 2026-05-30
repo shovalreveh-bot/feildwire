@@ -403,7 +403,7 @@ html.board-open {
 
 .topbar {
   flex-shrink: 0;
-  height: 52px;
+  height: 40px;
   display: flex;
   align-items: center;
   gap: 20px;
