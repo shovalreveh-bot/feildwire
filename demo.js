@@ -302,7 +302,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var board = document.querySelector('.board');
   if (board) {
     board.addEventListener('click', function (e) {
-      if (e.target.closest('.new-task-form') || e.target.closest('.new-task-link')) return;
+      if (e.target.closest('.new-task-form') || e.target.closest('.fw-safety-bottom-new-task')) return;
       var card = e.target.closest('.task-card');
       if (card) openModalForCard(card);
     });
@@ -341,7 +341,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }
 
       if (col) {
-        var link = col.querySelector('.new-task-link');
+        var link = col.querySelector('.fw-safety-bottom-new-task');
         if (link) {
           col.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           link.click();
@@ -463,7 +463,7 @@ window.addEventListener('DOMContentLoaded', function () {
             document.querySelector(selector) :
             (document.querySelector(selector) && document.querySelector(selector).closest('.column')));
           if (targetCol && card.closest('.column') !== targetCol) {
-            var link = targetCol.querySelector('.new-task-link');
+            var link = targetCol.querySelector('.fw-safety-bottom-new-task');
             targetCol.insertBefore(card, link || null);
             syncCounts();
           }
@@ -623,10 +623,14 @@ window.addEventListener('DOMContentLoaded', function () {
   /* ══════════════════════════════════════════
      INLINE NEW-TASK FORM (column + New task links)
   ══════════════════════════════════════════ */
-  document.querySelectorAll('.new-task-link').forEach(function (btn) {
+  document.querySelectorAll('[data-open-safety]').forEach(function (btn) {
+    btn.addEventListener('click', function () { openTaskModal('New task', 'safety'); });
+  });
+
+  document.querySelectorAll('.fw-safety-bottom-new-task:not([data-open-safety])').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.querySelectorAll('.new-task-form').forEach(function (f) { f.remove(); });
-      document.querySelectorAll('.new-task-link').forEach(function (b) { b.style.display = ''; });
+      document.querySelectorAll('.fw-safety-bottom-new-task').forEach(function (b) { b.style.display = ''; });
       btn.style.display = 'none';
 
       var form = document.createElement('div');
