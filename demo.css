@@ -455,14 +455,14 @@ html.board-open {
 
 .search {
   width: 195px;
-  height: 25px;
+  height: 28px;
   position: relative;
   flex-shrink: 0;
 }
 
 .search .search-icon {
   position: absolute;
-  left: 9px;
+  right: 9px;
   pointer-events: none;
 }
 
@@ -472,7 +472,7 @@ html.board-open {
   width: 100%;
   border: 0;
   outline: 0;
-  padding: 6px 28px 6px 32px;
+  padding: 6px 32px 6px 10px;
   color: #717171;
   font-size: 13px;
   background: none;
