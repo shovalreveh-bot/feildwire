@@ -635,7 +635,7 @@ html.board-open {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  height: 34px;
+  height: 32px;
   padding: 0 12px;
   border: 1px solid #c8cdd2;
   border-radius: 3px;
@@ -683,12 +683,12 @@ html.board-open {
 
 .fw-segmented-buttons {
   display: inline-flex;
-  height: 34px;
+  height: 32px;
 }
 
 .fw-seg-btn {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   display: inline-grid;
   place-items: center;
@@ -738,7 +738,7 @@ html.board-open {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  height: 27px;
+  height: 32px;
   padding: 0 10px;
   border: 1px solid #c8cdd2;
   border-radius: 14px;
