@@ -418,30 +418,16 @@ html.board-open {
 }
 
 .hamburger {
-  width: 24px;
-  height: 33px;
-  padding: 11px 9px 11px 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border: 0;
   background: none;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 4px;
   cursor: pointer;
   flex-shrink: 0;
-}
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  display: block;
-  height: 1.5px;
-  background: #aeb4bb;
-}
-.hamburger {
-  position: relative;
-}
-.hamburger::before {
-  box-shadow: 0 5px 0 #aeb4bb;
 }
 
 .search,
@@ -595,8 +581,10 @@ html.board-open {
 }
 
 .flag {
-  font-size: 18px;
+  display: flex;
+  align-items: center;
   line-height: 1;
+  border: 1px solid #d5d9de;
 }
 
 .toolbar {
@@ -767,7 +755,8 @@ html.board-open {
 
 .fw-clear-filters {
   flex-shrink: 0;
-  height: 27px;
+  margin-left: auto;
+  height: 32px;
   padding: 0 10px;
   border: 0;
   background: transparent;
