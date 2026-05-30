@@ -450,10 +450,10 @@ html.board-open {
 }
 
 .search {
-  flex: 1;
+  width: 195px;
   height: 25px;
-  max-width: 500px;
   position: relative;
+  flex-shrink: 0;
 }
 
 .search .search-icon {
