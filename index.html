@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="demo.css">
   </head>
   <body>
@@ -121,11 +123,11 @@
         <div class="section-title">FIELD MANAGEMENT</div>
         <a class="nav-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Plans.svg" class="side-icon" alt="">Plans</a>
         <a class="nav-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Specifications.svg" class="side-icon" alt="">Specifications</a>
-        <a class="nav-item active" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Tasks.svg" class="side-icon" alt="">Tasks</a>
+        <a class="nav-item active" href="#" data-nav="tasks"><img src="https://app.fieldwire.com/assets/images/menu/Tasks.svg" class="side-icon" alt="">Tasks</a>
         <a class="nav-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Camera.svg" class="side-icon" alt="">Photos</a>
-        <a class="nav-item" href="#"><span class="fa-side-icon paperclip-icon"></span>Files</a>
-        <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Form.svg" class="side-icon side-icon--forms" alt="">Forms<span class="premium-badge"></span></a>
-        <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/cube.png" class="side-icon" alt="">3D Models<span class="premium-badge"></span></a>
+        <a class="nav-item" href="#"><i class="fa fa-paperclip fa-side-icon" aria-hidden="true"></i>Files</a>
+        <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Form.svg" class="side-icon side-icon--forms" alt="">Forms<span class="material-symbols-outlined premium-badge">workspace_premium</span></a>
+        <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/cube.png" class="side-icon" alt="">3D Models<span class="material-symbols-outlined premium-badge">workspace_premium</span></a>
       </nav>
 
       <nav class="nav-section project-management">
@@ -134,33 +136,62 @@
           <span class="pm-chevron"></span>
         </div>
         <div class="pm-section-content" data-pm-content>
-          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Rfi.svg" class="side-icon" alt="">RFIs<span class="premium-badge"></span></a>
-          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/submittals-stamp.svg" class="side-icon" alt="">Submittals<span class="premium-badge"></span></a>
-          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/change_order.svg" class="side-icon" alt="">Change Orders<span class="premium-badge"></span></a>
-          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/calculator.svg" class="side-icon" alt="">Budget<span class="premium-badge"></span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Rfi.svg" class="side-icon" alt="">RFIs<span class="material-symbols-outlined premium-badge">workspace_premium</span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/submittals-stamp.svg" class="side-icon" alt="">Submittals<span class="material-symbols-outlined premium-badge">workspace_premium</span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/change_order.svg" class="side-icon" alt="">Change Orders<span class="material-symbols-outlined premium-badge">workspace_premium</span></a>
+          <a class="nav-item has-premium" href="#"><img src="https://app.fieldwire.com/assets/images/pm/calculator.svg" class="side-icon" alt="">Budget<span class="material-symbols-outlined premium-badge">workspace_premium</span></a>
         </div>
       </nav>
       </div>
 
-      <div class="sidebar-section-divider"></div>
+      <div class="sidebar-section-divider" id="task-divider"></div>
 
-      <nav class="task-nav">
-        <div class="sidebar-header">Tasks</div>
-        <a class="task-item active" href="#"><img src="https://app.fieldwire.com/assets/images/menu/myTasks.svg" class="side-icon" alt="">My tasks<span class="task-count" data-my-tasks-count>19</span></a>
-        <a class="task-item" href="#"><img src="https://app.fieldwire.com/assets/images/eye-icon-solid.svg" class="side-icon" alt="">Watched tasks<span class="task-count">22</span></a>
-        <a class="task-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/allTasks.svg" class="side-icon" alt="">All tasks<span class="task-count" data-all-tasks-count>24</span></a>
-        <a class="task-item" href="#"><img src="https://app.fieldwire.com/assets/images/menu/Add.png" class="side-icon" alt="">New category</a>
-      </nav>
+      <div class="sidebar-scrollable-container" id="task-section">
+        <div class="sidebar-header">
+          <span class="expanded-header">Tasks</span>
+        </div>
+        <div class="sidebar-scrollable">
+          <ul class="sidebar-nav">
+            <li class="selected" data-e2e="sidebar-my-tasks-filter">
+              <a class="team-wrapper" href="#">
+                <img src="https://app.fieldwire.com/assets/images/menu/myTasks.svg" class="icon-absolute sidebar-icon" alt="">
+                <span class="team-name">My tasks</span>
+                <span class="task-count" data-my-tasks-count>19</span>
+              </a>
+            </li>
+            <li data-e2e="sidebar-watched-tasks-filter">
+              <a class="team-wrapper" href="#">
+                <img src="https://app.fieldwire.com/assets/images/eye-icon-solid.svg" class="icon-absolute sidebar-icon" alt="">
+                <span class="team-name">Watched tasks</span>
+                <span class="task-count" data-watched-tasks-count>22</span>
+              </a>
+            </li>
+            <li data-e2e="sidebar-all-tasks-filter">
+              <a class="team-wrapper" href="#">
+                <img src="https://app.fieldwire.com/assets/images/menu/allTasks.svg" class="icon-absolute sidebar-icon" alt="">
+                <span class="team-name">All tasks</span>
+                <span class="task-count" data-all-tasks-count>24</span>
+              </a>
+            </li>
+            <li>
+              <a class="add-team team-wrapper" href="#">
+                <img src="https://app.fieldwire.com/assets/images/menu/Add.png" class="icon-absolute sidebar-icon" alt="">
+                <span class="team-name">New category</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <div class="sidebar-bottom-menu">
         <a class="bottom-item people" href="#" aria-label="People">
           <img src="https://app.fieldwire.com/assets/images/menu/People.svg" alt="">
         </a>
         <button class="bottom-item settings" type="button" aria-label="Settings">
-          <span class="bottom-css-icon cog-icon"></span>
+          <i class="fa fa-cog" aria-hidden="true"></i>
         </button>
         <button class="bottom-item trash" type="button" aria-label="Trash">
-          <span class="bottom-css-icon trash-icon"></span>
+          <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </div>
     </aside>
@@ -234,30 +265,74 @@
           <h2><span data-e2e="task-priority-header-text-PRIORITY_1" title="PRIORITY_1">Priority 1</span> <span class="header-count">(2)</span></h2>
           <div class="column-rule"></div>
           <div class="task-card">
-            <div class="pin red"></div>
-            <div>
-              <div class="meta">#1 | @SRE | העמד...</div>
-              <div class="title">קיר חוץ</div>
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="#FF4F4F"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#1 | @SRE | העמד...</span></div>
+              <div class="fw-task-title">קיר חוץ</div>
             </div>
           </div>
           <div class="task-card priority-one-extra">
-            <div class="square red-square"></div>
-            <div>
-              <div class="meta has-check-data"><span>#8 | @SKA</span><span class="check-item-data">0/2 <i></i></span></div>
-              <div class="title">&#1495;&#1497;&#1494;&#1493;&#1511; &#1490;&#1491;&#1512; &#1489;&#1496;&#1497;&#1495;&#1493;&#1514; &#1511;&#1493;&#1502;&#1492; 3</div>
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FF4F4F" stroke="#1A1D21" stroke-opacity="0.25"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate has-check-data"><span class="task-data">#8 | @SKA</span><span class="check-item-data">0/2 <i></i></span></div>
+              <div class="fw-task-title">חיזוק גדר בטיחות קומה 3</div>
             </div>
           </div>
           <button class="new-task-link" type="button">+ New task</button>
         </article>
 
         <article class="column">
-          <h2><span data-e2e="task-priority-header-text-PRIORITY_2" title="PRIORITY_2">Priority 2</span> <span class="header-count">(11)</span></h2>
+          <h2><span data-e2e="task-priority-header-text-PRIORITY_2" title="PRIORITY_2">Priority 2</span> <span class="header-count">(5)</span></h2>
           <div class="column-rule"></div>
-          <div class="task-card compact"><div class="square"></div><div><div class="meta">#2 | @SRE</div><div class="title">שבירת קיר קיים</div></div></div>
-          <div class="task-card compact"><div class="square"></div><div><div class="meta">#3 | @SRE</div><div class="title empty">Enter title</div></div></div>
-          <div class="task-card compact"><div class="pin orange"></div><div><div class="meta">#10 | @SRE | חשמל...</div><div class="title empty">Enter title</div></div></div>
-          <div class="task-card compact"><div class="pin orange"></div><div><div class="meta">#11 | @SRE | חשמל...</div><div class="title empty">Enter title</div></div></div>
-          <div class="task-card compact"><div class="square"></div><div><div class="meta">#13 | @SRE</div><div class="title empty">Enter title</div></div></div>
+          <div class="task-card">
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#2 | @SRE</span></div>
+              <div class="fw-task-title">שבירת קיר קיים</div>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#3 | @SRE</span></div>
+              <div class="fw-task-title">הנחת צנרת ביוב</div>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="#FA8B34"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#10 | @SRE | חשמל...</span></div>
+              <div class="fw-task-title">התקנת תאורה חיצונית</div>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="#FA8B34"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#11 | @SRE | חשמל...</span></div>
+              <div class="fw-task-title">חיווט לוח חשמל ראשי</div>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#13 | @SRE</span></div>
+              <div class="fw-task-title">ריצוף חדר שינה</div>
+            </div>
+          </div>
           <button class="new-task-link" type="button">+ New task</button>
         </article>
 
@@ -265,10 +340,12 @@
           <h2><span data-e2e="task-priority-header-text-PRIORITY_3" title="PRIORITY_3">Priority 3</span> <span class="header-count">(1)</span></h2>
           <div class="column-rule"></div>
           <div class="task-card">
-            <div class="pin yellow"></div>
-            <div>
-              <div class="meta">#4 | @SRE | תוכנית...</div>
-              <div class="title empty">Enter title</div>
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="#FFD149"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate"><span class="task-data">#4 | @SRE | תוכנית...</span></div>
+              <div class="fw-task-title">בדיקת תוכניות אדריכלות</div>
             </div>
           </div>
           <button class="new-task-link" type="button">+ New task</button>

@@ -113,6 +113,37 @@ window.addEventListener('DOMContentLoaded', function () {
   renderProjects();
 
   /* ══════════════════════════════════════════
+     NAV ITEMS — click to set active
+  ══════════════════════════════════════════ */
+  var taskSection = document.getElementById('task-section');
+  var taskDivider = document.getElementById('task-divider');
+
+  function setTaskSectionVisible(visible) {
+    if (taskSection) taskSection.style.display = visible ? '' : 'none';
+    if (taskDivider) taskDivider.style.display = visible ? '' : 'none';
+  }
+
+  document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item').forEach(function (el) { el.classList.remove('active'); });
+      item.classList.add('active');
+      setTaskSectionVisible(item.dataset.nav === 'tasks');
+    });
+  });
+
+  /* ══════════════════════════════════════════
+     TASK FILTER ITEMS — click to set selected
+  ══════════════════════════════════════════ */
+  document.querySelectorAll('#task-section .team-wrapper').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('#task-section li').forEach(function (li) { li.classList.remove('selected'); });
+      link.closest('li').classList.add('selected');
+    });
+  });
+
+  /* ══════════════════════════════════════════
      PROJECT MANAGEMENT COLLAPSIBLE SECTION
   ══════════════════════════════════════════ */
   var pmHeader  = document.querySelector('[data-pm-header]');
@@ -133,11 +164,13 @@ window.addEventListener('DOMContentLoaded', function () {
       var countEl = col.querySelector('.header-count');
       if (countEl) countEl.textContent = '(' + count + ')';
     });
-    var total = document.querySelectorAll('.board .task-card').length;
-    var myEl = document.querySelector('[data-my-tasks-count]');
-    if (myEl) myEl.textContent = total;
-    var allEl = document.querySelector('[data-all-tasks-count]');
-    if (allEl) allEl.textContent = total;
+    var total       = document.querySelectorAll('.board .task-card').length;
+    var myEl        = document.querySelector('[data-my-tasks-count]');
+    var watchedEl   = document.querySelector('[data-watched-tasks-count]');
+    var allEl       = document.querySelector('[data-all-tasks-count]');
+    if (myEl)      myEl.textContent      = total;
+    if (watchedEl) watchedEl.textContent = total;
+    if (allEl)     allEl.textContent     = total;
   }
 
   syncCounts();
@@ -217,8 +250,8 @@ window.addEventListener('DOMContentLoaded', function () {
     modalTaskCards  = Array.from(document.querySelectorAll('.board .task-card'));
     modalCurrentIdx = modalTaskCards.indexOf(card);
 
-    var metaEl  = card.querySelector('.meta');
-    var titleEl = card.querySelector('.title');
+    var metaEl  = card.querySelector('.task-data');
+    var titleEl = card.querySelector('.fw-task-title');
     var metaText  = metaEl  ? metaEl.textContent.trim()  : '';
     var titleText = titleEl ? titleEl.textContent.trim() : 'New task';
     if (titleText === 'Enter title') titleText = 'New task';
@@ -556,8 +589,15 @@ window.addEventListener('DOMContentLoaded', function () {
         if (!title) return;
         var taskNum = document.querySelectorAll('.task-card').length + 1;
         var card = document.createElement('div');
-        card.className = 'task-card compact';
-        card.innerHTML = '<div class="square"></div><div><div class="meta">#' + taskNum + ' | @SRE</div><div class="title">' + title + '</div></div>';
+        card.className = 'task-card';
+        card.innerHTML =
+          '<div class="fw-pin-col">' +
+            '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>' +
+          '</div>' +
+          '<div class="name">' +
+            '<div class="heading truncate"><span class="task-data">#' + taskNum + ' | @SRE</span></div>' +
+            '<div class="fw-task-title">' + title + '</div>' +
+          '</div>';
         form.remove();
         btn.style.display = '';
         btn.parentElement.insertBefore(card, btn);
