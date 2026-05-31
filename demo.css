@@ -2165,11 +2165,11 @@ fw-button {
 }
 
 .section p {
-  margin: 0 0 24px;
+  margin: 0 0 12px;
   color: #111111;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 1.42857143;
 }
 
 .related-task-action,
@@ -2178,8 +2178,8 @@ fw-button {
   gap: 8px;
   margin-bottom: 12px;
   color: #0d5bff;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 1.42857143;
 }
 
 .related-task-action .divider,
@@ -2209,8 +2209,8 @@ fw-button {
   gap: 6px;
   margin-bottom: 14px;
   color: #111111;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 1.42857143;
 }
 
 .activity-toolbar button {
@@ -2230,13 +2230,13 @@ fw-button {
 
 .activity-toolbar button:first-of-type::before {
   content: "All";
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .activity-toolbar button:first-of-type::after,
 .activity-toolbar button:last-child::after {
   display: inline-block;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .activity-toolbar button:first-of-type::after {
@@ -2258,7 +2258,7 @@ fw-button {
   gap: 12px;
   margin: 0 0 8px 4px;
   color: #111111;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -2281,14 +2281,14 @@ fw-button {
   border: 0;
   background: transparent;
   color: #1a1d21;
-  font-size: 15px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 1.42857143;
 }
 
 .highlight-box time {
   color: #8c8c8c;
-  font-size: 16px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 1.42857143;
 }
 
 .comment {
@@ -2298,9 +2298,9 @@ fw-button {
 
 .log-entry {
   color: #999999;
-  font-size: 16px;
+  font-size: 13px;
   font-style: italic;
-  line-height: 22px;
+  line-height: 1.42857143;
 }
 
 .message-box {
@@ -2318,7 +2318,7 @@ fw-button {
   padding: 8px 16px;
   border-color: #cccccc;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .message-attach,
@@ -2328,7 +2328,7 @@ fw-button {
   border-color: #0b55e8;
   border-radius: 3px;
   background: #0d5bff;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -2348,7 +2348,7 @@ fw-button {
 
 .share-btn::before {
   content: "Share";
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .share-btn::after {
