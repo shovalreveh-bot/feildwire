@@ -2304,13 +2304,16 @@ fw-button {
 }
 
 .message-box {
-  position: static;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
   height: 53px;
   grid-template-columns: 40px 1fr 66px 100px;
-  gap: 12px;
-  padding: 8px 18px 12px;
-  border-top: 0;
-  background: #ffffff;
+  gap: 8px;
+  padding: 0 12px;
+  border-top: 1px solid #d9dde2;
+  background: #f5f6f7;
 }
 
 .message-box input {
@@ -2324,7 +2327,7 @@ fw-button {
 .message-attach,
 .send-btn,
 .share-btn {
-  height: 40px;
+  height: 32px;
   border-color: #0b55e8;
   border-radius: 3px;
   background: #0d5bff;
