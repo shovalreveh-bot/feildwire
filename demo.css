@@ -990,38 +990,66 @@ html.board-open {
 
 .task-select-box {
   position: absolute;
-  left: 32px;
-  top: -3px;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 2;
-  width: 22px;
-  height: 22px;
-  display: grid;
-  place-items: center;
-  border: 3px solid #ffc837;
-  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #cfd4da;
+  border-radius: 3px;
   background: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   opacity: 0;
+  pointer-events: none;
   cursor: pointer;
 }
 
 .task-card:hover .task-select-box,
 .task-card.is-selected .task-select-box {
   opacity: 1;
+  pointer-events: auto;
+}
+
+.task-card.is-selected .task-select-box {
+  background: #0d5bff;
+  border-color: #0d5bff;
+}
+
+.task-card.is-selected {
+  background: rgba(13, 91, 255, 0.04);
 }
 
 .task-select-box::before {
   content: "";
-  width: 7px;
-  height: 12px;
-  border-right: 3px solid #696d74;
-  border-bottom: 3px solid #696d74;
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   opacity: 0;
-  transform: rotate(45deg) translate(-1px, -1px);
+  transform: rotate(45deg) translate(-1px, -2px);
 }
 
 .task-card.is-selected .task-select-box::before {
   opacity: 1;
+}
+
+.actions-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #0d5bff;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: Lato, sans-serif;
+  margin-left: 4px;
 }
 
 .task-context-menu {
