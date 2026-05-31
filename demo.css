@@ -4130,6 +4130,11 @@ width: 100%;
   display: none;
 }
 
+.task-modal-backdrop.is-safety .fw-related-tasks,
+.task-modal-backdrop.is-safety .check-items {
+  display: none;
+}
+
 /* ══════════════════════════════════════════
    PROJECTS PAGE
 ══════════════════════════════════════════ */
