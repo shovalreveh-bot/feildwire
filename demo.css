@@ -1013,6 +1013,11 @@ html.board-open {
   pointer-events: auto;
 }
 
+.task-card:hover .name,
+.task-card.is-selected .name {
+  padding-right: 34px;
+}
+
 .task-card.is-selected .task-select-box {
   background: #0d5bff;
   border-color: #0d5bff;
