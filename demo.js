@@ -785,6 +785,21 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ── Attach dropdown ── */
+  var attachBtn      = document.querySelector('[data-attach-btn]');
+  var attachDropdown = document.querySelector('[data-attach-dropdown]');
+  if (attachBtn && attachDropdown) {
+    attachBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      attachDropdown.hidden = !attachDropdown.hidden;
+    });
+    document.addEventListener('click', function (e) {
+      if (!attachDropdown.hidden && !attachBtn.contains(e.target) && !attachDropdown.contains(e.target)) {
+        attachDropdown.hidden = true;
+      }
+    });
+  }
+
   /* ══════════════════════════════════════════
      PHOTO UPLOAD — preview images
   ══════════════════════════════════════════ */
