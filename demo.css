@@ -2117,6 +2117,10 @@ fw-button {
   background: #0d5bff;
   font-size: 16px;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .share-btn {
