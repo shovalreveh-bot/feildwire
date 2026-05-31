@@ -736,7 +736,7 @@ html.board-open {
   gap: 3px;
   height: 32px;
   padding: 0 10px;
-  border: 1px solid #cfd1d6;
+  border: 1px solid #cfd4da;
   border-radius: 30px;
   background: #fff;
   color: #303234;
@@ -837,7 +837,7 @@ html.board-open {
   overflow: hidden;
   text-overflow: ellipsis;
   position: relative;
-  border-bottom: 1px solid #cfd1d6;
+  border-bottom: 1px solid #cfd4da;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -876,7 +876,7 @@ html.board-open {
   overflow: hidden;
   display: grid;
   grid-template-columns: 52px 1fr;
-  border: 1px solid #cfd1d6;
+  border: 1px solid #cfd4da;
   background: #ffffff;
   cursor: pointer;
 }
@@ -1162,7 +1162,7 @@ html.board-open {
   height: 110px;
   margin-top: 0;
   overflow: hidden;
-  border: 1px solid #cfd1d6;
+  border: 1px solid #cfd4da;
   background: transparent;
 }
 
@@ -1363,7 +1363,7 @@ fw-button {
 
 .modal-header {
   height: 118px;
-  border-bottom: 1px solid #cfd1d6;
+  border-bottom: 1px solid #cfd4da;
 }
 
 .header-entity {
@@ -1497,7 +1497,7 @@ fw-button {
   height: 100%;
   display: grid;
   place-items: center;
-  border: 1px dashed #cfd1d6;
+  border: 1px dashed #cfd4da;
   color: #8b9299;
   text-align: center;
 }
@@ -3988,7 +3988,7 @@ width: 100%;
 
 .proj-nav-link.active {
   color: #202428;
-  border-bottom-color: #3173ff;
+  border-bottom-color: #0d5bff;
   font-weight: 600;
 }
 
@@ -4094,7 +4094,7 @@ width: 100%;
 
 /* ── Main content area ── */
 .proj-content {
-  background: #f0f2f5;
+  background: #f4f5f6;
   min-height: calc(100vh - 50px);
   padding: 0;
 }
@@ -4120,7 +4120,7 @@ width: 100%;
   font-weight: 600;
   color: #202428;
   cursor: pointer;
-  border-bottom: 2px solid #3173ff;
+  border-bottom: 2px solid #0d5bff;
   margin-bottom: -1px;
 }
 
@@ -4137,7 +4137,7 @@ width: 100%;
   padding: 0 16px;
   border: 0;
   border-radius: 3px;
-  background: #3173ff;
+  background: #0d5bff;
   color: #ffffff;
   font-family: Lato, sans-serif;
   font-size: 13px;
@@ -4214,7 +4214,7 @@ width: 100%;
 
 .proj-card {
   background: #ffffff;
-  border: 1px solid #cfd1d6;
+  border: 1px solid #cfd4da;
   border-radius: 3px;
   padding: 14px 16px 12px;
   cursor: pointer;
@@ -4231,7 +4231,7 @@ width: 100%;
 }
 
 .proj-card--new {
-  border: 0.8px dashed #cfd1d6;
+  border: 0.8px dashed #cfd4da;
   border-radius: 3px;
   background: transparent;
   align-items: center;
@@ -4240,7 +4240,7 @@ width: 100%;
 }
 
 .proj-card--new:hover {
-  border-color: #3173ff;
+  border-color: #0d5bff;
   box-shadow: none;
 }
 
@@ -4248,7 +4248,7 @@ width: 100%;
   font-family: Lato, sans-serif;
   font-size: 13px;
   font-weight: 400;
-  color: #3173ff;
+  color: #0d5bff;
 }
 
 .proj-card-top {
@@ -4356,7 +4356,7 @@ width: 100%;
 }
 
 .new-proj-close:hover {
-  background: #f0f2f5;
+  background: #f4f5f6;
   color: #202428;
 }
 
@@ -4388,7 +4388,7 @@ width: 100%;
 }
 
 .new-proj-field input:focus {
-  border-color: #3173ff;
+  border-color: #0d5bff;
   box-shadow: 0 0 0 2px rgba(49,115,255,0.15);
 }
 
@@ -4415,7 +4415,7 @@ width: 100%;
 }
 
 .new-proj-cancel:hover {
-  background: #f0f2f5;
+  background: #f4f5f6;
 }
 
 .new-proj-create {
@@ -4423,7 +4423,7 @@ width: 100%;
   padding: 0 16px;
   border: 0;
   border-radius: 3px;
-  background: #3173ff;
+  background: #0d5bff;
   color: #ffffff;
   font-family: Lato, sans-serif;
   font-size: 13px;
