@@ -2138,24 +2138,6 @@ fw-button {
   vertical-align: 3px;
 }
 
-.message-attach {
-  position: relative;
-  font-size: 0;
-}
-
-.message-attach::before {
-  content: "";
-  position: absolute;
-  left: 15px;
-  top: 10px;
-  width: 8px;
-  height: 18px;
-  border: 2px solid #ffffff;
-  border-left-width: 0;
-  border-radius: 0 9px 9px 0;
-  transform: rotate(-35deg);
-}
-
 .task-attributes {
   padding: 0 20px;
 }
