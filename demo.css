@@ -3896,7 +3896,7 @@ width: 100%;
 
 /* ── Top navigation bar ── */
 .proj-topbar {
-  height: 52px;
+  height: 50px;
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -3908,8 +3908,18 @@ width: 100%;
 .proj-topbar-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
   flex-shrink: 0;
+}
+
+.proj-topbar-logo .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.fw-horizontal-logo {
+  height: 28px;
+  width: auto;
 }
 
 .fw-logo-icon {
@@ -3953,14 +3963,14 @@ width: 100%;
   transform: translateX(-50%);
   display: flex;
   align-items: stretch;
-  height: 52px;
+  height: 50px;
 }
 
 .proj-nav-link {
   display: flex;
   align-items: center;
   padding: 0 16px;
-  height: 52px;
+  height: 50px;
   color: #4a5059;
   text-decoration: none;
   font-family: Lato, sans-serif;
@@ -4085,7 +4095,7 @@ width: 100%;
 /* ── Main content area ── */
 .proj-content {
   background: #f0f2f5;
-  min-height: calc(100vh - 52px);
+  min-height: calc(100vh - 50px);
   padding: 0;
 }
 
