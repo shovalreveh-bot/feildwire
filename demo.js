@@ -749,10 +749,31 @@ window.addEventListener('DOMContentLoaded', function () {
     var scrollArea = document.querySelector('.entity-scroll-area');
     if (scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
     msgInput.value = '';
+    if (msgInput.tagName === 'TEXTAREA') { msgInput.style.height = ''; }
   }
 
-  if (sendBtn)   sendBtn.addEventListener('click', sendMessage);
-  if (msgInput)  msgInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendMessage(); });
+  var cancelBtn = document.querySelector('[data-modal-cancel]');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', function () {
+      if (msgInput) {
+        msgInput.value = '';
+        if (msgInput.tagName === 'TEXTAREA') msgInput.style.height = '';
+      }
+    });
+  }
+
+  if (sendBtn)  sendBtn.addEventListener('click', sendMessage);
+  if (msgInput) {
+    msgInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+    if (msgInput.tagName === 'TEXTAREA') {
+      msgInput.addEventListener('input', function () {
+        msgInput.style.height = 'auto';
+        msgInput.style.height = msgInput.scrollHeight + 'px';
+      });
+    }
+  }
 
   /* Share dropdown */
   var shareDropdown = document.querySelector('[data-share-dropdown]');
