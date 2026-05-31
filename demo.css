@@ -4100,19 +4100,17 @@ width: 100%;
 }
 
 .proj-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 60px 40px;
+  padding: 16px 20px 0;
 }
 
 /* ── Tabs ── */
 .proj-tabs-row {
   border-bottom: 1px solid #d5d9de;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .proj-tab {
-  padding: 0 2px 12px;
+  padding: 0 2px 10px;
   border: 0;
   background: transparent;
   font-family: Lato, sans-serif;
@@ -4129,7 +4127,7 @@ width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .proj-new-btn {
