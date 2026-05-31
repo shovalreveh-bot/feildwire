@@ -807,8 +807,9 @@ window.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ── Attach dropdown ── */
-  var attachBtn      = document.querySelector('[data-attach-btn]');
-  var attachDropdown = document.querySelector('[data-attach-dropdown]');
+  var attachBtn       = document.querySelector('[data-attach-btn]');
+  var attachDropdown  = document.querySelector('[data-attach-dropdown]');
+  var attachFileInput = document.querySelector('[data-attach-file-input]');
   if (attachBtn && attachDropdown) {
     attachBtn.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -818,6 +819,41 @@ window.addEventListener('DOMContentLoaded', function () {
       if (!attachDropdown.hidden && !attachBtn.contains(e.target) && !attachDropdown.contains(e.target)) {
         attachDropdown.hidden = true;
       }
+    });
+  }
+
+  /* Photo/File option → open file picker */
+  var attachPhotoFileBtn = document.querySelector('[data-attach-photo-file]');
+  if (attachPhotoFileBtn && attachFileInput) {
+    attachPhotoFileBtn.addEventListener('click', function () {
+      attachDropdown.hidden = true;
+      attachFileInput.value = '';
+      attachFileInput.click();
+    });
+    attachFileInput.addEventListener('change', function () {
+      var files = Array.from(attachFileInput.files);
+      if (!files.length) return;
+      var feed = document.querySelector('[data-modal-activity]');
+      if (!feed) return;
+      files.forEach(function (file) {
+        var entry = document.createElement('div');
+        entry.className = 'log-entry';
+        var isImage = file.type.startsWith('image/');
+        if (isImage) {
+          var reader = new FileReader();
+          reader.onload = function (ev) {
+            var img = document.createElement('img');
+            img.src = ev.target.result;
+            img.style.cssText = 'max-width:100%;max-height:180px;border-radius:4px;margin-top:6px;display:block;';
+            entry.innerHTML = '<span class="log-label">📎 ' + file.name + '</span>';
+            entry.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          entry.innerHTML = '<span class="log-label">📎 ' + file.name + '</span>';
+        }
+        feed.appendChild(entry);
+      });
     });
   }
 

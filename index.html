@@ -736,13 +736,14 @@
                     </svg>
                   </button>
                   <div class="attach-dropdown" hidden data-attach-dropdown>
-                    <button class="attach-option" type="button"><span class="attach-option-icon">+</span> Photo/File</button>
+                    <button class="attach-option" type="button" data-attach-photo-file><span class="attach-option-icon">+</span> Photo/File</button>
                     <button class="attach-option" type="button"><span class="attach-option-icon">⊙</span> 360 photo</button>
                     <button class="attach-option" type="button"><span class="attach-option-icon">📷</span> Existing photo</button>
                     <button class="attach-option" type="button"><span class="attach-option-icon">🖇</span> Existing file</button>
                     <button class="attach-option" type="button"><span class="attach-option-icon">🔗</span> Link (URL)</button>
                     <button class="attach-option" type="button"><span class="attach-option-icon">⊡</span> Crop plan</button>
                   </div>
+                  <input type="file" accept="image/*,application/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" multiple hidden data-attach-file-input>
                 </div>
                 <textarea class="message-textarea" rows="1" placeholder="Enter message here..." data-modal-message-input></textarea>
                 <div class="post-btn">
