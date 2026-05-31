@@ -302,10 +302,12 @@ window.addEventListener('DOMContentLoaded', function () {
   /* ── Task selection checkboxes ── */
   function addSelectBox(card) {
     if (card.querySelector('.task-select-box')) return;
+    var nameEl = card.querySelector('.name');
+    if (!nameEl) return;
     var cb = document.createElement('div');
     cb.className = 'task-select-box';
     cb.setAttribute('data-select-cb', '');
-    card.appendChild(cb);
+    nameEl.appendChild(cb);
   }
 
   function updateActionsCount() {

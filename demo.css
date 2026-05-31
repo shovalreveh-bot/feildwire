@@ -897,6 +897,7 @@ html.board-open {
 }
 
 .name {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
