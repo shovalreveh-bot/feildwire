@@ -1286,8 +1286,8 @@ fw-button {
 }
 
 .fw-button-primary {
-  border-color: #8fb3f2;
-  background: #8fb3f2;
+  border-color: #0547cf;
+  background: #0d5bff;
 }
 
 .fw-button-danger {
@@ -1646,6 +1646,10 @@ fw-button {
   background: #0d5bff;
   color: #ffffff;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .task-attributes {
