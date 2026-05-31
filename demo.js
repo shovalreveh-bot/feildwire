@@ -182,6 +182,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var closeBtn       = document.querySelector('[data-close-task-modal]');
   var modalTitleSpan = document.querySelector('[data-modal-task-title]');
   var modalTitleEditText = document.querySelector('[data-modal-title-edit-text]');
+  var modalTitleInput= document.querySelector('[data-modal-title-input]');
   var modalMetaEl    = document.querySelector('[data-modal-task-meta]');
   var pinContainer   = backdrop && backdrop.querySelector('[data-modal-pin-container]');
   var pinLabel       = backdrop && backdrop.querySelector('[data-pin-team-label]');
@@ -238,7 +239,70 @@ window.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.attr-dropdown').forEach(function (d) { d.hidden = true; });
   }
 
+  /* ── Per-task data persistence ── */
+  var taskDataMap = new Map();
+
+  function saveCurrentTaskData() {
+    var card = modalTaskCards[modalCurrentIdx];
+    if (!card) return;
+    var data = {};
+
+    var descEl = document.querySelector('.modal-description');
+    data.description = descEl ? descEl.value : '';
+
+    var floorTextEl = document.querySelector('[data-floor-text]');
+    var roomTextEl  = document.querySelector('[data-room-text]');
+    data.floor = floorTextEl ? floorTextEl.textContent : 'Floor';
+    data.room  = roomTextEl  ? roomTextEl.textContent  : 'Room / Area';
+
+    data.attrs = {};
+    document.querySelectorAll('[data-attr]').forEach(function (row) {
+      var valueEl = row.querySelector('[data-attr-value]');
+      if (valueEl) data.attrs[row.dataset.attr] = valueEl.innerHTML;
+    });
+
+    // Save any in-progress inline input value too
+    document.querySelectorAll('.attr-inline-input').forEach(function (inp) {
+      var row = inp.closest('[data-attr]');
+      if (row && inp.value.trim()) data.attrs[row.dataset.attr] = inp.value.trim() + ' <i class="caret"></i>';
+    });
+
+    taskDataMap.set(card, data);
+  }
+
+  function loadTaskData(card) {
+    var data = taskDataMap.get(card);
+    if (!data) return;
+
+    var descEl = document.querySelector('.modal-description');
+    if (descEl) descEl.value = data.description || '';
+
+    var floorTextEl = document.querySelector('[data-floor-text]');
+    var roomTextEl  = document.querySelector('[data-room-text]');
+    var floorBtnEl  = document.querySelector('[data-location-dropdown="floor"]');
+    var roomBtnEl   = document.querySelector('[data-location-dropdown="room"]');
+    if (floorTextEl && data.floor) {
+      floorTextEl.textContent = data.floor;
+      if (data.floor !== 'Floor' && floorBtnEl) floorBtnEl.classList.add('has-value');
+    }
+    if (roomTextEl && data.room) {
+      roomTextEl.textContent = data.room;
+      if (data.room !== 'Room / Area' && roomBtnEl) roomBtnEl.classList.add('has-value');
+    }
+
+    if (data.attrs) {
+      document.querySelectorAll('[data-attr]').forEach(function (row) {
+        var attr = row.dataset.attr;
+        if (data.attrs[attr] !== undefined) {
+          var valueEl = row.querySelector('[data-attr-value]');
+          if (valueEl) valueEl.innerHTML = data.attrs[attr];
+        }
+      });
+    }
+  }
+
   function closeModal() {
+    saveCurrentTaskData();
     if (backdrop) backdrop.hidden = true;
   }
 
@@ -289,7 +353,33 @@ window.addEventListener('DOMContentLoaded', function () {
       else if (attr === 'watchers') el.innerHTML = 'SRE <i class="caret"></i>';
       else if (attr === 'manpower' || attr === 'cost') el.innerHTML = '&mdash; <span class="attr-pencil">✎</span>';
       else el.innerHTML = '&mdash; <i class="caret"></i>';
+      el.hidden = false;
     });
+
+    // Remove any in-progress inline attribute inputs
+    document.querySelectorAll('.attr-inline-input').forEach(function (inp) { inp.remove(); });
+
+    // Reset description textarea
+    var descEl = document.querySelector('.modal-description');
+    if (descEl) descEl.value = '';
+
+    // Reset photo previews
+    var photosPreviewEl = document.querySelector('[data-photos-preview]');
+    if (photosPreviewEl) photosPreviewEl.innerHTML = '';
+
+    // Reset location picker to defaults
+    var floorTextEl = document.querySelector('[data-floor-text]');
+    var roomTextEl  = document.querySelector('[data-room-text]');
+    var floorBtnEl  = document.querySelector('[data-location-dropdown="floor"]');
+    var roomBtnEl   = document.querySelector('[data-location-dropdown="room"]');
+    var floorMenuEl = document.querySelector('[data-floor-menu]');
+    var roomMenuEl  = document.querySelector('[data-room-menu]');
+    if (floorTextEl) floorTextEl.textContent = 'Floor';
+    if (roomTextEl)  roomTextEl.textContent  = 'Room / Area';
+    if (floorBtnEl)  floorBtnEl.classList.remove('has-value', 'is-open');
+    if (roomBtnEl)   roomBtnEl.classList.remove('has-value', 'is-open');
+    if (floorMenuEl) floorMenuEl.hidden = true;
+    if (roomMenuEl)  roomMenuEl.hidden  = true;
 
     // Show Completed / Verified only from the second visit onwards
     var sd = document.querySelector('[data-status-dropdown]');
@@ -297,6 +387,9 @@ window.addEventListener('DOMContentLoaded', function () {
     card.dataset.visited = 'true';
 
     openTaskModal(titleText, cardType(card));
+
+    // Restore previously saved data for this task (overrides the defaults above)
+    loadTaskData(card);
   }
 
   /* ── Task selection checkboxes ── */
@@ -392,6 +485,7 @@ window.addEventListener('DOMContentLoaded', function () {
   if (prevBtn) {
     prevBtn.addEventListener('click', function (e) {
       e.stopPropagation();
+      saveCurrentTaskData();
       modalTaskCards = Array.from(document.querySelectorAll('.board .task-card'));
       if (!modalTaskCards.length) return;
       modalCurrentIdx = (modalCurrentIdx - 1 + modalTaskCards.length) % modalTaskCards.length;
@@ -402,6 +496,7 @@ window.addEventListener('DOMContentLoaded', function () {
   if (nextBtn) {
     nextBtn.addEventListener('click', function (e) {
       e.stopPropagation();
+      saveCurrentTaskData();
       modalTaskCards = Array.from(document.querySelectorAll('.board .task-card'));
       if (!modalTaskCards.length) return;
       modalCurrentIdx = (modalCurrentIdx + 1) % modalTaskCards.length;
@@ -505,7 +600,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 card.remove();
                 syncCounts();
               }, { once: true });
-            }, 2500);
+            }, 600);
           }
         }
       });
@@ -625,11 +720,18 @@ window.addEventListener('DOMContentLoaded', function () {
   ══════════════════════════════════════════ */
   var msgInput  = document.querySelector('[data-modal-message-input]');
   var shareBtn  = document.querySelector('[data-modal-share]');
+  var sendBtn   = document.querySelector('[data-modal-send]');
 
   function sendMessage() {
     if (!msgInput || !activityFeed) return;
     var text = msgInput.value.trim();
-    if (!text) return;
+    if (!text) {
+      // Flash the input border to signal that text is required
+      msgInput.style.outline = '2px solid #e53935';
+      setTimeout(function () { msgInput.style.outline = ''; }, 700);
+      msgInput.focus();
+      return;
+    }
 
     var now     = new Date();
     var timeStr = now.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
@@ -643,24 +745,77 @@ window.addEventListener('DOMContentLoaded', function () {
       '</div>';
     activityFeed.appendChild(bubble);
     activityFeed.scrollTop = activityFeed.scrollHeight;
+    // Scroll the entity panel so the activity feed is visible
+    var scrollArea = document.querySelector('.entity-scroll-area');
+    if (scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
     msgInput.value = '';
   }
 
-  if (shareBtn)  shareBtn.addEventListener('click', sendMessage);
+  if (sendBtn)   sendBtn.addEventListener('click', sendMessage);
   if (msgInput)  msgInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendMessage(); });
+
+  /* Share dropdown */
+  var shareDropdown = document.querySelector('[data-share-dropdown]');
+  if (shareBtn && shareDropdown) {
+    shareBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      shareDropdown.hidden = !shareDropdown.hidden;
+    });
+
+    shareDropdown.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-share-action]');
+      if (!btn || btn.disabled) return;
+      var action = btn.dataset.shareAction;
+      if (action === 'clipboard') {
+        var taskTitle = document.querySelector('[data-modal-title]');
+        var text = taskTitle ? taskTitle.textContent.trim() : window.location.href;
+        navigator.clipboard && navigator.clipboard.writeText(text);
+        btn.textContent = '✓ Copied!';
+        setTimeout(function () {
+          btn.innerHTML = '<i class="fa fa-clone"></i> Copy to clipboard';
+        }, 1500);
+      }
+      if (action !== 'clipboard') shareDropdown.hidden = true;
+    });
+
+    document.addEventListener('click', function (e) {
+      if (shareDropdown && !shareDropdown.hidden && !shareBtn.contains(e.target) && !shareDropdown.contains(e.target)) {
+        shareDropdown.hidden = true;
+      }
+    });
+  }
+
+  /* ══════════════════════════════════════════
+     PHOTO UPLOAD — preview images
+  ══════════════════════════════════════════ */
+  var photoUpload = document.querySelector('[data-photo-upload]');
+  var photosPreview = document.querySelector('[data-photos-preview]');
+  if (photoUpload && photosPreview) {
+    photoUpload.addEventListener('change', function () {
+      Array.from(photoUpload.files).forEach(function (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var img = document.createElement('img');
+          img.src = e.target.result;
+          img.title = file.name;
+          photosPreview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+      photoUpload.value = '';
+    });
+  }
 
   /* ══════════════════════════════════════════
      INLINE NEW-TASK FORM (column + New task links)
   ══════════════════════════════════════════ */
-  document.querySelectorAll('[data-open-safety]').forEach(function (btn) {
-    btn.addEventListener('click', function () { openTaskModal('New task', 'safety'); });
-  });
-
-  document.querySelectorAll('.fw-safety-bottom-new-task:not([data-open-safety])').forEach(function (btn) {
+  document.querySelectorAll('.fw-safety-bottom-new-task').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.querySelectorAll('.new-task-form').forEach(function (f) { f.remove(); });
       document.querySelectorAll('.fw-safety-bottom-new-task').forEach(function (b) { b.style.display = ''; });
       btn.style.display = 'none';
+
+      var isSafety = !!btn.closest('.safety-column');
 
       var form = document.createElement('div');
       form.className = 'new-task-form';
@@ -683,9 +838,7 @@ window.addEventListener('DOMContentLoaded', function () {
       });
 
       input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && input.value.trim()) {
-          confirmBtn.click();
-        }
+        if (e.key === 'Enter' && input.value.trim()) confirmBtn.click();
       });
 
       cancelBtn.addEventListener('click', function () {
@@ -699,10 +852,11 @@ window.addEventListener('DOMContentLoaded', function () {
         var taskNum = document.querySelectorAll('.task-card').length + 1;
         var card = document.createElement('div');
         card.className = 'task-card';
+        var pinSVG = isSafety
+          ? '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><polygon points="30,5 55,55 5,55" fill="#FF4F4F"/></svg>'
+          : '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>';
         card.innerHTML =
-          '<div class="fw-pin-col">' +
-            '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FA8B34" stroke="#1A1D21" stroke-opacity="0.25"/></svg>' +
-          '</div>' +
+          '<div class="fw-pin-col">' + pinSVG + '</div>' +
           '<div class="name">' +
             '<div class="heading truncate"><span class="task-data">#' + taskNum + ' | @SRE</span></div>' +
             '<div class="fw-task-title">' + title + '</div>' +
@@ -793,5 +947,69 @@ window.addEventListener('DOMContentLoaded', function () {
       if (e.target === backdrop) closeModal();
     });
   }
+
+  /* ══════════════════════════════════════════
+     LOCATION PICKER
+  ══════════════════════════════════════════ */
+  var floorBtn  = document.querySelector('[data-location-dropdown="floor"]');
+  var roomBtn   = document.querySelector('[data-location-dropdown="room"]');
+  var floorMenu = document.querySelector('[data-floor-menu]');
+  var roomMenu  = document.querySelector('[data-room-menu]');
+  var floorText = document.querySelector('[data-floor-text]');
+  var roomText  = document.querySelector('[data-room-text]');
+
+  function closeLocationMenus() {
+    if (floorMenu) floorMenu.hidden = true;
+    if (roomMenu)  roomMenu.hidden  = true;
+    if (floorBtn)  floorBtn.classList.remove('is-open');
+    if (roomBtn)   roomBtn.classList.remove('is-open');
+  }
+
+  if (floorBtn && floorMenu) {
+    floorBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = !floorMenu.hidden;
+      closeLocationMenus();
+      if (!isOpen) { floorMenu.hidden = false; floorBtn.classList.add('is-open'); }
+    });
+    floorMenu.addEventListener('change', function (e) {
+      var radio = e.target.closest('[data-floor-option]');
+      if (!radio) return;
+      if (radio.dataset.floorOption === '') {
+        floorText.textContent = 'Floor';
+        floorBtn.classList.remove('has-value');
+      } else {
+        floorText.textContent = radio.dataset.floorOption;
+        floorBtn.classList.add('has-value');
+      }
+      closeLocationMenus();
+    });
+  }
+
+  if (roomBtn && roomMenu) {
+    roomBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = !roomMenu.hidden;
+      closeLocationMenus();
+      if (!isOpen) { roomMenu.hidden = false; roomBtn.classList.add('is-open'); }
+    });
+    roomMenu.addEventListener('change', function (e) {
+      var radio = e.target.closest('[data-room-option]');
+      if (!radio) return;
+      if (radio.dataset.roomOption === '') {
+        roomText.textContent = 'Room / Area';
+        roomBtn.classList.remove('has-value');
+      } else {
+        roomText.textContent = radio.dataset.roomOption;
+        roomBtn.classList.add('has-value');
+      }
+      closeLocationMenus();
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (floorMenu && !floorMenu.hidden && floorBtn && !floorBtn.contains(e.target) && !floorMenu.contains(e.target)) closeLocationMenus();
+    if (roomMenu  && !roomMenu.hidden  && roomBtn  && !roomBtn.contains(e.target)  && !roomMenu.contains(e.target))  closeLocationMenus();
+  });
 
 });

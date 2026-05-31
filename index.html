@@ -320,6 +320,15 @@
             </div>
           </div>
 
+          <div class="task-card priority-one-extra">
+            <div class="fw-pin-col">
+              <svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="#FF4F4F" stroke="#1A1D21" stroke-opacity="0.25"/></svg>
+            </div>
+            <div class="name">
+              <div class="heading truncate has-check-data"><span class="task-data">#8 | @SKA</span><span class="check-item-data">0/2 <i></i></span></div>
+              <div class="fw-task-title">חיזוק גדר בטיחות קומה 3</div>
+            </div>
+          </div>
           <button class="fw-safety-bottom-new-task" type="button">+ New task</button>
         </article>
 
@@ -635,6 +644,70 @@
           </tr>
           <tr class="modal-body">
             <td class="entity-holder">
+              <div class="entity-scroll-area">
+
+              <section class="description-section section">
+                <p>Description</p>
+                <textarea class="modal-description" placeholder="Add a description..." rows="3"></textarea>
+              </section>
+
+              <section class="location-section section">
+                <p>Location</p>
+                <div class="location-pickers">
+                  <div class="location-picker-wrapper">
+                    <button class="location-btn" type="button" data-location-dropdown="floor">
+                      <span data-floor-text>Floor</span>
+                    </button>
+                    <div class="location-menu" hidden data-floor-menu>
+                      <label data-floor-option="" class="location-clear-opt">Clear selection <input type="radio" name="floor"></label>
+                      <label data-floor-option="Rooftop">Rooftop <input type="radio" name="floor"></label>
+                      <label data-floor-option="Floor 6">Floor 6 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Floor 5">Floor 5 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Floor 4">Floor 4 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Floor 3">Floor 3 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Floor 2">Floor 2 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Floor 1">Floor 1 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Ground Floor">Ground Floor <input type="radio" name="floor"></label>
+                      <label data-floor-option="Basement B1">Basement B1 <input type="radio" name="floor"></label>
+                      <label data-floor-option="Basement B2">Basement B2 <input type="radio" name="floor"></label>
+                    </div>
+                  </div>
+                  <div class="location-picker-wrapper">
+                    <button class="location-btn" type="button" data-location-dropdown="room">
+                      <span data-room-text>Room / Area</span>
+                    </button>
+                    <div class="location-menu" hidden data-room-menu>
+                      <label data-room-option="" class="location-clear-opt">Clear selection <input type="radio" name="room"></label>
+                      <label data-room-option="Lobby">Lobby <input type="radio" name="room"></label>
+                      <label data-room-option="Stairwell">Stairwell <input type="radio" name="room"></label>
+                      <label data-room-option="Elevator Shaft">Elevator Shaft <input type="radio" name="room"></label>
+                      <label data-room-option="Corridor">Corridor <input type="radio" name="room"></label>
+                      <label data-room-option="Living Room">Living Room <input type="radio" name="room"></label>
+                      <label data-room-option="Kitchen">Kitchen <input type="radio" name="room"></label>
+                      <label data-room-option="Bedroom">Bedroom <input type="radio" name="room"></label>
+                      <label data-room-option="Bathroom">Bathroom <input type="radio" name="room"></label>
+                      <label data-room-option="Storage Room">Storage Room <input type="radio" name="room"></label>
+                      <label data-room-option="Parking">Parking <input type="radio" name="room"></label>
+                      <label data-room-option="Balcony">Balcony <input type="radio" name="room"></label>
+                      <label data-room-option="Roof Terrace">Roof Terrace <input type="radio" name="room"></label>
+                      <label data-room-option="Utility Room">Utility Room <input type="radio" name="room"></label>
+                      <label data-room-option="Office">Office <input type="radio" name="room"></label>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="photos-section section">
+                <p>Photos</p>
+                <label class="photo-upload-btn">
+                  <svg width="17" height="14" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg" style="margin-right:6px;flex-shrink:0;">
+                    <path fill-rule="evenodd" fill="white" d="M6 1.5 L5 4 L1 4 L1 13 L16 13 L16 4 L12 4 L11 1.5 Z M8.5 6 A2.5 2.5 0 1 0 8.5 11 A2.5 2.5 0 1 0 8.5 6 Z"/>
+                  </svg> Add photo
+                  <input type="file" accept="image/*" multiple data-photo-upload>
+                </label>
+                <div class="photos-preview" data-photos-preview></div>
+              </section>
+
               <section class="fw-related-tasks section">
                 <p>Related Tasks:</p>
                 <ul class="modal-related-list" data-modal-related></ul>
@@ -664,6 +737,7 @@
                 </div>
                 <div class="activity-feed" data-modal-activity></div>
               </section>
+              </div><!-- /entity-scroll-area -->
 
               <div class="message-box">
                 <button class="message-attach" type="button" title="Attachments" aria-label="Attachments">
@@ -672,7 +746,31 @@
                   </svg>
                 </button>
                 <input type="text" placeholder="Enter message here..." data-modal-message-input>
-                <button class="share-btn" type="button" data-modal-share>Share ▾</button>
+                <button class="send-btn" type="button" data-modal-send>Send</button>
+                <div class="share-wrapper">
+                  <button class="share-btn" type="button" data-modal-share>Share ▾</button>
+                  <div class="share-dropdown" hidden data-share-dropdown>
+                    <button class="share-option" type="button" data-share-action="clipboard">
+                      <i class="fa fa-clone"></i> Copy to clipboard
+                    </button>
+                    <button class="share-option" type="button" data-share-action="send-email">
+                      <i class="fa fa-envelope-o"></i> Send email
+                    </button>
+                    <button class="share-option" type="button" data-share-action="open-email">
+                      <i class="fa fa-external-link"></i> Open in my email
+                    </button>
+                    <div class="share-dropdown-divider"></div>
+                    <button class="share-option" type="button" data-share-action="pdf">
+                      <i class="fa fa-download"></i> Export as PDF
+                    </button>
+                    <button class="share-option" type="button" data-share-action="qr">
+                      <i class="fa fa-qrcode"></i> Export QR code
+                    </button>
+                    <button class="share-option" type="button" data-share-action="photos" disabled>
+                      <i class="fa fa-camera"></i> Export photos
+                    </button>
+                  </div>
+                </div>
               </div>
             </td>
             <td class="entity-attributes-holder">
