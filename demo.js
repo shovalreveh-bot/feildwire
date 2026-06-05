@@ -392,12 +392,36 @@ window.addEventListener('DOMContentLoaded', function () {
     loadTaskData(card);
   }
 
+  /* ── Task selection checkbox ── */
+  function ensureSelectBox(card) {
+    if (card.querySelector('.task-select-box')) return;
+    var nameEl = card.querySelector('.name');
+    if (!nameEl) return;
+    var box = document.createElement('div');
+    box.className = 'task-select-box';
+    nameEl.appendChild(box);
+  }
+
+  function updateActionsCount() {
+    var count = document.querySelectorAll('.task-card.is-selected').length;
+    var badge = document.querySelector('[data-actions-count]');
+    if (badge) { badge.textContent = count; badge.hidden = count === 0; }
+  }
+
+  document.querySelectorAll('.task-card').forEach(ensureSelectBox);
+
   var board = document.querySelector('.board');
   if (board) {
     board.addEventListener('click', function (e) {
       if (e.target.closest('.new-task-form') || e.target.closest('.fw-safety-bottom-new-task')) return;
       var card = e.target.closest('.task-card');
-      if (card) openModalForCard(card);
+      if (!card) return;
+      if (e.target.closest('.task-select-box')) {
+        card.classList.toggle('is-selected');
+        updateActionsCount();
+        return;
+      }
+      openModalForCard(card);
     });
   }
 
@@ -907,6 +931,7 @@ window.addEventListener('DOMContentLoaded', function () {
         form.remove();
         btn.style.display = '';
         btn.parentElement.insertBefore(card, btn);
+        ensureSelectBox(card);
         syncCounts();
       });
 

@@ -883,6 +883,61 @@ html.board-open {
   cursor: pointer;
 }
 
+.task-card:hover {
+  background: #f4f5f6;
+}
+
+.task-card.is-selected {
+  background: #eef2ff;
+  border-color: #b3c2f7;
+}
+
+.task-select-box {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #adb5bd;
+  border-radius: 2px;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.task-card:hover .task-select-box,
+.task-card.is-selected .task-select-box {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.task-card.is-selected .task-select-box {
+  background: #0d5bff;
+  border-color: #0547cf;
+}
+
+.task-card.is-selected .task-select-box::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(40deg);
+}
+
+.task-card:hover .name {
+  padding-right: 30px;
+}
+
+.task-card.is-selected .name {
+  padding-right: 30px;
+}
+
 .fw-pin-col {
   position: relative;
   display: flex;
