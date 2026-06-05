@@ -666,7 +666,7 @@ html.board-open {
   top: calc(100% + 4px);
   left: 0;
   z-index: 300;
-  min-width: 180px;
+  min-width: 190px;
   background: #fff;
   border: 1px solid rgba(0,0,0,0.15);
   border-radius: 4px;
@@ -675,12 +675,14 @@ html.board-open {
   font-family: Lato, sans-serif;
   font-size: 13px;
   color: #202428;
+  direction: ltr;
+  text-align: left;
 }
 
 .actions-item {
   display: block;
   width: 100%;
-  padding: 7px 16px;
+  padding: 6px 16px;
   border: none;
   background: transparent;
   text-align: left;
@@ -689,6 +691,7 @@ html.board-open {
   color: inherit;
   cursor: pointer;
   white-space: nowrap;
+  line-height: 1.5;
 }
 
 .actions-item:hover {
@@ -713,10 +716,14 @@ html.board-open {
 }
 
 .actions-group-label {
-  padding: 7px 16px 3px;
-  font-size: 12px;
+  display: block;
+  width: 100%;
+  padding: 6px 16px 2px;
+  font-size: 13px;
   font-weight: 700;
   color: #202428;
+  text-align: left;
+  line-height: 1.5;
 }
 
 .actions-divider {
