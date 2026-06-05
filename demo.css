@@ -961,36 +961,6 @@ html.board-open {
   white-space: nowrap;
 }
 
-.check-item-data {
-  margin-left: auto;
-  flex: 0 0 auto;
-  color: #8b9299;
-  font-size: 13px;
-  line-height: 18px;
-}
-
-.check-item-data i {
-  position: relative;
-  display: inline-block;
-  width: 11px;
-  height: 11px;
-  margin-left: 2px;
-  border: 1px solid #8b9299;
-  vertical-align: -1px;
-}
-
-.check-item-data i::after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 0;
-  width: 4px;
-  height: 8px;
-  border-right: 2px solid #8b9299;
-  border-bottom: 2px solid #8b9299;
-  transform: rotate(45deg);
-}
-
 
 .actions-count-badge {
   display: inline-flex;
