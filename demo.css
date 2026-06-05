@@ -991,58 +991,6 @@ html.board-open {
   transform: rotate(45deg);
 }
 
-.task-select-box {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #cfd4da;
-  border-radius: 3px;
-  background: #ffffff;
-  opacity: 0;
-  pointer-events: none;
-  cursor: pointer;
-}
-
-.task-card:hover .task-select-box,
-.task-card.is-selected .task-select-box {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.task-card:hover .name,
-.task-card.is-selected .name {
-  padding-right: 34px;
-}
-
-.task-card.is-selected .task-select-box {
-  background: #0d5bff;
-  border-color: #0d5bff;
-}
-
-.task-card.is-selected {
-  background: rgba(13, 91, 255, 0.04);
-}
-
-.task-select-box::before {
-  content: "";
-  width: 5px;
-  height: 9px;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  opacity: 0;
-  transform: rotate(45deg) translate(-1px, -2px);
-}
-
-.task-card.is-selected .task-select-box::before {
-  opacity: 1;
-}
 
 .actions-count-badge {
   display: inline-flex;

@@ -392,39 +392,10 @@ window.addEventListener('DOMContentLoaded', function () {
     loadTaskData(card);
   }
 
-  /* ── Task selection checkboxes ── */
-  function addSelectBox(card) {
-    if (card.querySelector('.task-select-box')) return;
-    var nameEl = card.querySelector('.name');
-    if (!nameEl) return;
-    var cb = document.createElement('div');
-    cb.className = 'task-select-box';
-    cb.setAttribute('data-select-cb', '');
-    nameEl.appendChild(cb);
-  }
-
-  function updateActionsCount() {
-    var count = document.querySelectorAll('.task-card.is-selected').length;
-    var badge = document.querySelector('[data-actions-count]');
-    if (badge) {
-      badge.textContent = count;
-      badge.hidden = count === 0;
-    }
-  }
-
-  document.querySelectorAll('.task-card').forEach(addSelectBox);
-
   var board = document.querySelector('.board');
   if (board) {
     board.addEventListener('click', function (e) {
       if (e.target.closest('.new-task-form') || e.target.closest('.fw-safety-bottom-new-task')) return;
-      var selectCb = e.target.closest('[data-select-cb]');
-      if (selectCb) {
-        e.stopPropagation();
-        selectCb.closest('.task-card').classList.toggle('is-selected');
-        updateActionsCount();
-        return;
-      }
       var card = e.target.closest('.task-card');
       if (card) openModalForCard(card);
     });
@@ -935,7 +906,6 @@ window.addEventListener('DOMContentLoaded', function () {
           '</div>';
         form.remove();
         btn.style.display = '';
-        addSelectBox(card);
         btn.parentElement.insertBefore(card, btn);
         syncCounts();
       });
