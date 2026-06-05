@@ -408,6 +408,40 @@ window.addEventListener('DOMContentLoaded', function () {
     if (badge) { badge.textContent = count; badge.hidden = count === 0; }
   }
 
+  /* ── Actions dropdown ── */
+  var actionsBtn      = document.querySelector('[data-actions-btn]');
+  var actionsDropdown = document.querySelector('[data-actions-dropdown]');
+  if (actionsBtn && actionsDropdown) {
+    actionsBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      actionsDropdown.hidden = !actionsDropdown.hidden;
+    });
+    document.addEventListener('click', function (e) {
+      if (!actionsDropdown.hidden && !actionsBtn.contains(e.target) && !actionsDropdown.contains(e.target)) {
+        actionsDropdown.hidden = true;
+      }
+    });
+    actionsDropdown.addEventListener('click', function (e) {
+      var item = e.target.closest('[data-action]');
+      if (!item) return;
+      var action = item.getAttribute('data-action');
+      var cards = document.querySelectorAll('.board .task-card');
+      if (action === 'select-all') {
+        cards.forEach(function (c) { c.classList.add('is-selected'); });
+        updateActionsCount();
+      } else if (action === 'deselect-all') {
+        cards.forEach(function (c) { c.classList.remove('is-selected'); });
+        updateActionsCount();
+      } else if (action === 'delete') {
+        var selected = document.querySelectorAll('.task-card.is-selected');
+        selected.forEach(function (c) { c.remove(); });
+        updateActionsCount();
+        syncCounts();
+      }
+      actionsDropdown.hidden = true;
+    });
+  }
+
   document.querySelectorAll('.task-card').forEach(ensureSelectBox);
 
   var board = document.querySelector('.board');

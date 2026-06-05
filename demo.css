@@ -657,6 +657,74 @@ html.board-open {
   gap: 4px;
 }
 
+.actions-wrapper {
+  position: relative;
+}
+
+.actions-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 300;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+  padding: 4px 0;
+  font-family: Lato, sans-serif;
+  font-size: 13px;
+  color: #202428;
+}
+
+.actions-item {
+  display: block;
+  width: 100%;
+  padding: 7px 16px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.actions-item:hover {
+  background: #f4f5f6;
+}
+
+.actions-item--disabled {
+  color: #adb5bd;
+  cursor: default;
+}
+
+.actions-item--disabled:hover {
+  background: transparent;
+}
+
+.actions-item--indent {
+  padding-left: 28px;
+}
+
+.actions-item--danger {
+  color: #d2051e;
+}
+
+.actions-group-label {
+  padding: 7px 16px 3px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #202428;
+}
+
+.actions-divider {
+  height: 1px;
+  background: #e8eaec;
+  margin: 4px 0;
+}
+
 .fw-badge {
   display: inline-grid;
   min-width: 17px;

@@ -242,10 +242,33 @@
               <svg width="14" height="13" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="0.75" width="8" height="3.25" rx="0.5" stroke="currentColor" stroke-width="1.5"/><rect x="0.75" y="3.75" width="14.5" height="5.5" rx="1.4" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="7.25" width="8" height="6" rx="0.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12.5" cy="6.5" r="0.85" fill="currentColor"/></svg>
               Generate reports
             </button>
-            <button class="toolbar-btn actions-btn" type="button" data-actions-btn>Actions
-              <span class="actions-count-badge" data-actions-count hidden>0</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </button>
+            <div class="actions-wrapper">
+              <button class="toolbar-btn actions-btn" type="button" data-actions-btn>Actions
+                <span class="actions-count-badge" data-actions-count hidden>0</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="actions-dropdown" hidden data-actions-dropdown>
+                <button class="actions-item" type="button" data-action="select-all">Select all</button>
+                <button class="actions-item" type="button" data-action="deselect-all">Deselect all</button>
+                <div class="actions-divider"></div>
+                <button class="actions-item actions-item--disabled" type="button" disabled>Re-open</button>
+                <div class="actions-divider"></div>
+                <div class="actions-group-label">Move to...</div>
+                <button class="actions-item actions-item--indent" type="button" data-action="move-completed">Completed</button>
+                <button class="actions-item actions-item--indent" type="button" data-action="move-verified">Verified</button>
+                <div class="actions-divider"></div>
+                <button class="actions-item" type="button" data-action="batch-edit">Batch edit</button>
+                <button class="actions-item" type="button" data-action="manage-tags">Manage tags</button>
+                <button class="actions-item" type="button" data-action="add-checklist">Add checklist</button>
+                <button class="actions-item" type="button" data-action="relate-tasks">Relate to tasks</button>
+                <div class="actions-divider"></div>
+                <button class="actions-item" type="button" data-action="move-off-plan">Move off plan</button>
+                <div class="actions-divider"></div>
+                <button class="actions-item" type="button" data-action="export-qr">Export QR codes</button>
+                <div class="actions-divider"></div>
+                <button class="actions-item actions-item--danger" type="button" data-action="delete">Delete</button>
+              </div>
+            </div>
           </div>
           <div class="fw-header-right">
             <label class="task-search">
