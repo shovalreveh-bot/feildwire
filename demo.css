@@ -686,12 +686,13 @@ html.board-open {
   border: none;
   background: transparent;
   text-align: left;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
+  font-family: Lato, sans-serif;
+  font-size: 13px;
+  color: #202428;
   cursor: pointer;
   white-space: nowrap;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 .actions-item:hover {
