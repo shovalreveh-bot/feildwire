@@ -2173,6 +2173,14 @@ fw-button {
   margin-bottom: 3px;
 }
 
+/* ── Attachments section ── */
+.attach-upload-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
 /* ── Photo upload ── */
 .photo-upload-btn {
   display: inline-flex;
@@ -2207,6 +2215,71 @@ fw-button {
   border: 1px solid #d7d7d7;
   border-radius: 3px;
   cursor: pointer;
+}
+
+/* ── File upload button ── */
+.file-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid #d7d7d7;
+  border-radius: 3px;
+  background: #f5f6f7;
+  color: #3d3d3d;
+  font-family: Lato, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.file-upload-btn:hover {
+  background: #ebedf0;
+  border-color: #c0c4ca;
+}
+.file-upload-btn input[type="file"] {
+  display: none;
+}
+
+/* ── Files preview list ── */
+.files-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 4px;
+}
+.files-preview .file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid #e4e6e9;
+  border-radius: 4px;
+  background: #f9f9f9;
+  font-family: Lato, sans-serif;
+  font-size: 13px;
+  color: #3d3d3d;
+}
+.files-preview .file-item-icon {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+.files-preview .file-item-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.files-preview .file-item-remove {
+  border: none;
+  background: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0;
+  line-height: 1;
+}
+.files-preview .file-item-remove:hover {
+  color: #e53935;
 }
 
 /* ── Send button ── */

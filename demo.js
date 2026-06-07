@@ -400,9 +400,11 @@ window.addEventListener('DOMContentLoaded', function () {
     var descEl = document.querySelector('.modal-description');
     if (descEl) descEl.value = '';
 
-    // Reset photo previews
+    // Reset photo and file previews
     var photosPreviewEl = document.querySelector('[data-photos-preview]');
     if (photosPreviewEl) photosPreviewEl.innerHTML = '';
+    var filesPreviewEl = document.querySelector('[data-files-preview]');
+    if (filesPreviewEl) filesPreviewEl.innerHTML = '';
 
     // Reset location picker to defaults
     var floorTextEl = document.querySelector('[data-floor-text]');
@@ -995,6 +997,32 @@ window.addEventListener('DOMContentLoaded', function () {
         reader.readAsDataURL(file);
       });
       photoUpload.value = '';
+    });
+  }
+
+  /* ══════════════════════════════════════════
+     FILE UPLOAD — preview file list
+  ══════════════════════════════════════════ */
+  var fileUpload = document.querySelector('[data-file-upload]');
+  var filesPreview = document.querySelector('[data-files-preview]');
+  if (fileUpload && filesPreview) {
+    fileUpload.addEventListener('change', function () {
+      Array.from(fileUpload.files).forEach(function (file) {
+        var item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML =
+          '<svg class="file-item-icon" width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+            '<path d="M2 1h7l3 3v11H2V1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' +
+            '<path d="M9 1v3h3" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' +
+          '</svg>' +
+          '<span class="file-item-name" title="' + file.name + '">' + file.name + '</span>' +
+          '<button class="file-item-remove" type="button" aria-label="Remove">&times;</button>';
+        item.querySelector('.file-item-remove').addEventListener('click', function () {
+          item.remove();
+        });
+        filesPreview.appendChild(item);
+      });
+      fileUpload.value = '';
     });
   }
 
