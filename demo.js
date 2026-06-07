@@ -235,6 +235,14 @@ window.addEventListener('DOMContentLoaded', function () {
     // Toggle the safety-mode skin on the modal
     backdrop.classList.toggle('is-safety', cfg.isSafety);
 
+    // Show/hide status options based on task type
+    document.querySelectorAll('.status-safety-only').forEach(function (el) {
+      el.style.display = cfg.isSafety ? '' : 'none';
+    });
+    document.querySelectorAll('.status-priority-only').forEach(function (el) {
+      el.style.display = cfg.isSafety ? 'none' : '';
+    });
+
     // Close any open attr dropdowns
     document.querySelectorAll('.attr-dropdown').forEach(function (d) { d.hidden = true; });
   }
@@ -621,6 +629,14 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     function applyStatusChange(newStatus, opt) {
+      var nowSafety = newStatus === 'Safety';
+      document.querySelectorAll('.status-safety-only').forEach(function (el) {
+        el.style.display = nowSafety ? '' : 'none';
+      });
+      document.querySelectorAll('.status-priority-only').forEach(function (el) {
+        el.style.display = nowSafety ? 'none' : '';
+      });
+
       document.querySelectorAll('[data-modal-status]').forEach(function (el) {
         el.textContent = newStatus;
       });
