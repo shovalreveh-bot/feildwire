@@ -788,7 +788,19 @@ window.addEventListener('DOMContentLoaded', function () {
         msgInput.value = '';
         if (msgInput.tagName === 'TEXTAREA') msgInput.style.height = '';
       }
+      setTypingState(false);
     });
+  }
+
+  var msgBox = document.querySelector('.message-box');
+
+  function setTypingState(typing) {
+    if (!msgBox) return;
+    if (typing) {
+      msgBox.classList.add('is-typing');
+    } else {
+      msgBox.classList.remove('is-typing');
+    }
   }
 
   if (sendBtn)  sendBtn.addEventListener('click', sendMessage);
@@ -796,10 +808,15 @@ window.addEventListener('DOMContentLoaded', function () {
     msgInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
     });
+    msgInput.addEventListener('focus', function () { setTypingState(true); });
+    msgInput.addEventListener('blur', function () {
+      if (!msgInput.value.trim()) setTypingState(false);
+    });
     if (msgInput.tagName === 'TEXTAREA') {
       msgInput.addEventListener('input', function () {
         msgInput.style.height = 'auto';
         msgInput.style.height = msgInput.scrollHeight + 'px';
+        setTypingState(!!msgInput.value.trim());
       });
     }
   }
