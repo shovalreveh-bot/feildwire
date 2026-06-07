@@ -663,7 +663,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var newStatus = opt.dataset.statusOption;
         statusDropdown.hidden = true;
 
-        if (newStatus === 'Priority 2') {
+        if (opt.hasAttribute('data-confirm-change')) {
           showConfirm('Are you sure you want to change to normal task?', function () {
             applyStatusChange(newStatus, opt);
           });

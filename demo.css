@@ -4849,6 +4849,13 @@ width: 100%;
   cursor: not-allowed;
 }
 
+/* ── Status dropdown: safety vs normal task options ── */
+/* default: task is normal priority → show priority options, hide "change to normal" */
+.status-safety-only { display: none; }
+/* when task is safety → show "change to normal", hide priority options */
+.is-safety .status-safety-only { display: block; }
+.is-safety .status-priority-only { display: none; }
+
 /* ── Confirmation dialog ── */
 .confirm-overlay {
   position: absolute;
