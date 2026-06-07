@@ -2071,7 +2071,7 @@ fw-button {
 }
 
 .entity-scroll-area {
-  max-height: 560px; /* modal-body 603px - message-box 43px */
+  max-height: 603px; /* full modal-body height */
   overflow-y: auto;
   padding: 0 18px 16px;
 }
