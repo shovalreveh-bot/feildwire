@@ -301,6 +301,35 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ══════════════════════════════════════════
+     CONFIRMATION DIALOG
+  ══════════════════════════════════════════ */
+  var confirmOverlay  = document.querySelector('[data-confirm-overlay]');
+  var confirmMsgEl    = document.querySelector('[data-confirm-message]');
+  var confirmOkBtn    = document.querySelector('[data-confirm-ok]');
+  var confirmCancelBtn = document.querySelector('[data-confirm-cancel]');
+  var confirmCallback = null;
+
+  function showConfirm(message, onContinue) {
+    if (!confirmOverlay) { onContinue(); return; }
+    if (confirmMsgEl) confirmMsgEl.textContent = message;
+    confirmCallback = onContinue;
+    confirmOverlay.hidden = false;
+  }
+
+  if (confirmOkBtn) {
+    confirmOkBtn.addEventListener('click', function () {
+      confirmOverlay.hidden = true;
+      if (confirmCallback) { var cb = confirmCallback; confirmCallback = null; cb(); }
+    });
+  }
+  if (confirmCancelBtn) {
+    confirmCancelBtn.addEventListener('click', function () {
+      confirmOverlay.hidden = true;
+      confirmCallback = null;
+    });
+  }
+
   function closeModal() {
     saveCurrentTaskData();
     if (backdrop) backdrop.hidden = true;
@@ -591,57 +620,69 @@ window.addEventListener('DOMContentLoaded', function () {
       'Verified':   '[data-e2e="task-priority-header-text-VERIFIED"]'
     };
 
+    function applyStatusChange(newStatus, opt) {
+      document.querySelectorAll('[data-modal-status]').forEach(function (el) {
+        el.textContent = newStatus;
+      });
+      statusDropdown.querySelectorAll('.status-option').forEach(function (o) { o.classList.remove('is-active'); });
+      if (opt) opt.classList.add('is-active');
+      backdrop.classList.toggle('is-safety', newStatus === 'Safety');
+      statusDropdown.hidden = true;
+
+      var card = modalTaskCards[modalCurrentIdx];
+      if (card) {
+        card.dataset.currentStatus = newStatus;
+        var pinCol = card.querySelector('.fw-pin-col');
+        if (pinCol && statusShapes[newStatus]) pinCol.innerHTML = statusShapes[newStatus];
+
+        var selector = statusColMap[newStatus];
+        var targetCol = selector && (selector.startsWith('.') ?
+          document.querySelector(selector) :
+          (document.querySelector(selector) && document.querySelector(selector).closest('.column')));
+        if (targetCol && card.closest('.column') !== targetCol) {
+          var link = targetCol.querySelector('.fw-safety-bottom-new-task');
+          targetCol.insertBefore(card, link || null);
+          syncCounts();
+        }
+
+        if (newStatus === 'Verified') {
+          setTimeout(function () {
+            closeModal();
+            card.classList.add('is-completing');
+            card.addEventListener('animationend', function () {
+              card.remove();
+              syncCounts();
+            }, { once: true });
+          }, 600);
+        }
+      }
+    }
+
     statusDropdown.querySelectorAll('[data-status-option]').forEach(function (opt) {
       opt.addEventListener('click', function () {
         var newStatus = opt.dataset.statusOption;
-        document.querySelectorAll('[data-modal-status]').forEach(function (el) {
-          el.textContent = newStatus;
-        });
-        // highlight the active option
-        statusDropdown.querySelectorAll('.status-option').forEach(function (o) { o.classList.remove('is-active'); });
-        opt.classList.add('is-active');
-        // switch between safety / regular layouts when status changes
-        backdrop.classList.toggle('is-safety', newStatus === 'Safety');
         statusDropdown.hidden = true;
 
-        // Update card icon and move to correct column
-        var card = modalTaskCards[modalCurrentIdx];
-        if (card) {
-          card.dataset.currentStatus = newStatus;
-          var pinCol = card.querySelector('.fw-pin-col');
-          if (pinCol && statusShapes[newStatus]) pinCol.innerHTML = statusShapes[newStatus];
-
-          var selector = statusColMap[newStatus];
-          var targetCol = selector && (selector.startsWith('.') ?
-            document.querySelector(selector) :
-            (document.querySelector(selector) && document.querySelector(selector).closest('.column')));
-          if (targetCol && card.closest('.column') !== targetCol) {
-            var link = targetCol.querySelector('.fw-safety-bottom-new-task');
-            targetCol.insertBefore(card, link || null);
-            syncCounts();
-          }
-
-          if (newStatus === 'Verified') {
-            setTimeout(function () {
-              closeModal();
-              card.classList.add('is-completing');
-              card.addEventListener('animationend', function () {
-                card.remove();
-                syncCounts();
-              }, { once: true });
-            }, 600);
-          }
+        if (newStatus === 'Priority 2') {
+          showConfirm('Are you sure you want to change to normal task?', function () {
+            applyStatusChange(newStatus, opt);
+          });
+          return;
         }
+
+        applyStatusChange(newStatus, opt);
       });
     });
 
     var deleteFromStatus = statusDropdown.querySelector('[data-status-delete]');
     if (deleteFromStatus) {
       deleteFromStatus.addEventListener('click', function () {
-        var card = modalTaskCards[modalCurrentIdx];
-        if (card) { card.remove(); syncCounts(); }
         statusDropdown.hidden = true;
-        closeModal();
+        showConfirm('Are you sure you want to delete this task?', function () {
+          var card = modalTaskCards[modalCurrentIdx];
+          if (card) { card.remove(); syncCounts(); }
+          closeModal();
+        });
       });
     }
   }
