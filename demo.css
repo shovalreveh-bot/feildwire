@@ -926,6 +926,11 @@ html.board-open {
   white-space: nowrap;
 }
 
+.safety-column h2 .header-count {
+  color: #d2051e;
+  font-weight: 700;
+}
+
 .column-rule {
   display: none;
 }
