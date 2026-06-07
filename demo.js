@@ -237,10 +237,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Show/hide status options based on task type
     document.querySelectorAll('.status-safety-only').forEach(function (el) {
-      el.style.display = cfg.isSafety ? '' : 'none';
+      el.style.display = cfg.isSafety ? 'block' : 'none';
     });
     document.querySelectorAll('.status-priority-only').forEach(function (el) {
-      el.style.display = cfg.isSafety ? 'none' : '';
+      el.style.display = cfg.isSafety ? 'none' : 'block';
     });
 
     // Close any open attr dropdowns
@@ -631,10 +631,10 @@ window.addEventListener('DOMContentLoaded', function () {
     function applyStatusChange(newStatus, opt) {
       var nowSafety = newStatus === 'Safety';
       document.querySelectorAll('.status-safety-only').forEach(function (el) {
-        el.style.display = nowSafety ? '' : 'none';
+        el.style.display = nowSafety ? 'block' : 'none';
       });
       document.querySelectorAll('.status-priority-only').forEach(function (el) {
-        el.style.display = nowSafety ? 'none' : '';
+        el.style.display = nowSafety ? 'none' : 'block';
       });
 
       document.querySelectorAll('[data-modal-status]').forEach(function (el) {
