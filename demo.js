@@ -686,13 +686,6 @@ window.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
-        if (opt.classList.contains('status-priority-only')) {
-          showConfirm('Are you sure you want to change to ' + newStatus + '?', function () {
-            applyStatusChange(newStatus, opt);
-          });
-          return;
-        }
-
         applyStatusChange(newStatus, opt);
       });
     });
