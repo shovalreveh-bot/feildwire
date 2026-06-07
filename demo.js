@@ -607,6 +607,16 @@ window.addEventListener('DOMContentLoaded', function () {
   if (statusRow && statusDropdown) {
     statusRow.addEventListener('click', function (e) {
       if (e.target.closest('[data-status-option]') || e.target.closest('[data-status-delete]')) return;
+
+      // Always sync visibility right before showing the dropdown
+      var isSafety = backdrop.classList.contains('is-safety');
+      statusDropdown.querySelectorAll('.status-safety-only').forEach(function (el) {
+        el.style.display = isSafety ? 'block' : 'none';
+      });
+      statusDropdown.querySelectorAll('.status-priority-only').forEach(function (el) {
+        el.style.display = isSafety ? 'none' : 'block';
+      });
+
       statusDropdown.hidden = !statusDropdown.hidden;
     });
 
