@@ -1232,12 +1232,25 @@ window.addEventListener('DOMContentLoaded', function () {
     if (roomMenu  && !roomMenu.hidden  && roomBtn  && !roomBtn.contains(e.target)  && !roomMenu.contains(e.target))  closeLocationMenus();
   });
 
-  /* Analytics button → open real Fieldwire analytics page */
-  var analyticsBtn = document.querySelector('[aria-label="Analytics"]');
-  if (analyticsBtn) {
-    analyticsBtn.addEventListener('click', function () {
-      window.open('https://app.fieldwire.com/projects/5e0f8582-a50d-45ee-83cb-4ba9939fa5f2/tasks?a=2037007', '_blank');
+  /* ── View-mode toggle: Kanban / Calendar / Gantt / Analytics ── */
+  var boardSection    = document.querySelector('.board');
+  var analyticsView   = document.querySelector('.fw-analytics-view');
+  var segBtns         = document.querySelectorAll('.fw-seg-btn');
+
+  function activateView(label) {
+    segBtns.forEach(function (b) {
+      b.classList.toggle('fw-seg-btn-active', b.getAttribute('aria-label') === label);
     });
+    var showAnalytics = (label === 'Analytics');
+    if (boardSection)  boardSection.hidden  = showAnalytics;
+    if (analyticsView) analyticsView.hidden = !showAnalytics;
   }
 
+  segBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      activateView(btn.getAttribute('aria-label'));
+    });
+  });
+
 });
+

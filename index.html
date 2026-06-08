@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="demo.css?v=12">
+    <link rel="stylesheet" href="demo.css?v=14">
   </head>
   <body>
     <div class="device-switch" aria-label="Preview size">
@@ -854,8 +854,201 @@
       <button class="modal-nav-btn modal-next-btn" type="button" data-modal-next aria-label="Next task">&#8250;</button>
     </div>
 
+    <!-- ══════════════ ANALYTICS VIEW ══════════════ -->
+    <section class="fw-analytics-view" aria-label="Analytics" hidden>
+      <div class="analytics-header">
+        <h2 class="analytics-title">Graphs</h2>
+        <span class="analytics-project">house</span>
+      </div>
+
+      <div class="graphs-wrapper">
+
+        <!-- Current Tasks -->
+        <div class="chart-panel" id="current-tasks">
+          <h3 class="chart-panel-title">Current Tasks</h3>
+          <div class="chart-panel-body current-tasks-body">
+
+            <!-- Horizontal bar chart -->
+            <div class="bar-chart-wrap">
+              <div class="bar-row">
+                <span class="bar-label">Priority 1</span>
+                <div class="bar-track"><div class="bar-fill p1" style="width:16.7%"></div></div>
+                <span class="bar-count">2</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Priority 2</span>
+                <div class="bar-track"><div class="bar-fill p2" style="width:58.3%"></div></div>
+                <span class="bar-count">7</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Priority 3</span>
+                <div class="bar-track"><div class="bar-fill p3" style="width:8.3%"></div></div>
+                <span class="bar-count">1</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Completed</span>
+                <div class="bar-track"><div class="bar-fill completed" style="width:16.7%"></div></div>
+                <span class="bar-count">2</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Verified</span>
+                <div class="bar-track"><div class="bar-fill verified" style="width:0%"></div></div>
+                <span class="bar-count">0</span>
+              </div>
+            </div>
+
+            <!-- Donut chart -->
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 120 120" width="120" height="120">
+                <!-- C = 2π×44 ≈ 276.46; each segment: dasharray=[arc] [C-arc], dashoffset=-cumulative, rotate(-90) -->
+                <!-- P1=2/12→46.08  P2=7/12→161.27  P3=1/12→23.04  Done=2/12→46.08  Verified=0 -->
+                <circle cx="60" cy="60" r="44" fill="none" stroke="#e0e0e0" stroke-width="16"/>
+                <!-- P1 red: starts at 0 -->
+                <circle cx="60" cy="60" r="44" fill="none" stroke="#d2051e" stroke-width="16"
+                  stroke-dasharray="46.08 230.38" stroke-dashoffset="0" transform="rotate(-90,60,60)"/>
+                <!-- P2 orange: starts after P1 = 46.08 -->
+                <circle cx="60" cy="60" r="44" fill="none" stroke="#f5a623" stroke-width="16"
+                  stroke-dasharray="161.27 115.19" stroke-dashoffset="-46.08" transform="rotate(-90,60,60)"/>
+                <!-- P3 yellow: starts after P1+P2 = 207.35 -->
+                <circle cx="60" cy="60" r="44" fill="none" stroke="#f8d000" stroke-width="16"
+                  stroke-dasharray="23.04 253.42" stroke-dashoffset="-207.35" transform="rotate(-90,60,60)"/>
+                <!-- Completed green: starts after P1+P2+P3 = 230.39 -->
+                <circle cx="60" cy="60" r="44" fill="none" stroke="#4caf50" stroke-width="16"
+                  stroke-dasharray="46.08 230.38" stroke-dashoffset="-230.39" transform="rotate(-90,60,60)"/>
+                <text x="60" y="55" text-anchor="middle" font-size="20" font-weight="700" fill="#333">12</text>
+                <text x="60" y="70" text-anchor="middle" font-size="9" fill="#888">Total</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item"><span class="legend-dot p1-dot"></span>Priority 1 — 2</div>
+                <div class="legend-item"><span class="legend-dot p2-dot"></span>Priority 2 — 7</div>
+                <div class="legend-item"><span class="legend-dot p3-dot"></span>Priority 3 — 1</div>
+                <div class="legend-item"><span class="legend-dot completed-dot"></span>Completed — 2</div>
+                <div class="legend-item"><span class="legend-dot verified-dot"></span>Verified — 0</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Lifetime Tasks -->
+        <div class="chart-panel" id="lifetime-tasks">
+          <h3 class="chart-panel-title">Lifetime Tasks</h3>
+          <div class="lifetime-info-row">
+            <div class="lifetime-info-box">
+              <span class="lifetime-info-num open-color">15</span>
+              <span class="lifetime-info-label">Open</span>
+            </div>
+            <div class="lifetime-info-box">
+              <span class="lifetime-info-num completed-color">2</span>
+              <span class="lifetime-info-label">Completed</span>
+            </div>
+            <div class="lifetime-info-box">
+              <span class="lifetime-info-num verified-color">0</span>
+              <span class="lifetime-info-label">Verified</span>
+            </div>
+          </div>
+          <div class="area-chart-wrap">
+            <svg class="area-svg" viewBox="0 0 560 180" preserveAspectRatio="xMidYMid meet">
+              <!-- Axes -->
+              <line x1="40" y1="10" x2="40" y2="155" stroke="#ddd" stroke-width="1"/>
+              <line x1="40" y1="155" x2="550" y2="155" stroke="#ddd" stroke-width="1"/>
+              <!-- Y grid lines -->
+              <line x1="40" y1="105" x2="550" y2="105" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+              <line x1="40" y1="55" x2="550" y2="55" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+              <!-- Y labels -->
+              <text x="34" y="158" text-anchor="end" font-size="9" fill="#aaa">0</text>
+              <text x="34" y="108" text-anchor="end" font-size="9" fill="#aaa">5</text>
+              <text x="34" y="58" text-anchor="end" font-size="9" fill="#aaa">10</text>
+              <!-- X labels: Mar 22 → May 31 -->
+              <text x="40"  y="168" text-anchor="middle" font-size="8" fill="#aaa">03/22</text>
+              <text x="166" y="168" text-anchor="middle" font-size="8" fill="#aaa">04/06</text>
+              <text x="292" y="168" text-anchor="middle" font-size="8" fill="#aaa">04/21</text>
+              <text x="418" y="168" text-anchor="middle" font-size="8" fill="#aaa">05/06</text>
+              <text x="550" y="168" text-anchor="middle" font-size="8" fill="#aaa">05/31</text>
+              <!-- Stacked area: Verified (top, teal) -->
+              <polygon points="40,155 166,155 292,155 418,155 550,155 550,155 418,155 292,155 166,155 40,155"
+                fill="#26c6da" fill-opacity="0.7"/>
+              <!-- Stacked area: Completed (middle, green) -->
+              <polygon points="40,155 100,153 166,151 230,148 292,147 350,146 418,145 480,144 550,144
+                               550,155 480,155 418,155 350,155 292,155 230,155 166,155 100,155 40,155"
+                fill="#66bb6a" fill-opacity="0.7"/>
+              <!-- Stacked area: Open (bottom, orange-red) -->
+              <polygon points="40,155 60,150 100,140 140,128 166,115 200,100 230,88 260,78 292,70 320,65 350,60 380,58 418,55 450,54 480,53 520,52 550,52
+                               550,144 480,144 418,145 350,146 292,147 230,148 166,151 100,153 40,155"
+                fill="#ef5350" fill-opacity="0.7"/>
+              <!-- Lines on top -->
+              <polyline points="40,155 60,150 100,140 140,128 166,115 200,100 230,88 260,78 292,70 320,65 350,60 380,58 418,55 450,54 480,53 520,52 550,52"
+                fill="none" stroke="#ef5350" stroke-width="1.5"/>
+              <polyline points="40,155 100,153 166,151 230,148 292,147 350,146 418,145 480,144 550,144"
+                fill="none" stroke="#66bb6a" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="chart-panel" id="in-progress">
+          <h3 class="chart-panel-title">In Progress</h3>
+          <div class="inprogress-info-row">
+            <div class="inprogress-info-box">
+              <span class="inprogress-num">0</span>
+              <span class="inprogress-label">Open rate</span>
+            </div>
+            <div class="inprogress-info-box">
+              <span class="inprogress-num">1</span>
+              <span class="inprogress-label">Completed rate</span>
+            </div>
+            <div class="inprogress-info-box">
+              <span class="inprogress-num">0</span>
+              <span class="inprogress-label">Verified rate</span>
+            </div>
+            <div class="inprogress-info-box highlight-box">
+              <span class="inprogress-num days-num">105</span>
+              <span class="inprogress-label">Days to completion</span>
+            </div>
+          </div>
+          <div class="line-chart-wrap">
+            <svg class="line-svg" viewBox="0 0 560 180" preserveAspectRatio="xMidYMid meet">
+              <!-- Axes -->
+              <line x1="40" y1="10" x2="40" y2="155" stroke="#ddd" stroke-width="1"/>
+              <line x1="40" y1="155" x2="550" y2="155" stroke="#ddd" stroke-width="1"/>
+              <!-- Grid -->
+              <line x1="40" y1="105" x2="550" y2="105" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+              <line x1="40" y1="55"  x2="550" y2="55"  stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+              <!-- Y labels -->
+              <text x="34" y="158" text-anchor="end" font-size="9" fill="#aaa">0</text>
+              <text x="34" y="108" text-anchor="end" font-size="9" fill="#aaa">50%</text>
+              <text x="34" y="58"  text-anchor="end" font-size="9" fill="#aaa">100%</text>
+              <!-- X labels -->
+              <text x="40"  y="168" text-anchor="middle" font-size="8" fill="#aaa">03/22</text>
+              <text x="166" y="168" text-anchor="middle" font-size="8" fill="#aaa">04/06</text>
+              <text x="292" y="168" text-anchor="middle" font-size="8" fill="#aaa">04/21</text>
+              <text x="418" y="168" text-anchor="middle" font-size="8" fill="#aaa">05/06</text>
+              <text x="550" y="168" text-anchor="middle" font-size="8" fill="#aaa">05/31</text>
+              <!-- Open rate line (red, stays near 100% then drops) -->
+              <polyline points="40,55 100,58 166,65 230,80 292,95 350,110 418,125 480,135 550,140"
+                fill="none" stroke="#ef5350" stroke-width="2"/>
+              <!-- Completed rate line (green, rises) -->
+              <polyline points="40,155 100,152 166,148 230,138 292,125 350,110 418,95 480,80 550,70"
+                fill="none" stroke="#66bb6a" stroke-width="2"/>
+              <!-- Verified rate line (teal, flat near 0) -->
+              <polyline points="40,155 166,155 292,155 418,154 550,153"
+                fill="none" stroke="#26c6da" stroke-width="2"/>
+              <!-- Legend -->
+              <rect x="380" y="14" width="8" height="8" rx="1" fill="#ef5350"/>
+              <text x="392" y="22" font-size="9" fill="#666">Open rate</text>
+              <rect x="380" y="28" width="8" height="8" rx="1" fill="#66bb6a"/>
+              <text x="392" y="36" font-size="9" fill="#666">Completed rate</text>
+              <rect x="380" y="42" width="8" height="8" rx="1" fill="#26c6da"/>
+              <text x="392" y="50" font-size="9" fill="#666">Verified rate</text>
+            </svg>
+          </div>
+        </div>
+
+      </div><!-- /graphs-wrapper -->
+    </section><!-- /fw-analytics-view -->
+
     </div><!-- /board-page -->
 
-    <script src="demo.js?v=13"></script>
+    <script src="demo.js?v=14"></script>
   </body>
 </html>
