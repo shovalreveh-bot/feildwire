@@ -5022,13 +5022,13 @@ width: 100%;
   background: #fff;
   border: 1px solid #dde0e4;
   border-radius: 4px;
-  padding: 20px 24px 16px;
+  padding: 28px 32px 22px;
 }
 .chart-panel-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
-  color: #444;
-  margin: 0 0 14px;
+  color: #333;
+  margin: 0 0 20px;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -5052,12 +5052,12 @@ width: 100%;
 /* Donut */
 .donut-wrap {
   flex-shrink: 0;
-  width: 140px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.donut-svg { display: block; }
+.donut-svg { display: block; width: 200px; height: 200px; }
 
 /* Chart legend row (shared) */
 .chart-legend-row {
@@ -5070,14 +5070,14 @@ width: 100%;
 .cl-item {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 11px;
+  gap: 6px;
+  font-size: 13px;
   color: #555;
 }
 .cl-dot {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -5086,7 +5086,7 @@ width: 100%;
 .show-raw-data {
   display: block;
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   color: #0d5bff;
   text-decoration: none;
   margin-top: 4px;
@@ -5109,21 +5109,21 @@ width: 100%;
 /* Sidebar stat boxes */
 .chart-sidebar {
   flex-shrink: 0;
-  width: 170px;
+  width: 190px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .stat-box {
   border: 1px solid #dde0e4;
   border-radius: 4px;
-  padding: 10px 14px;
+  padding: 14px 16px;
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
 }
 .stat-num {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   color: #1a1a1a;
   line-height: 1;
@@ -5135,7 +5135,7 @@ width: 100%;
   flex-direction: column;
 }
 .stat-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #333;
   line-height: 1.3;
