@@ -228,6 +228,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var titleEl = card.querySelector('.fw-task-title');
     h.push({ id: id, title: titleEl ? titleEl.textContent.trim() : '', openedAt: Date.now(), closedAt: null });
     saveSafetyHistory(h);
+    renderSafetyLog();
   }
 
   function recordSafetyClosed(card) {
@@ -238,6 +239,7 @@ window.addEventListener('DOMContentLoaded', function () {
     if (task && !task.closedAt) {
       task.closedAt = Date.now();
       saveSafetyHistory(h);
+      renderSafetyLog();
     }
   }
 
