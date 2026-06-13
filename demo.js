@@ -1308,7 +1308,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var tri = document.getElementById('safety-tri-icon');
         if (tri) {
           if (w > 0) {
-            var cx = x + w / 2, cy = 190;
+            var cx = x + w / 2, cy = 118;
             tri.setAttribute('points', cx+','+( cy-14)+' '+(cx+12)+','+(cy+11)+' '+(cx-12)+','+(cy+11));
             tri.setAttribute('visibility', 'visible');
           } else {

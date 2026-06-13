@@ -434,8 +434,8 @@
 
               <!-- Stacked bar + legend -->
               <div class="stacked-bar-area">
-                <!-- Labels at TOP like the real chart; gridlines extend down; bar near bottom -->
-                <svg class="stacked-bar-svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
+                <!-- Labels at TOP like the real chart; gridlines extend down -->
+                <svg class="stacked-bar-svg" viewBox="0 0 600 220" preserveAspectRatio="xMidYMid meet">
                   <!-- X-axis numbers at top -->
                   <text x="50"  y="18" text-anchor="middle" font-size="12" fill="#888">0</text>
                   <text x="92"  y="18" text-anchor="middle" font-size="12" fill="#888">1</text>
@@ -450,29 +450,29 @@
                   <text x="467" y="18" text-anchor="middle" font-size="12" fill="#888">10</text>
                   <text x="508" y="18" text-anchor="middle" font-size="12" fill="#888">11</text>
                   <text x="550" y="18" text-anchor="middle" font-size="12" fill="#888">12</text>
-                  <!-- Vertical grid lines: top (y=24) to bottom of bar area (y=295) -->
-                  <line x1="50"  y1="24" x2="50"  y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="92"  y1="24" x2="92"  y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="133" y1="24" x2="133" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="175" y1="24" x2="175" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="217" y1="24" x2="217" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="258" y1="24" x2="258" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="300" y1="24" x2="300" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="342" y1="24" x2="342" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="383" y1="24" x2="383" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="425" y1="24" x2="425" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="467" y1="24" x2="467" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="508" y1="24" x2="508" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <line x1="550" y1="24" x2="550" y2="295" stroke="#e8e8e8" stroke-width="1"/>
-                  <!-- Stacked bar: y=162 h=55 → center ~189 (61% from top of grid) -->
-                  <text x="44" y="194" text-anchor="end" font-size="13" fill="#888">–</text>
-                  <rect id="bar-safety"    x="50"     y="162" width="0"      height="55" fill="#ffcdd2" rx="1"/>
+                  <!-- Vertical grid lines: top (y=24) to bottom (y=210) -->
+                  <line x1="50"  y1="24" x2="50"  y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="92"  y1="24" x2="92"  y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="133" y1="24" x2="133" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="175" y1="24" x2="175" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="217" y1="24" x2="217" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="258" y1="24" x2="258" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="300" y1="24" x2="300" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="342" y1="24" x2="342" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="383" y1="24" x2="383" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="425" y1="24" x2="425" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="467" y1="24" x2="467" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="508" y1="24" x2="508" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="550" y1="24" x2="550" y2="210" stroke="#e8e8e8" stroke-width="1"/>
+                  <!-- Stacked bar: y=90 h=55 → center ~117 (35% from top of grid) -->
+                  <text x="44" y="122" text-anchor="end" font-size="13" fill="#888">–</text>
+                  <rect id="bar-safety"    x="50"     y="90" width="0"      height="55" fill="#ffcdd2" rx="1"/>
                   <polygon id="safety-tri-icon" points="0,0 0,0 0,0" fill="#FF4F4F" visibility="hidden"/>
-                  <rect id="bar-p1"        x="50"     y="162" width="83.33"  height="55" fill="#ef5350" rx="1"/>
-                  <rect id="bar-p2"        x="133.33" y="162" width="291.67" height="55" fill="#ff9800" rx="1"/>
-                  <rect id="bar-p3"        x="425"    y="162" width="41.67"  height="55" fill="#ffd54f" rx="1"/>
-                  <rect id="bar-completed" x="466.67" y="162" width="83.33"  height="55" fill="#81c784" rx="1"/>
-                  <rect id="bar-verified"  x="550"    y="162" width="0"      height="55" fill="#4dd0e1" rx="1"/>
+                  <rect id="bar-p1"        x="50"     y="90" width="83.33"  height="55" fill="#ef5350" rx="1"/>
+                  <rect id="bar-p2"        x="133.33" y="90" width="291.67" height="55" fill="#ff9800" rx="1"/>
+                  <rect id="bar-p3"        x="425"    y="90" width="41.67"  height="55" fill="#ffd54f" rx="1"/>
+                  <rect id="bar-completed" x="466.67" y="90" width="83.33"  height="55" fill="#81c784" rx="1"/>
+                  <rect id="bar-verified"  x="550"    y="90" width="0"      height="55" fill="#4dd0e1" rx="1"/>
                 </svg>
                 <div class="chart-legend-row">
                   <span class="cl-item"><svg width="8" height="8" viewBox="0 0 10 10" style="margin-right:4px;flex-shrink:0"><polygon points="5,0 10,10 0,10" fill="#FF4F4F"/></svg>Safety</span>
