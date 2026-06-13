@@ -2059,6 +2059,7 @@ fw-button {
 }
 
 .entity-holder {
+  position: relative;
   width: 540px;
   padding: 0;
   border-right: 1px solid #d7d7d7;
@@ -2502,7 +2503,10 @@ fw-button {
 }
 
 .message-box {
-  position: static;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
   height: 43px;
   grid-template-columns: 38px 1fr 90px;
   gap: 8px;
