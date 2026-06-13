@@ -436,12 +436,6 @@
               <div class="stacked-bar-area">
                 <!-- Labels at TOP like the real chart; gridlines extend down; bar near bottom -->
                 <svg class="stacked-bar-svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
-                  <defs>
-                    <pattern id="safety-tri-pattern" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
-                      <rect width="14" height="14" fill="#ff4f4f" opacity="0.18"/>
-                      <polygon points="7,1.5 13,12.5 1,12.5" fill="#FF4F4F"/>
-                    </pattern>
-                  </defs>
                   <!-- X-axis numbers at top -->
                   <text x="50"  y="18" text-anchor="middle" font-size="12" fill="#888">0</text>
                   <text x="92"  y="18" text-anchor="middle" font-size="12" fill="#888">1</text>
@@ -472,7 +466,8 @@
                   <line x1="550" y1="24" x2="550" y2="295" stroke="#e8e8e8" stroke-width="1"/>
                   <!-- Stacked bar: y=245 h=50 (positioned near bottom like original) -->
                   <text x="44" y="272" text-anchor="end" font-size="13" fill="#888">–</text>
-                  <rect id="bar-safety"    x="50"     y="245" width="0"      height="50" fill="url(#safety-tri-pattern)" rx="1"/>
+                  <rect id="bar-safety"    x="50"     y="245" width="0"      height="50" fill="#ffcdd2" rx="1"/>
+                  <polygon id="safety-tri-icon" points="0,0 0,0 0,0" fill="#FF4F4F" visibility="hidden"/>
                   <rect id="bar-p1"        x="50"     y="245" width="83.33"  height="50" fill="#ef5350" rx="1"/>
                   <rect id="bar-p2"        x="133.33" y="245" width="291.67" height="50" fill="#ff9800" rx="1"/>
                   <rect id="bar-p3"        x="425"    y="245" width="41.67"  height="50" fill="#ffd54f" rx="1"/>
@@ -494,17 +489,14 @@
               <div class="donut-wrap">
                 <svg class="donut-svg" viewBox="0 0 130 130" width="130" height="130">
                   <defs>
-                    <pattern id="safety-donut-pattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-                      <rect width="8" height="8" fill="#ff4f4f" opacity="0.2"/>
-                      <polygon points="4,0.5 7.5,7.5 0.5,7.5" fill="#FF4F4F"/>
-                    </pattern>
                   </defs>
                   <circle cx="65" cy="65" r="44" fill="none" stroke="#e8e8e8" stroke-width="18"/>
-                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="url(#safety-donut-pattern)" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="#ffcdd2" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p1"        cx="65" cy="65" r="44" fill="none" stroke="#ef5350" stroke-width="18" stroke-dasharray="46.08 230.38" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p2"        cx="65" cy="65" r="44" fill="none" stroke="#ff9800" stroke-width="18" stroke-dasharray="161.27 115.19" stroke-dashoffset="-46.08" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p3"        cx="65" cy="65" r="44" fill="none" stroke="#ffd54f" stroke-width="18" stroke-dasharray="23.04 253.42" stroke-dashoffset="-207.35" transform="rotate(-90,65,65)"/>
                   <circle id="donut-completed" cx="65" cy="65" r="44" fill="none" stroke="#81c784" stroke-width="18" stroke-dasharray="46.08 230.38" stroke-dashoffset="-230.39" transform="rotate(-90,65,65)"/>
+                  <polygon id="donut-safety-tri" points="0,0 0,0 0,0" fill="#FF4F4F" visibility="hidden"/>
                   <text id="donut-total" x="65" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#333">12</text>
                   <text x="65" y="75" text-anchor="middle" font-size="10" fill="#888">Tasks</text>
                 </svg>
@@ -549,15 +541,23 @@
                   <!-- P2 (orange, main) -->
                   <polygon points="50,260 150,247.5 250,210 350,160 450,72.5 550,97.5 550,210 450,222.5 350,247.5 250,260 150,260 50,260"
                     fill="#ff9800" opacity="0.75"/>
-                  <!-- P1 (red, top) -->
-                  <polygon points="50,260 150,247.5 250,197.5 350,135 450,10 550,47.5 550,97.5 450,72.5 350,160 250,210 150,247.5 50,260"
+                  <!-- P1 (red) -->
+                  <polygon points="50,260 150,247.5 250,197.5 350,135 450,22.5 550,60 550,97.5 450,72.5 350,160 250,210 150,247.5 50,260"
                     fill="#ef5350" opacity="0.7"/>
-                  <polyline points="50,260 150,247.5 250,197.5 350,135 450,10 550,47.5"
+                  <polyline points="50,260 150,247.5 250,197.5 350,135 450,22.5 550,60"
                     fill="none" stroke="#ef5350" stroke-width="2"/>
                   <polyline points="50,260 150,247.5 250,210 350,160 450,72.5 550,97.5"
                     fill="none" stroke="#ff9800" stroke-width="1.5"/>
+                  <!-- Safety (pink, top layer) -->
+                  <polygon points="50,260 150,247.5 250,197.5 350,135 450,10 550,47.5 550,60 450,22.5 350,135 250,197.5 150,247.5 50,260"
+                    fill="#ffcdd2" opacity="0.9"/>
+                  <polyline points="50,260 150,247.5 250,197.5 350,135 450,10 550,47.5"
+                    fill="none" stroke="#FF4F4F" stroke-width="1.5"/>
+                  <!-- Single safety triangle icon -->
+                  <polygon points="530,43 534,50 526,50" fill="#FF4F4F"/>
                 </svg>
                 <div class="chart-legend-row">
+                  <span class="cl-item"><svg width="8" height="8" viewBox="0 0 10 10" style="margin-right:4px;flex-shrink:0"><polygon points="5,0 10,10 0,10" fill="#FF4F4F"/></svg>Safety</span>
                   <span class="cl-item"><span class="cl-dot" style="background:#ef5350"></span>Priority 1</span>
                   <span class="cl-item"><span class="cl-dot" style="background:#ff9800"></span>Priority 2</span>
                   <span class="cl-item"><span class="cl-dot" style="background:#ffd54f"></span>Priority 3</span>
@@ -577,6 +577,87 @@
                 <div class="stat-box">
                   <span class="stat-num">0</span>
                   <div class="stat-labels"><span class="stat-label">Verified</span><span class="stat-sublabel"># of tasks</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Safety Tasks ── -->
+          <div class="chart-panel" id="safety-tasks">
+            <h3 class="chart-panel-title" style="display:flex;align-items:center;gap:6px;">
+              <svg width="11" height="11" viewBox="0 0 10 10"><polygon points="5,0 10,10 0,10" fill="#FF4F4F"/></svg>
+              Safety Tasks
+            </h3>
+            <div class="chart-body-with-sidebar">
+              <div class="chart-main">
+                <!--
+                  Dual-axis grouped bar chart.
+                  Left Y  (pink bars)  : # opened tasks  — 0–3, 1 task = 50px
+                  Right Y (blue bars)  : resolution time — 0–1d (24h), 1h = 6.25px
+                  Plot height 150px (y 60–210). Baseline y=210.
+                -->
+                <svg class="area-svg" viewBox="0 0 580 260" preserveAspectRatio="xMidYMid meet">
+                  <!-- Grid lines -->
+                  <line x1="50" y1="210" x2="550" y2="210" stroke="#ccc" stroke-width="1"/>
+                  <line x1="50" y1="172" x2="550" y2="172" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="50" y1="135" x2="550" y2="135" stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="50" y1="97"  x2="550" y2="97"  stroke="#e8e8e8" stroke-width="1"/>
+                  <line x1="50" y1="60"  x2="550" y2="60"  stroke="#e8e8e8" stroke-width="1"/>
+                  <!-- Left axis (tasks) -->
+                  <line x1="50" y1="60" x2="50" y2="210" stroke="#ccc" stroke-width="1"/>
+                  <text x="44" y="213" text-anchor="end" font-size="10" fill="#aaa">0</text>
+                  <text x="44" y="163" text-anchor="end" font-size="10" fill="#FF4F4F">1</text>
+                  <text x="44" y="113" text-anchor="end" font-size="10" fill="#FF4F4F">2</text>
+                  <text x="44" y="63"  text-anchor="end" font-size="10" fill="#FF4F4F">3</text>
+                  <text x="28" y="136" text-anchor="middle" font-size="9" fill="#FF4F4F" transform="rotate(-90,28,136)"># tasks</text>
+                  <!-- Right axis (time: 0 / 6h / 12h / 18h / 1d) -->
+                  <line x1="550" y1="60" x2="550" y2="210" stroke="#ccc" stroke-width="1"/>
+                  <text x="556" y="213" text-anchor="start" font-size="10" fill="#aaa">0</text>
+                  <text x="556" y="175" text-anchor="start" font-size="10" fill="#0d5bff">6h</text>
+                  <text x="556" y="138" text-anchor="start" font-size="10" fill="#0d5bff">12h</text>
+                  <text x="556" y="100" text-anchor="start" font-size="10" fill="#0d5bff">18h</text>
+                  <text x="556" y="63"  text-anchor="start" font-size="10" fill="#0d5bff">1d</text>
+                  <!-- X labels -->
+                  <text x="200" y="230" text-anchor="middle" font-size="11" fill="#aaa">04/19</text>
+                  <text x="300" y="230" text-anchor="middle" font-size="11" fill="#aaa">05/03</text>
+                  <text x="400" y="230" text-anchor="middle" font-size="11" fill="#aaa">05/17</text>
+                  <text x="500" y="230" text-anchor="middle" font-size="11" fill="#aaa">05/31</text>
+
+                  <!-- 04/19: 1 opened, 0 resolved -->
+                  <rect x="186" y="160" width="16" height="50" fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+
+                  <!-- 05/03: 1 opened, resolved in 30m (0.5h → 0.5*6.25=3px) -->
+                  <rect x="286" y="160" width="16" height="50" fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="304" y="207" width="16" height="3"  fill="#dbeafe" stroke="#0d5bff" stroke-width="1.5" rx="2"/>
+                  <text x="312" y="202" text-anchor="middle" font-size="9" fill="#0d5bff">30m</text>
+
+                  <!-- 05/17: 2 opened, resolved in 8h (8*6.25=50px) -->
+                  <rect x="386" y="110" width="16" height="100" fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="404" y="160" width="16" height="50"  fill="#dbeafe" stroke="#0d5bff" stroke-width="1.5" rx="2"/>
+                  <text x="412" y="155" text-anchor="middle" font-size="9" fill="#0d5bff">8h</text>
+
+                  <!-- 05/31: 1 opened, resolved in 1d 4h (28h → 28*6.25=175px→cap 150) shown as ~1d -->
+                  <rect x="486" y="160" width="16" height="50"  fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="504" y="60"  width="16" height="150" fill="#dbeafe" stroke="#0d5bff" stroke-width="1.5" rx="2"/>
+                  <text x="512" y="55"  text-anchor="middle" font-size="9" fill="#0d5bff">1d 4h</text>
+                </svg>
+                <div class="chart-legend-row">
+                  <span class="cl-item"><svg width="8" height="8" viewBox="0 0 10 10" style="margin-right:4px;flex-shrink:0"><polygon points="5,0 10,10 0,10" fill="#FF4F4F"/></svg>Opened</span>
+                  <span class="cl-item"><span class="cl-dot" style="background:#0d5bff"></span>Time to resolve</span>
+                </div>
+              </div>
+              <div class="chart-sidebar">
+                <div class="stat-box">
+                  <span class="stat-num">5</span>
+                  <div class="stat-labels"><span class="stat-label">Open</span><span class="stat-sublabel"># of safety tasks</span></div>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-num">3.5h</span>
+                  <div class="stat-labels"><span class="stat-label">Avg. Resolution</span><span class="stat-sublabel">time to close</span></div>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-num">4</span>
+                  <div class="stat-labels"><span class="stat-label">Resolved</span><span class="stat-sublabel"># closed</span></div>
                 </div>
               </div>
             </div>

@@ -708,6 +708,13 @@ window.addEventListener('DOMContentLoaded', function () {
         var newStatus = opt.dataset.statusOption;
         statusDropdown.hidden = true;
 
+        if (newStatus === 'Safety') {
+          showConfirm('Are you sure you want to change to Safety?', function () {
+            applyStatusChange(newStatus, opt);
+          });
+          return;
+        }
+
         if (opt.hasAttribute('data-confirm-change')) {
           showConfirm('Are you sure you want to change to general task?', function () {
             applyStatusChange(newStatus, opt);
@@ -1297,6 +1304,18 @@ window.addEventListener('DOMContentLoaded', function () {
       var w = (seg[1] / total) * BAR_W;
       el.setAttribute('x', x);
       el.setAttribute('width', w > 0 ? w : 0);
+      if (seg[0] === 'bar-safety') {
+        var tri = document.getElementById('safety-tri-icon');
+        if (tri) {
+          if (w > 0) {
+            var cx = x + w / 2, cy = 270;
+            tri.setAttribute('points', cx+','+( cy-14)+' '+(cx+12)+','+(cy+11)+' '+(cx-12)+','+(cy+11));
+            tri.setAttribute('visibility', 'visible');
+          } else {
+            tri.setAttribute('visibility', 'hidden');
+          }
+        }
+      }
       x += w;
     });
 
@@ -1313,6 +1332,25 @@ window.addEventListener('DOMContentLoaded', function () {
       el.setAttribute('stroke-dashoffset', -offset);
       offset += arc;
     });
+
+    /* ── Donut safety triangle ── */
+    var dTri = document.getElementById('donut-safety-tri');
+    if (dTri) {
+      if (s > 0) {
+        var safetyArc = (s / total) * CIRC;
+        var midAngle = -Math.PI / 2 + safetyArc / (2 * 44);
+        var tx = 65 + 44 * Math.cos(midAngle);
+        var ty = 65 + 44 * Math.sin(midAngle);
+        var tr = 5;
+        var p1x = tx + tr * Math.cos(midAngle),         p1y = ty + tr * Math.sin(midAngle);
+        var p2x = tx + tr * Math.cos(midAngle + 2.094), p2y = ty + tr * Math.sin(midAngle + 2.094);
+        var p3x = tx + tr * Math.cos(midAngle - 2.094), p3y = ty + tr * Math.sin(midAngle - 2.094);
+        dTri.setAttribute('points', p1x+','+p1y+' '+p2x+','+p2y+' '+p3x+','+p3y);
+        dTri.setAttribute('visibility', 'visible');
+      } else {
+        dTri.setAttribute('visibility', 'hidden');
+      }
+    }
 
     var totalEl = document.getElementById('donut-total');
     if (totalEl) totalEl.textContent = total;
