@@ -171,6 +171,14 @@ window.addEventListener('DOMContentLoaded', function () {
     if (myEl)      myEl.textContent      = total;
     if (watchedEl) watchedEl.textContent = total;
     if (allEl)     allEl.textContent     = total;
+
+    // Safety badge — count safety column tasks
+    var safetyCount = document.querySelectorAll('.safety-column .task-card').length;
+    var safetyBadge = document.querySelector('[data-safety-badge]');
+    if (safetyBadge) {
+      safetyBadge.textContent = safetyCount;
+      safetyBadge.hidden = safetyCount === 0;
+    }
   }
 
   syncCounts();

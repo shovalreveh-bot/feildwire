@@ -362,6 +362,25 @@ html.board-open {
   flex-shrink: 0;
 }
 
+.safety-alert-badge {
+  margin-left: 5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #e8001f;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.safety-alert-badge[hidden] {
+  display: none;
+}
+
 .sidebar-bottom-menu {
   flex-shrink: 0;
   display: flex;
