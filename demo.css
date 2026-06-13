@@ -4297,8 +4297,8 @@ width: 100%;
   user-select: none;
 }
 
-/* Safety option — gray when active (current status), no underline */
-[data-status-option="Safety"].is-active {
+/* All status options — gray when active (current status), no underline */
+.status-option.is-active {
   color: #9aa1a9;
   text-decoration: none;
 }
