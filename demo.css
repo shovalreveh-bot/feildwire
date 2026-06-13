@@ -4285,6 +4285,14 @@ width: 100%;
 
 .status-delete.is-active { text-decoration: none; }
 
+.status-plain-label,
+.status-plain-label:hover {
+  color: #1a1d21;
+  background: transparent;
+  font-size: 13px;
+  padding: 10px 16px 6px;
+}
+
 .status-swatch {
   display: inline-block;
   width: 24px;

@@ -692,7 +692,7 @@ window.addEventListener('DOMContentLoaded', function () {
         statusDropdown.hidden = true;
 
         if (opt.hasAttribute('data-confirm-change')) {
-          showConfirm('Are you sure you want to change to normal task?', function () {
+          showConfirm('Are you sure you want to change to general task?', function () {
             applyStatusChange(newStatus, opt);
           });
           return;
