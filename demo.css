@@ -4285,12 +4285,18 @@ width: 100%;
 
 .status-delete.is-active { text-decoration: none; }
 
-.status-plain-label,
-.status-plain-label:hover {
-  color: #1a1d21;
-  background: transparent;
-  font-size: 13px;
-  padding: 10px 16px 6px;
+.status-plain-label {
+  display: block;
+  padding: 10px 16px 4px;
+  color: #8b9299;
+  font-family: Lato, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
 }
 
 .status-swatch {
