@@ -360,8 +360,14 @@ window.addEventListener('DOMContentLoaded', function () {
       return map[card.dataset.currentStatus] || 'p2';
     }
     if (card.closest('.safety-column')) return 'safety';
-    if (card.querySelector('.pin.red') || card.querySelector('.red-square')) return 'p1';
-    if (card.querySelector('.pin.yellow')) return 'p3';
+    // Detect type from the column the card lives in
+    var col = card.closest('.column');
+    var header = col && col.querySelector('[data-e2e]');
+    var e2e = header && header.dataset.e2e;
+    if (e2e === 'task-priority-header-text-PRIORITY_1') return 'p1';
+    if (e2e === 'task-priority-header-text-PRIORITY_3') return 'p3';
+    if (e2e === 'task-priority-header-text-COMPLETED')  return 'completed';
+    if (e2e === 'task-priority-header-text-VERIFIED')   return 'verified';
     return 'p2';
   }
 
