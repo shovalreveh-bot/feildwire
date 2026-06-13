@@ -1016,10 +1016,14 @@
                   <span><i class="attr-icon status"></i>Status</span>
                   <b><span data-modal-status>Priority 2</span> <i class="caret"></i></b>
                   <div class="attr-dropdown status-dropdown" hidden data-status-dropdown>
-                    <!-- Safety tasks only: Safety (active) + Change to normal task -->
-                    <button class="status-option status-safety-only" type="button" data-status-option="Safety"><span class="status-swatch-tri"></span>Safety</button>
-                    <div class="status-safety-only status-plain-label">General task:</div>
-                    <!-- Normal tasks only: Priority options -->
+                    <!-- Normal tasks only: Critical task label above Safety -->
+                    <div class="status-priority-only status-plain-label">Critical task:</div>
+                    <!-- Safety option — always visible -->
+                    <button class="status-option" type="button" data-status-option="Safety"><span class="status-swatch-tri"></span>Safety</button>
+                    <!-- Safety tasks only: General task label (acts as separator + header) -->
+                    <div class="status-safety-only status-plain-label" style="border-top:1px solid #eef0f2;margin-top:3px;">General task:</div>
+                    <!-- Normal tasks only: separator + Priority options -->
+                    <div class="status-dropdown-divider status-priority-only"></div>
                     <button class="status-option status-priority-only" type="button" data-status-option="Priority 1"><span class="status-swatch" style="background:#ff4f4f"></span>Priority 1</button>
                     <button class="status-option status-priority-only" type="button" data-status-option="Priority 2"><span class="status-swatch" style="background:#ff8a32"></span>Priority 2</button>
                     <button class="status-option status-priority-only" type="button" data-status-option="Priority 3"><span class="status-swatch" style="background:#ffd149"></span>Priority 3</button>

@@ -4295,8 +4295,6 @@ width: 100%;
   cursor: default;
   pointer-events: none;
   user-select: none;
-  border-top: 1px solid #eef0f2;
-  margin-top: 3px;
 }
 
 /* Safety option — no blue/underline even when active */
