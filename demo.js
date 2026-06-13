@@ -224,7 +224,16 @@ window.addEventListener('DOMContentLoaded', function () {
   function recordSafetyOpened(card) {
     var id = safetyTaskId(card);
     var h = getSafetyHistory();
-    if (h.some(function(t) { return t.id === id; })) return;
+    var existing = h.find(function(t) { return t.id === id; });
+    if (existing) {
+      // If card is back in safety column but was previously closed, reopen it
+      if (existing.closedAt !== null) {
+        existing.closedAt = null;
+        saveSafetyHistory(h);
+      }
+      renderSafetyLog();
+      return;
+    }
     var titleEl = card.querySelector('.fw-task-title');
     h.push({ id: id, title: titleEl ? titleEl.textContent.trim() : '', openedAt: Date.now(), closedAt: null });
     saveSafetyHistory(h);
@@ -270,7 +279,7 @@ window.addEventListener('DOMContentLoaded', function () {
           if (node.nodeType === 1 && node.classList.contains('task-card')) recordSafetyClosed(node);
         });
       });
-    }).observe(safetyColEl, { childList: true });
+    }).observe(safetyColEl, { childList: true, subtree: true });
   }
 
   /* ══════════════════════════════════════════
@@ -1355,7 +1364,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var showAnalytics = (label === 'Analytics');
     if (boardSection)  boardSection.hidden  = showAnalytics;
     if (analyticsView) analyticsView.hidden = !showAnalytics;
-    if (showAnalytics) updateAnalyticsChart();
+    if (showAnalytics) { updateAnalyticsChart(); renderSafetyLog(); }
   }
 
   segBtns.forEach(function (btn) {
