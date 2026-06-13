@@ -436,6 +436,12 @@
               <div class="stacked-bar-area">
                 <!-- Labels at TOP like the real chart; gridlines extend down; bar near bottom -->
                 <svg class="stacked-bar-svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <pattern id="safety-tri-pattern" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <rect width="14" height="14" fill="#ff4f4f" opacity="0.18"/>
+                      <polygon points="7,1.5 13,12.5 1,12.5" fill="#FF4F4F"/>
+                    </pattern>
+                  </defs>
                   <!-- X-axis numbers at top -->
                   <text x="50"  y="18" text-anchor="middle" font-size="12" fill="#888">0</text>
                   <text x="92"  y="18" text-anchor="middle" font-size="12" fill="#888">1</text>
@@ -466,12 +472,15 @@
                   <line x1="550" y1="24" x2="550" y2="295" stroke="#e8e8e8" stroke-width="1"/>
                   <!-- Stacked bar: y=245 h=50 (positioned near bottom like original) -->
                   <text x="44" y="272" text-anchor="end" font-size="13" fill="#888">–</text>
-                  <rect x="50"     y="245" width="83.33"  height="50" fill="#ef5350" rx="1"/>
-                  <rect x="133.33" y="245" width="291.67" height="50" fill="#ff9800" rx="1"/>
-                  <rect x="425"    y="245" width="41.67"  height="50" fill="#ffd54f" rx="1"/>
-                  <rect x="466.67" y="245" width="83.33"  height="50" fill="#81c784" rx="1"/>
+                  <rect id="bar-safety"    x="50"     y="245" width="0"      height="50" fill="url(#safety-tri-pattern)" rx="1"/>
+                  <rect id="bar-p1"        x="50"     y="245" width="83.33"  height="50" fill="#ef5350" rx="1"/>
+                  <rect id="bar-p2"        x="133.33" y="245" width="291.67" height="50" fill="#ff9800" rx="1"/>
+                  <rect id="bar-p3"        x="425"    y="245" width="41.67"  height="50" fill="#ffd54f" rx="1"/>
+                  <rect id="bar-completed" x="466.67" y="245" width="83.33"  height="50" fill="#81c784" rx="1"/>
+                  <rect id="bar-verified"  x="550"    y="245" width="0"      height="50" fill="#4dd0e1" rx="1"/>
                 </svg>
                 <div class="chart-legend-row">
+                  <span class="cl-item"><svg width="8" height="8" viewBox="0 0 10 10" style="margin-right:4px;flex-shrink:0"><polygon points="5,0 10,10 0,10" fill="#FF4F4F"/></svg>Safety</span>
                   <span class="cl-item"><span class="cl-dot" style="background:#ef5350"></span>Priority 1</span>
                   <span class="cl-item"><span class="cl-dot" style="background:#ff9800"></span>Priority 2</span>
                   <span class="cl-item"><span class="cl-dot" style="background:#ffd54f"></span>Priority 3</span>
@@ -484,16 +493,19 @@
               <!-- Donut chart -->
               <div class="donut-wrap">
                 <svg class="donut-svg" viewBox="0 0 130 130" width="130" height="130">
+                  <defs>
+                    <pattern id="safety-donut-pattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                      <rect width="8" height="8" fill="#ff4f4f" opacity="0.2"/>
+                      <polygon points="4,0.5 7.5,7.5 0.5,7.5" fill="#FF4F4F"/>
+                    </pattern>
+                  </defs>
                   <circle cx="65" cy="65" r="44" fill="none" stroke="#e8e8e8" stroke-width="18"/>
-                  <circle cx="65" cy="65" r="44" fill="none" stroke="#ef5350" stroke-width="18"
-                    stroke-dasharray="46.08 230.38" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
-                  <circle cx="65" cy="65" r="44" fill="none" stroke="#ff9800" stroke-width="18"
-                    stroke-dasharray="161.27 115.19" stroke-dashoffset="-46.08" transform="rotate(-90,65,65)"/>
-                  <circle cx="65" cy="65" r="44" fill="none" stroke="#ffd54f" stroke-width="18"
-                    stroke-dasharray="23.04 253.42" stroke-dashoffset="-207.35" transform="rotate(-90,65,65)"/>
-                  <circle cx="65" cy="65" r="44" fill="none" stroke="#81c784" stroke-width="18"
-                    stroke-dasharray="46.08 230.38" stroke-dashoffset="-230.39" transform="rotate(-90,65,65)"/>
-                  <text x="65" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#333">12</text>
+                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="url(#safety-donut-pattern)" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-p1"        cx="65" cy="65" r="44" fill="none" stroke="#ef5350" stroke-width="18" stroke-dasharray="46.08 230.38" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-p2"        cx="65" cy="65" r="44" fill="none" stroke="#ff9800" stroke-width="18" stroke-dasharray="161.27 115.19" stroke-dashoffset="-46.08" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-p3"        cx="65" cy="65" r="44" fill="none" stroke="#ffd54f" stroke-width="18" stroke-dasharray="23.04 253.42" stroke-dashoffset="-207.35" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-completed" cx="65" cy="65" r="44" fill="none" stroke="#81c784" stroke-width="18" stroke-dasharray="46.08 230.38" stroke-dashoffset="-230.39" transform="rotate(-90,65,65)"/>
+                  <text id="donut-total" x="65" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#333">12</text>
                   <text x="65" y="75" text-anchor="middle" font-size="10" fill="#888">Tasks</text>
                 </svg>
               </div>

@@ -179,6 +179,9 @@ window.addEventListener('DOMContentLoaded', function () {
       safetyBadge.textContent = safetyCount;
       safetyBadge.hidden = safetyCount === 0;
     }
+
+    // Update analytics chart if it's visible
+    if (analyticsView && !analyticsView.hidden) updateAnalyticsChart();
   }
 
   syncCounts();
@@ -1258,6 +1261,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var showAnalytics = (label === 'Analytics');
     if (boardSection)  boardSection.hidden  = showAnalytics;
     if (analyticsView) analyticsView.hidden = !showAnalytics;
+    if (showAnalytics) updateAnalyticsChart();
   }
 
   segBtns.forEach(function (btn) {
@@ -1265,6 +1269,54 @@ window.addEventListener('DOMContentLoaded', function () {
       activateView(btn.getAttribute('aria-label'));
     });
   });
+
+  /* ══════════════════════════════════════════
+     ANALYTICS CHART — dynamic update
+  ══════════════════════════════════════════ */
+  function updateAnalyticsChart() {
+    function colCount(e2e) {
+      var h = document.querySelector('[data-e2e="' + e2e + '"]');
+      return h ? h.closest('.column').querySelectorAll('.task-card').length : 0;
+    }
+    var s  = document.querySelectorAll('.safety-column .task-card').length;
+    var p1 = colCount('task-priority-header-text-PRIORITY_1');
+    var p2 = colCount('task-priority-header-text-PRIORITY_2');
+    var p3 = colCount('task-priority-header-text-PRIORITY_3');
+    var cp = colCount('task-priority-header-text-COMPLETED');
+    var vr = colCount('task-priority-header-text-VERIFIED');
+    var total = s + p1 + p2 + p3 + cp + vr;
+    if (total === 0) return;
+
+    /* ── Bar chart ── */
+    var BAR_W = 500, x = 50;
+    [['bar-safety', s], ['bar-p1', p1], ['bar-p2', p2],
+     ['bar-p3', p3], ['bar-completed', cp], ['bar-verified', vr]
+    ].forEach(function(seg) {
+      var el = document.getElementById(seg[0]);
+      if (!el) return;
+      var w = (seg[1] / total) * BAR_W;
+      el.setAttribute('x', x);
+      el.setAttribute('width', w > 0 ? w : 0);
+      x += w;
+    });
+
+    /* ── Donut chart ── */
+    var CIRC = 2 * Math.PI * 44; // ≈ 276.46
+    var offset = 0;
+    [['donut-safety', s], ['donut-p1', p1], ['donut-p2', p2],
+     ['donut-p3', p3], ['donut-completed', cp]
+    ].forEach(function(seg) {
+      var el = document.getElementById(seg[0]);
+      if (!el) return;
+      var arc = (seg[1] / total) * CIRC;
+      el.setAttribute('stroke-dasharray', arc + ' ' + (CIRC - arc));
+      el.setAttribute('stroke-dashoffset', -offset);
+      offset += arc;
+    });
+
+    var totalEl = document.getElementById('donut-total');
+    if (totalEl) totalEl.textContent = total;
+  }
 
 });
 
