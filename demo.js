@@ -187,6 +187,91 @@ window.addEventListener('DOMContentLoaded', function () {
   syncCounts();
 
   /* ══════════════════════════════════════════
+     SAFETY TASK TRACKING — localStorage
+  ══════════════════════════════════════════ */
+  var SAFETY_KEY = 'fw_safety_history';
+
+  function getSafetyHistory() {
+    try { return JSON.parse(localStorage.getItem(SAFETY_KEY) || 'null') || []; }
+    catch(e) { return []; }
+  }
+  function saveSafetyHistory(h) {
+    try { localStorage.setItem(SAFETY_KEY, JSON.stringify(h)); } catch(e) {}
+  }
+
+  // Pre-populate historical resolved tasks on first run (matches chart bars)
+  (function() {
+    if (localStorage.getItem(SAFETY_KEY)) return;
+    var d = function(iso, plusMs) { return new Date(iso).getTime() + (plusMs || 0); };
+    saveSafetyHistory([
+      { id:'h1', title:'היסטורי', openedAt:d('2024-04-19'), closedAt:null },
+      { id:'h2', title:'היסטורי', openedAt:d('2024-05-03'), closedAt:d('2024-05-03', 1800000)   }, // 30m
+      { id:'h3', title:'היסטורי', openedAt:d('2024-05-17'), closedAt:d('2024-05-17', 28800000)  }, // 8h
+      { id:'h4', title:'היסטורי', openedAt:d('2024-05-17', 3600000), closedAt:d('2024-05-17', 18000000) }, // 4h
+      { id:'h5', title:'היסטורי', openedAt:d('2024-05-31'), closedAt:null },
+    ]);
+  })();
+
+  function safetyTaskId(card) {
+    var id = card.getAttribute('data-safety-id');
+    if (!id) {
+      id = 'st_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      card.setAttribute('data-safety-id', id);
+    }
+    return id;
+  }
+
+  function recordSafetyOpened(card) {
+    var id = safetyTaskId(card);
+    var h = getSafetyHistory();
+    if (h.some(function(t) { return t.id === id; })) return;
+    var titleEl = card.querySelector('.fw-task-title');
+    h.push({ id: id, title: titleEl ? titleEl.textContent.trim() : '', openedAt: Date.now(), closedAt: null });
+    saveSafetyHistory(h);
+  }
+
+  function recordSafetyClosed(card) {
+    var id = card.getAttribute('data-safety-id');
+    if (!id) return;
+    var h = getSafetyHistory();
+    var task = h.find(function(t) { return t.id === id; });
+    if (task && !task.closedAt) {
+      task.closedAt = Date.now();
+      saveSafetyHistory(h);
+    }
+  }
+
+  function formatResolution(ms) {
+    if (!ms || ms <= 0) return '—';
+    var totalMin = Math.floor(ms / 60000);
+    var hours = Math.floor(totalMin / 60);
+    var mins  = totalMin % 60;
+    var days  = Math.floor(hours / 24);
+    hours = hours % 24;
+    if (days > 0) return days + 'd' + (hours > 0 ? ' ' + hours + 'h' : '');
+    if (hours > 0) return hours + 'h' + (mins > 0 ? ' ' + mins + 'm' : '');
+    return totalMin + 'm';
+  }
+
+  // Initialize existing hardcoded safety cards
+  document.querySelectorAll('.safety-column .task-card').forEach(recordSafetyOpened);
+
+  // Watch safety column — detect tasks opening and closing
+  var safetyColEl = document.querySelector('.safety-column');
+  if (safetyColEl) {
+    new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        m.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1 && node.classList.contains('task-card')) recordSafetyOpened(node);
+        });
+        m.removedNodes.forEach(function(node) {
+          if (node.nodeType === 1 && node.classList.contains('task-card')) recordSafetyClosed(node);
+        });
+      });
+    }).observe(safetyColEl, { childList: true });
+  }
+
+  /* ══════════════════════════════════════════
      MODAL — OPEN / CLOSE
   ══════════════════════════════════════════ */
   var backdrop       = document.querySelector('[data-task-modal]');
@@ -1367,8 +1452,14 @@ window.addEventListener('DOMContentLoaded', function () {
     setEl('lt-completed', cp);
     setEl('lt-verified',  ver);
 
-    // Safety Tasks
+    // Safety Tasks — live stats from localStorage
     setEl('st-open', s);
+    var safetyHist  = getSafetyHistory();
+    var closedTasks = safetyHist.filter(function(t) { return t.closedAt; });
+    var totalResMs  = closedTasks.reduce(function(sum, t) { return sum + (t.closedAt - t.openedAt); }, 0);
+    var avgResMs    = closedTasks.length ? totalResMs / closedTasks.length : 0;
+    setEl('st-avg-res',  formatResolution(avgResMs));
+    setEl('st-resolved', closedTasks.length);
 
     // In Progress
     setEl('ip-open-rate',      openCount);
