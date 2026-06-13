@@ -514,9 +514,13 @@
               <div class="donut-wrap">
                 <svg class="donut-svg" viewBox="0 0 130 130" width="130" height="130">
                   <defs>
+                    <pattern id="safety-donut-pat" x="0" y="0" width="12" height="10" patternUnits="userSpaceOnUse">
+                      <rect width="12" height="10" fill="#FF4F4F"/>
+                      <polygon points="6,1 11,9 1,9" fill="rgba(255,255,255,0.30)"/>
+                    </pattern>
                   </defs>
                   <circle cx="65" cy="65" r="44" fill="none" stroke="#e8e8e8" stroke-width="18"/>
-                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="#FF4F4F" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="url(#safety-donut-pat)" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p1"        cx="65" cy="65" r="44" fill="none" stroke="#ef5350" stroke-width="18" stroke-dasharray="46.08 230.38" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p2"        cx="65" cy="65" r="44" fill="none" stroke="#ff9800" stroke-width="18" stroke-dasharray="161.27 115.19" stroke-dashoffset="-46.08" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p3"        cx="65" cy="65" r="44" fill="none" stroke="#ffd54f" stroke-width="18" stroke-dasharray="23.04 253.42" stroke-dashoffset="-207.35" transform="rotate(-90,65,65)"/>
