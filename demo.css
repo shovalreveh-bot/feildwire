@@ -5107,12 +5107,12 @@ width: 100%;
 /* Donut */
 .donut-wrap {
   flex-shrink: 0;
-  width: 200px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.donut-svg { display: block; width: 200px; height: 200px; }
+.donut-svg { display: block; width: 280px; height: 280px; }
 
 /* Chart legend row (shared) */
 .chart-legend-row {
