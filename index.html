@@ -766,6 +766,29 @@
             </div>
           </div>
 
+          <!-- ── Safety Task Log ── -->
+          <div class="chart-panel" id="safety-log">
+            <h3 class="chart-panel-title" style="display:flex;align-items:center;gap:6px;margin-bottom:16px;">
+              <svg width="11" height="11" viewBox="0 0 10 10"><polygon points="5,0 10,10 0,10" fill="#FF4F4F"/></svg>
+              Safety Task Log
+              <span class="log-count-badge" id="safety-log-count"></span>
+            </h3>
+            <table class="safety-log-table">
+              <thead>
+                <tr>
+                  <th>משימה</th>
+                  <th>נפתחה</th>
+                  <th>נסגרה</th>
+                  <th>זמן לסגירה</th>
+                  <th>סטטוס</th>
+                </tr>
+              </thead>
+              <tbody id="safety-log-body">
+                <tr><td colspan="5" class="log-empty">אין משימות בטיחות מתועדות עדיין</td></tr>
+              </tbody>
+            </table>
+          </div>
+
         </div><!-- /graphs-wrapper -->
       </section><!-- /fw-analytics-view -->
 

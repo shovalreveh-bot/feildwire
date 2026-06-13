@@ -1481,6 +1481,50 @@ window.addEventListener('DOMContentLoaded', function () {
       cpts[cpts.length - 1] = '550,' + ipY(cp);
       cpLine.setAttribute('points', cpts.join(' '));
     }
+
+    renderSafetyLog();
+  }
+
+  /* ══════════════════════════════════════════
+     SAFETY TASK LOG — render table
+  ══════════════════════════════════════════ */
+  function renderSafetyLog() {
+    var tbody = document.getElementById('safety-log-body');
+    var countBadge = document.getElementById('safety-log-count');
+    if (!tbody) return;
+
+    var fmtDate = function(ts) {
+      var d = new Date(ts);
+      return d.toLocaleDateString('he-IL', { day:'2-digit', month:'2-digit', year:'2-digit' }) +
+             ' ' + d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
+    };
+
+    // Show only real tracked tasks (filter out pre-populated historical placeholders)
+    var rows = getSafetyHistory()
+      .filter(function(t) { return !/^h\d+$/.test(t.id); })
+      .sort(function(a, b) { return b.openedAt - a.openedAt; });
+
+    if (countBadge) countBadge.textContent = rows.length + ' משימות';
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="log-empty">אין משימות בטיחות מתועדות עדיין</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(function(t) {
+      var dur    = t.closedAt ? formatResolution(t.closedAt - t.openedAt) : '—';
+      var closed = t.closedAt ? fmtDate(t.closedAt) : '—';
+      var badge  = t.closedAt
+        ? '<span class="log-badge log-resolved">✓ נסגר</span>'
+        : '<span class="log-badge log-open">● פתוח</span>';
+      return '<tr>' +
+        '<td class="log-title">' + (t.title || '(ללא שם)') + '</td>' +
+        '<td class="log-date">' + fmtDate(t.openedAt) + '</td>' +
+        '<td class="log-date">' + closed + '</td>' +
+        '<td class="log-dur">'  + dur    + '</td>' +
+        '<td>' + badge + '</td>' +
+      '</tr>';
+    }).join('');
   }
 
 });
