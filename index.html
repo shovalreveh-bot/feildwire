@@ -454,6 +454,13 @@
               <div class="stacked-bar-area">
                 <!-- Labels at TOP like the real chart; gridlines extend down -->
                 <svg class="stacked-bar-svg" viewBox="0 0 600 220" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <!-- Repeating warning-triangle pattern for Safety segment -->
+                    <pattern id="safety-bar-pat" x="0" y="0" width="24" height="22" patternUnits="userSpaceOnUse">
+                      <rect width="24" height="22" fill="#FF4F4F"/>
+                      <polygon points="12,2 21,19 3,19" fill="rgba(255,255,255,0.28)"/>
+                    </pattern>
+                  </defs>
                   <!-- X-axis numbers at top -->
                   <text x="50"  y="18" text-anchor="middle" font-size="12" fill="#888">0</text>
                   <text x="92"  y="18" text-anchor="middle" font-size="12" fill="#888">1</text>
@@ -484,7 +491,7 @@
                   <line x1="550" y1="24" x2="550" y2="210" stroke="#e8e8e8" stroke-width="1"/>
                   <!-- Stacked bar: y=90 h=55 → center ~117 (35% from top of grid) -->
                   <text x="44" y="122" text-anchor="end" font-size="13" fill="#888">–</text>
-                  <rect id="bar-safety"    x="50"     y="90" width="0"      height="55" fill="#ffcdd2" rx="1"/>
+                  <rect id="bar-safety"    x="50"     y="90" width="0"      height="55" fill="url(#safety-bar-pat)" rx="1"/>
                   <polygon id="safety-tri-icon" points="0,0 0,0 0,0" fill="#FF4F4F" visibility="hidden"/>
                   <rect id="bar-p1"        x="50"     y="90" width="83.33"  height="55" fill="#ef5350" rx="1"/>
                   <rect id="bar-p2"        x="133.33" y="90" width="291.67" height="55" fill="#ff9800" rx="1"/>
@@ -509,7 +516,7 @@
                   <defs>
                   </defs>
                   <circle cx="65" cy="65" r="44" fill="none" stroke="#e8e8e8" stroke-width="18"/>
-                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="#ffcdd2" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
+                  <circle id="donut-safety"    cx="65" cy="65" r="44" fill="none" stroke="#FF4F4F" stroke-width="18" stroke-dasharray="0 276.46" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p1"        cx="65" cy="65" r="44" fill="none" stroke="#ef5350" stroke-width="18" stroke-dasharray="46.08 230.38" stroke-dashoffset="0" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p2"        cx="65" cy="65" r="44" fill="none" stroke="#ff9800" stroke-width="18" stroke-dasharray="161.27 115.19" stroke-dashoffset="-46.08" transform="rotate(-90,65,65)"/>
                   <circle id="donut-p3"        cx="65" cy="65" r="44" fill="none" stroke="#ffd54f" stroke-width="18" stroke-dasharray="23.04 253.42" stroke-dashoffset="-207.35" transform="rotate(-90,65,65)"/>
@@ -530,6 +537,12 @@
               <div class="chart-main">
                 <!-- viewBox 560×320; y=10→260 (250px for 0-20), unit=12.5px -->
                 <svg class="area-svg" viewBox="0 0 560 320" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <pattern id="safety-area-pat" x="0" y="0" width="30" height="26" patternUnits="userSpaceOnUse">
+                      <rect width="30" height="26" fill="#FF4F4F"/>
+                      <polygon points="15,3 26,23 4,23" fill="rgba(255,255,255,0.28)"/>
+                    </pattern>
+                  </defs>
                   <!-- Baseline y=260, gridlines every 5 units (62.5px) -->
                   <line x1="50" y1="260" x2="550" y2="260" stroke="#ccc" stroke-width="1"/>
                   <line x1="50" y1="197.5" x2="550" y2="197.5" stroke="#e8e8e8" stroke-width="1"/>
@@ -566,9 +579,9 @@
                     fill="none" stroke="#ef5350" stroke-width="2"/>
                   <polyline points="50,260 150,247.5 250,210 350,160 450,72.5 550,97.5"
                     fill="none" stroke="#ff9800" stroke-width="1.5"/>
-                  <!-- Safety (pink, top layer) -->
+                  <!-- Safety (red + triangle pattern, top layer) -->
                   <polygon points="50,260 150,247.5 250,197.5 350,135 450,10 550,47.5 550,60 450,22.5 350,135 250,197.5 150,247.5 50,260"
-                    fill="#ffcdd2" opacity="0.9"/>
+                    fill="url(#safety-area-pat)" opacity="0.85"/>
                   <polyline points="50,260 150,247.5 250,197.5 350,135 450,10 550,47.5"
                     fill="none" stroke="#FF4F4F" stroke-width="1.5"/>
                   <!-- Single safety triangle icon -->
@@ -642,20 +655,20 @@
                   <text x="500" y="230" text-anchor="middle" font-size="11" fill="#aaa">05/31</text>
 
                   <!-- 04/19: 1 opened, 0 resolved -->
-                  <rect x="186" y="160" width="16" height="50" fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="186" y="160" width="16" height="50" fill="#FF4F4F" fill-opacity="0.7" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
 
                   <!-- 05/03: 1 opened, resolved in 30m (0.5h → 0.5*6.25=3px) -->
-                  <rect x="286" y="160" width="16" height="50" fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="286" y="160" width="16" height="50" fill="#FF4F4F" fill-opacity="0.7" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
                   <rect x="304" y="207" width="16" height="3"  fill="#dbeafe" stroke="#0d5bff" stroke-width="1.5" rx="2"/>
                   <text x="312" y="202" text-anchor="middle" font-size="9" fill="#0d5bff">30m</text>
 
                   <!-- 05/17: 2 opened, resolved in 8h (8*6.25=50px) -->
-                  <rect x="386" y="110" width="16" height="100" fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="386" y="110" width="16" height="100" fill="#FF4F4F" fill-opacity="0.7" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
                   <rect x="404" y="160" width="16" height="50"  fill="#dbeafe" stroke="#0d5bff" stroke-width="1.5" rx="2"/>
                   <text x="412" y="155" text-anchor="middle" font-size="9" fill="#0d5bff">8h</text>
 
                   <!-- 05/31: 1 opened, resolved in 1d 4h (28h → 28*6.25=175px→cap 150) shown as ~1d -->
-                  <rect x="486" y="160" width="16" height="50"  fill="#ffcdd2" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
+                  <rect x="486" y="160" width="16" height="50"  fill="#FF4F4F" fill-opacity="0.7" stroke="#FF4F4F" stroke-width="1.5" rx="2"/>
                   <rect x="504" y="60"  width="16" height="150" fill="#dbeafe" stroke="#0d5bff" stroke-width="1.5" rx="2"/>
                   <text x="512" y="55"  text-anchor="middle" font-size="9" fill="#0d5bff">1d 4h</text>
                 </svg>
