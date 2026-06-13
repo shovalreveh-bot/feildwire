@@ -1354,6 +1354,42 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var totalEl = document.getElementById('donut-total');
     if (totalEl) totalEl.textContent = total;
+
+    /* ── Sync sidebar stats across all chart panels ── */
+    function setEl(id, val) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+    var openCount = s + p1 + p2 + p3;
+
+    // Lifetime Tasks
+    setEl('lt-open',      openCount);
+    setEl('lt-completed', cp);
+    setEl('lt-verified',  ver);
+
+    // Safety Tasks
+    setEl('st-open', s);
+
+    // In Progress
+    setEl('ip-open-rate',      openCount);
+    setEl('ip-completed-rate', cp);
+    setEl('ip-verified-rate',  ver);
+
+    // In Progress line chart — update last (current) data point
+    // Y scale: 0 tasks→y=260, 10 tasks→y=10; 1 task = 25px
+    function ipY(n) { return Math.max(10, Math.min(260, 260 - n * 25)); }
+    var openLine = document.getElementById('ip-open-line');
+    if (openLine) {
+      var pts = openLine.getAttribute('points').trim().split(' ');
+      pts[pts.length - 1] = '550,' + ipY(openCount);
+      openLine.setAttribute('points', pts.join(' '));
+    }
+    var cpLine = document.getElementById('ip-completed-line');
+    if (cpLine) {
+      var cpts = cpLine.getAttribute('points').trim().split(' ');
+      cpts[cpts.length - 1] = '550,' + ipY(cp);
+      cpLine.setAttribute('points', cpts.join(' '));
+    }
   }
 
 });

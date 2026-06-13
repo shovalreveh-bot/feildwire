@@ -602,15 +602,15 @@
               </div>
               <div class="chart-sidebar">
                 <div class="stat-box">
-                  <span class="stat-num">15</span>
+                  <span class="stat-num" id="lt-open">15</span>
                   <div class="stat-labels"><span class="stat-label">Open</span><span class="stat-sublabel"># of tasks</span></div>
                 </div>
                 <div class="stat-box">
-                  <span class="stat-num">2</span>
+                  <span class="stat-num" id="lt-completed">2</span>
                   <div class="stat-labels"><span class="stat-label">Completed</span><span class="stat-sublabel"># of tasks</span></div>
                 </div>
                 <div class="stat-box">
-                  <span class="stat-num">0</span>
+                  <span class="stat-num" id="lt-verified">0</span>
                   <div class="stat-labels"><span class="stat-label">Verified</span><span class="stat-sublabel"># of tasks</span></div>
                 </div>
               </div>
@@ -683,7 +683,7 @@
               </div>
               <div class="chart-sidebar">
                 <div class="stat-box">
-                  <span class="stat-num">2</span>
+                  <span class="stat-num" id="st-open">2</span>
                   <div class="stat-labels"><span class="stat-label">Open</span><span class="stat-sublabel"># of safety tasks</span></div>
                 </div>
                 <div class="stat-box">
@@ -727,11 +727,11 @@
                   <text x="350" y="280" text-anchor="middle" font-size="11" fill="#aaa">05/03</text>
                   <text x="450" y="280" text-anchor="middle" font-size="11" fill="#aaa">05/17</text>
                   <text x="550" y="280" text-anchor="middle" font-size="11" fill="#aaa">05/31</text>
-                  <!-- Open rate (red): 0,0,6,3,3,10,4,0 → y=260,260,110,185,185,10,160,260 -->
-                  <polyline points="50,260 150,260 250,110 300,185 350,185 450,10 500,160 550,260"
+                  <!-- Open rate (red): last point updated dynamically -->
+                  <polyline id="ip-open-line" points="50,260 150,260 250,110 300,185 350,185 450,10 500,160 550,260"
                     fill="none" stroke="#ef5350" stroke-width="2" stroke-linejoin="round"/>
-                  <!-- Completed rate (green): small bump around 05/17 -->
-                  <polyline points="50,260 350,260 400,260 450,235 500,235 550,260"
+                  <!-- Completed rate (green): last point updated dynamically -->
+                  <polyline id="ip-completed-line" points="50,260 350,260 400,260 450,235 500,235 550,260"
                     fill="none" stroke="#66bb6a" stroke-width="2" stroke-linejoin="round"/>
                   <!-- Verified (teal): flat at 0 -->
                   <polyline points="50,260 550,260" fill="none" stroke="#4dd0e1" stroke-width="2"/>
@@ -744,15 +744,15 @@
               </div>
               <div class="chart-sidebar">
                 <div class="stat-box">
-                  <span class="stat-num">0</span>
+                  <span class="stat-num" id="ip-open-rate">0</span>
                   <div class="stat-labels"><span class="stat-label">Open Rate</span><span class="stat-sublabel">tasks / week</span></div>
                 </div>
                 <div class="stat-box">
-                  <span class="stat-num">1</span>
+                  <span class="stat-num" id="ip-completed-rate">1</span>
                   <div class="stat-labels"><span class="stat-label">Completed Rate</span><span class="stat-sublabel">tasks / week</span></div>
                 </div>
                 <div class="stat-box">
-                  <span class="stat-num">0</span>
+                  <span class="stat-num" id="ip-verified-rate">0</span>
                   <div class="stat-labels"><span class="stat-label">Verified Rate</span><span class="stat-sublabel">tasks / week</span></div>
                 </div>
                 <div class="stat-box stat-box-days">
