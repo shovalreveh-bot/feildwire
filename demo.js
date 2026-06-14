@@ -786,16 +786,6 @@ window.addEventListener('DOMContentLoaded', function () {
           syncCounts();
         }
 
-        if (newStatus === 'Verified') {
-          setTimeout(function () {
-            closeModal();
-            card.classList.add('is-completing');
-            card.addEventListener('animationend', function () {
-              card.remove();
-              syncCounts();
-            }, { once: true });
-          }, 600);
-        }
       }
     }
 
@@ -1419,7 +1409,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var CIRC = 2 * Math.PI * 44; // ≈ 276.46
     var offset = 0;
     [['donut-safety', s], ['donut-p1', p1], ['donut-p2', p2],
-     ['donut-p3', p3], ['donut-completed', cp]
+     ['donut-p3', p3], ['donut-completed', cp], ['donut-verified', vr]
     ].forEach(function(seg) {
       var el = document.getElementById(seg[0]);
       if (!el) return;
