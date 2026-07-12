@@ -1540,8 +1540,24 @@ window.addEventListener('DOMContentLoaded', function () {
     var timeGroup   = document.getElementById('st-time-data');
     if (!openedGroup || !timeGroup) return;
 
+    var SVGNS = 'http://www.w3.org/2000/svg';
+    var svgEl = function(name, attrs) {
+      var el = document.createElementNS(SVGNS, name);
+      for (var k in attrs) el.setAttribute(k, attrs[k]);
+      return el;
+    };
+    var svgText = function(attrs, text) {
+      var el = svgEl('text', attrs);
+      el.textContent = text;
+      return el;
+    };
+    var clear = function(node) { while (node.firstChild) node.removeChild(node.firstChild); };
+
+    clear(openedGroup);
+    clear(timeGroup);
+
     var history = getSafetyHistory();
-    if (history.length === 0) { openedGroup.innerHTML = ''; timeGroup.innerHTML = ''; return; }
+    if (history.length === 0) return;
 
     // Group by local calendar date (YYYY-MM-DD)
     var byDate = {};
@@ -1559,6 +1575,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var dates = Object.keys(byDate).sort();
     if (dates.length > 6) dates = dates.slice(-6);
     var n = dates.length;
+    if (n === 0) return;
 
     // X positions spread evenly across plot area
     var xStart = 60, xEnd = 270;
@@ -1571,7 +1588,6 @@ window.addEventListener('DOMContentLoaded', function () {
     /* ── Chart 1: Tasks Opened ── */
     var maxOpened = 3;
     dates.forEach(function(d) { if (byDate[d].opened > maxOpened) maxOpened = byDate[d].opened; });
-    // Round up max to a nice number divisible by 3
     if (maxOpened % 3 !== 0) maxOpened = Math.ceil(maxOpened / 3) * 3;
     var y1 = document.getElementById('st-opened-y1');
     var y2 = document.getElementById('st-opened-y2');
@@ -1581,16 +1597,22 @@ window.addEventListener('DOMContentLoaded', function () {
     if (y3) y3.textContent = maxOpened;
     var yForOpened = function(v) { return 200 - (v / maxOpened) * 160; };
 
-    var openedPoints = dates.map(function(d, i) { return xPos[i] + ',' + yForOpened(byDate[d].opened); });
-    var openedHTML = '<polyline points="' + openedPoints.join(' ') +
-                     '" fill="none" stroke="#FF4F4F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    var openedPoints = dates.map(function(d, i) { return xPos[i] + ',' + yForOpened(byDate[d].opened); }).join(' ');
+    openedGroup.appendChild(svgEl('polyline', {
+      points: openedPoints, fill: 'none', stroke: '#FF4F4F',
+      'stroke-width': '1.2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round'
+    }));
     dates.forEach(function(d, i) {
-      openedHTML += '<circle cx="' + xPos[i] + '" cy="' + yForOpened(byDate[d].opened) + '" r="2.5" fill="#FF4F4F"/>';
+      openedGroup.appendChild(svgEl('circle', {
+        cx: xPos[i], cy: yForOpened(byDate[d].opened), r: '2.5', fill: '#FF4F4F'
+      }));
     });
     dates.forEach(function(d, i) {
-      openedHTML += '<text x="' + xPos[i] + '" y="220" text-anchor="middle" font-size="10" fill="#aaa">' + fmtLabel(d) + '</text>';
+      openedGroup.appendChild(svgText(
+        { x: xPos[i], y: 220, 'text-anchor': 'middle', 'font-size': '10', fill: '#aaa' },
+        fmtLabel(d)
+      ));
     });
-    openedGroup.innerHTML = openedHTML;
 
     /* ── Chart 2: Time to Resolve ── */
     var timeData = dates.map(function(d, i) {
@@ -1625,21 +1647,27 @@ window.addEventListener('DOMContentLoaded', function () {
     if (t4) t4.textContent = fmtHours(maxHours);
     var yForHours = function(h) { return 200 - (h / maxHours) * 160; };
 
-    var timeHTML = '';
     if (timeData.length > 0) {
-      var timePoints = timeData.map(function(t) { return t.x + ',' + yForHours(t.avgMs / 3600000); });
-      timeHTML += '<polyline points="' + timePoints.join(' ') +
-                  '" fill="none" stroke="#0d5bff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>';
+      var timePoints = timeData.map(function(t) { return t.x + ',' + yForHours(t.avgMs / 3600000); }).join(' ');
+      timeGroup.appendChild(svgEl('polyline', {
+        points: timePoints, fill: 'none', stroke: '#0d5bff',
+        'stroke-width': '1.2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round'
+      }));
       timeData.forEach(function(t) {
         var y = yForHours(t.avgMs / 3600000);
-        timeHTML += '<circle cx="' + t.x + '" cy="' + y + '" r="2.5" fill="#0d5bff"/>';
-        timeHTML += '<text x="' + t.x + '" y="' + (y - 7) + '" text-anchor="middle" font-size="9" fill="#0d5bff">' + formatResolution(t.avgMs) + '</text>';
+        timeGroup.appendChild(svgEl('circle', { cx: t.x, cy: y, r: '2.5', fill: '#0d5bff' }));
+        timeGroup.appendChild(svgText(
+          { x: t.x, y: (y - 7), 'text-anchor': 'middle', 'font-size': '9', fill: '#0d5bff' },
+          formatResolution(t.avgMs)
+        ));
       });
     }
     dates.forEach(function(d, i) {
-      timeHTML += '<text x="' + xPos[i] + '" y="220" text-anchor="middle" font-size="10" fill="#aaa">' + fmtLabel(d) + '</text>';
+      timeGroup.appendChild(svgText(
+        { x: xPos[i], y: 220, 'text-anchor': 'middle', 'font-size': '10', fill: '#aaa' },
+        fmtLabel(d)
+      ));
     });
-    timeGroup.innerHTML = timeHTML;
   }
 
 });
