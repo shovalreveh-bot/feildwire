@@ -1453,7 +1453,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // Lifetime Tasks
     setEl('lt-open',      openCount);
     setEl('lt-completed', cp);
-    setEl('lt-verified',  ver);
+    setEl('lt-verified',  vr);
 
     // Safety Tasks — live stats from localStorage
     setEl('st-open', s);
@@ -1467,7 +1467,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // In Progress
     setEl('ip-open-rate',      openCount);
     setEl('ip-completed-rate', cp);
-    setEl('ip-verified-rate',  ver);
+    setEl('ip-verified-rate',  vr);
 
     // In Progress line chart — update last (current) data point
     // Y scale: 0 tasks→y=260, 10 tasks→y=10; 1 task = 25px
