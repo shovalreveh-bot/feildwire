@@ -363,6 +363,7 @@ html.board-open {
 }
 
 .safety-alert-badge {
+  position: relative;
   margin-left: 5px;
   min-width: 18px;
   height: 18px;
@@ -375,6 +376,27 @@ html.board-open {
   line-height: 18px;
   text-align: center;
   flex-shrink: 0;
+  overflow: visible;
+}
+
+.safety-alert-badge::after {
+  content: "!";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: #e8001f;
+  color: #ffffff;
+  font-family: Lato, sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 9px;
+  text-align: center;
+  border: 1.5px solid #ffffff;
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 .safety-alert-badge[hidden] {
