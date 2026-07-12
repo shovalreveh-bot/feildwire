@@ -5180,6 +5180,24 @@ width: 100%;
   flex: 1 1 auto;
   min-width: 0;
 }
+
+/* Two charts side by side inside chart-main */
+.chart-split-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.chart-split-item {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.chart-split-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+  text-align: center;
+}
 .area-svg,
 .line-svg { width: 100%; height: auto; display: block; }
 
