@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="demo.css?v=36">
+    <link rel="stylesheet" href="demo.css?v=37">
   </head>
   <body>
     <div class="device-switch" aria-label="Preview size">
@@ -643,22 +643,12 @@
                       <!-- Y axis -->
                       <line x1="40" y1="40" x2="40" y2="200" stroke="#ccc" stroke-width="1"/>
                       <text x="34" y="203" text-anchor="end" font-size="10" fill="#aaa">0</text>
-                      <text x="34" y="150" text-anchor="end" font-size="10" fill="#FF4F4F">1</text>
-                      <text x="34" y="96"  text-anchor="end" font-size="10" fill="#FF4F4F">2</text>
-                      <text x="34" y="43"  text-anchor="end" font-size="10" fill="#FF4F4F">3</text>
+                      <text id="st-opened-y1" x="34" y="150" text-anchor="end" font-size="10" fill="#FF4F4F">1</text>
+                      <text id="st-opened-y2" x="34" y="96"  text-anchor="end" font-size="10" fill="#FF4F4F">2</text>
+                      <text id="st-opened-y3" x="34" y="43"  text-anchor="end" font-size="10" fill="#FF4F4F">3</text>
                       <text x="18" y="120" text-anchor="middle" font-size="9" fill="#FF4F4F" transform="rotate(-90,18,120)">tasks</text>
-                      <!-- X labels -->
-                      <text x="90"  y="220" text-anchor="middle" font-size="10" fill="#aaa">04/19</text>
-                      <text x="150" y="220" text-anchor="middle" font-size="10" fill="#aaa">05/03</text>
-                      <text x="210" y="220" text-anchor="middle" font-size="10" fill="#aaa">05/17</text>
-                      <text x="270" y="220" text-anchor="middle" font-size="10" fill="#aaa">05/31</text>
-                      <!-- Red line: 1,1,2,1 -->
-                      <polyline points="90,147 150,147 210,93 270,147"
-                        fill="none" stroke="#FF4F4F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle cx="90"  cy="147" r="2.5" fill="#FF4F4F"/>
-                      <circle cx="150" cy="147" r="2.5" fill="#FF4F4F"/>
-                      <circle cx="210" cy="93"  r="2.5" fill="#FF4F4F"/>
-                      <circle cx="270" cy="147" r="2.5" fill="#FF4F4F"/>
+                      <!-- Dynamic data group (populated by JS) -->
+                      <g id="st-opened-data"></g>
                     </svg>
                     <div class="chart-legend-row">
                       <span class="cl-item"><span class="cl-dot" style="background:#FF4F4F"></span>Opened</span>
@@ -678,25 +668,13 @@
                       <!-- Y axis -->
                       <line x1="40" y1="40" x2="40" y2="200" stroke="#ccc" stroke-width="1"/>
                       <text x="34" y="203" text-anchor="end" font-size="10" fill="#aaa">0</text>
-                      <text x="34" y="163" text-anchor="end" font-size="10" fill="#0d5bff">6h</text>
-                      <text x="34" y="123" text-anchor="end" font-size="10" fill="#0d5bff">12h</text>
-                      <text x="34" y="83"  text-anchor="end" font-size="10" fill="#0d5bff">18h</text>
-                      <text x="34" y="43"  text-anchor="end" font-size="10" fill="#0d5bff">1d</text>
+                      <text id="st-time-y1" x="34" y="163" text-anchor="end" font-size="10" fill="#0d5bff">6h</text>
+                      <text id="st-time-y2" x="34" y="123" text-anchor="end" font-size="10" fill="#0d5bff">12h</text>
+                      <text id="st-time-y3" x="34" y="83"  text-anchor="end" font-size="10" fill="#0d5bff">18h</text>
+                      <text id="st-time-y4" x="34" y="43"  text-anchor="end" font-size="10" fill="#0d5bff">1d</text>
                       <text x="14" y="120" text-anchor="middle" font-size="9" fill="#0d5bff" transform="rotate(-90,14,120)">time</text>
-                      <!-- X labels -->
-                      <text x="90"  y="220" text-anchor="middle" font-size="10" fill="#aaa">04/19</text>
-                      <text x="150" y="220" text-anchor="middle" font-size="10" fill="#aaa">05/03</text>
-                      <text x="210" y="220" text-anchor="middle" font-size="10" fill="#aaa">05/17</text>
-                      <text x="270" y="220" text-anchor="middle" font-size="10" fill="#aaa">05/31</text>
-                      <!-- Blue line: 30m=197, 8h=147, 1d 4h capped=40 -->
-                      <polyline points="150,197 210,147 270,40"
-                        fill="none" stroke="#0d5bff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle cx="150" cy="197" r="2.5" fill="#0d5bff"/>
-                      <circle cx="210" cy="147" r="2.5" fill="#0d5bff"/>
-                      <circle cx="270" cy="40"  r="2.5" fill="#0d5bff"/>
-                      <text x="150" y="190" text-anchor="middle" font-size="9" fill="#0d5bff">30m</text>
-                      <text x="210" y="140" text-anchor="middle" font-size="9" fill="#0d5bff">8h</text>
-                      <text x="270" y="33"  text-anchor="middle" font-size="9" fill="#0d5bff">1d 4h</text>
+                      <!-- Dynamic data group (populated by JS) -->
+                      <g id="st-time-data"></g>
                     </svg>
                     <div class="chart-legend-row">
                       <span class="cl-item"><span class="cl-dot" style="background:#0d5bff"></span>Time to resolve</span>
@@ -1273,6 +1251,6 @@
 
     </div><!-- /board-page -->
 
-    <script src="demo.js?v=36"></script>
+    <script src="demo.js?v=37"></script>
   </body>
 </html>

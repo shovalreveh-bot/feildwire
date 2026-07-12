@@ -238,6 +238,7 @@ window.addEventListener('DOMContentLoaded', function () {
     h.push({ id: id, title: titleEl ? titleEl.textContent.trim() : '', openedAt: Date.now(), closedAt: null });
     saveSafetyHistory(h);
     renderSafetyLog();
+    renderSafetyTaskCharts();
   }
 
   function recordSafetyClosed(card) {
@@ -249,6 +250,7 @@ window.addEventListener('DOMContentLoaded', function () {
       task.closedAt = Date.now();
       saveSafetyHistory(h);
       renderSafetyLog();
+      renderSafetyTaskCharts();
     }
   }
 
@@ -1354,7 +1356,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var showAnalytics = (label === 'Analytics');
     if (boardSection)  boardSection.hidden  = showAnalytics;
     if (analyticsView) analyticsView.hidden = !showAnalytics;
-    if (showAnalytics) { updateAnalyticsChart(); renderSafetyLog(); }
+    if (showAnalytics) { updateAnalyticsChart(); renderSafetyLog(); renderSafetyTaskCharts(); }
   }
 
   segBtns.forEach(function (btn) {
@@ -1484,6 +1486,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     renderSafetyLog();
+    renderSafetyTaskCharts();
   }
 
   /* ══════════════════════════════════════════
@@ -1526,6 +1529,117 @@ window.addEventListener('DOMContentLoaded', function () {
         '<td>' + badge + '</td>' +
       '</tr>';
     }).join('');
+  }
+
+  /* ══════════════════════════════════════════
+     SAFETY TASKS — line charts (dynamic)
+     Reads localStorage safety history and re-plots the two split charts.
+  ══════════════════════════════════════════ */
+  function renderSafetyTaskCharts() {
+    var openedGroup = document.getElementById('st-opened-data');
+    var timeGroup   = document.getElementById('st-time-data');
+    if (!openedGroup || !timeGroup) return;
+
+    var history = getSafetyHistory();
+    if (history.length === 0) { openedGroup.innerHTML = ''; timeGroup.innerHTML = ''; return; }
+
+    // Group by local calendar date (YYYY-MM-DD)
+    var byDate = {};
+    history.forEach(function(t) {
+      var d = new Date(t.openedAt);
+      var key = d.getFullYear() + '-' +
+                ('0' + (d.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + d.getDate()).slice(-2);
+      if (!byDate[key]) byDate[key] = { opened: 0, resolutions: [] };
+      byDate[key].opened++;
+      if (t.closedAt) byDate[key].resolutions.push(t.closedAt - t.openedAt);
+    });
+
+    // Keep last up-to-6 dates
+    var dates = Object.keys(byDate).sort();
+    if (dates.length > 6) dates = dates.slice(-6);
+    var n = dates.length;
+
+    // X positions spread evenly across plot area
+    var xStart = 60, xEnd = 270;
+    var xPos = n > 1
+      ? dates.map(function(_, i) { return xStart + i * (xEnd - xStart) / (n - 1); })
+      : [(xStart + xEnd) / 2];
+
+    var fmtLabel = function(iso) { return iso.slice(5, 7) + '/' + iso.slice(8, 10); };
+
+    /* ── Chart 1: Tasks Opened ── */
+    var maxOpened = 3;
+    dates.forEach(function(d) { if (byDate[d].opened > maxOpened) maxOpened = byDate[d].opened; });
+    // Round up max to a nice number divisible by 3
+    if (maxOpened % 3 !== 0) maxOpened = Math.ceil(maxOpened / 3) * 3;
+    var y1 = document.getElementById('st-opened-y1');
+    var y2 = document.getElementById('st-opened-y2');
+    var y3 = document.getElementById('st-opened-y3');
+    if (y1) y1.textContent = maxOpened / 3;
+    if (y2) y2.textContent = (maxOpened * 2 / 3);
+    if (y3) y3.textContent = maxOpened;
+    var yForOpened = function(v) { return 200 - (v / maxOpened) * 160; };
+
+    var openedPoints = dates.map(function(d, i) { return xPos[i] + ',' + yForOpened(byDate[d].opened); });
+    var openedHTML = '<polyline points="' + openedPoints.join(' ') +
+                     '" fill="none" stroke="#FF4F4F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    dates.forEach(function(d, i) {
+      openedHTML += '<circle cx="' + xPos[i] + '" cy="' + yForOpened(byDate[d].opened) + '" r="2.5" fill="#FF4F4F"/>';
+    });
+    dates.forEach(function(d, i) {
+      openedHTML += '<text x="' + xPos[i] + '" y="220" text-anchor="middle" font-size="10" fill="#aaa">' + fmtLabel(d) + '</text>';
+    });
+    openedGroup.innerHTML = openedHTML;
+
+    /* ── Chart 2: Time to Resolve ── */
+    var timeData = dates.map(function(d, i) {
+      var res = byDate[d].resolutions;
+      if (res.length === 0) return null;
+      var avgMs = res.reduce(function(a, b) { return a + b; }, 0) / res.length;
+      return { x: xPos[i], avgMs: avgMs };
+    }).filter(function(t) { return t !== null; });
+
+    var maxHours = 24;
+    timeData.forEach(function(t) {
+      var h = t.avgMs / 3600000;
+      if (h > maxHours) maxHours = h;
+    });
+
+    var fmtHours = function(h) {
+      if (h >= 24) {
+        var days = Math.floor(h / 24);
+        var rem  = Math.round(h - days * 24);
+        return rem > 0 ? days + 'd ' + rem + 'h' : days + 'd';
+      }
+      if (h >= 1) return Math.round(h) + 'h';
+      return Math.round(h * 60) + 'm';
+    };
+    var t1 = document.getElementById('st-time-y1');
+    var t2 = document.getElementById('st-time-y2');
+    var t3 = document.getElementById('st-time-y3');
+    var t4 = document.getElementById('st-time-y4');
+    if (t1) t1.textContent = fmtHours(maxHours / 4);
+    if (t2) t2.textContent = fmtHours(maxHours / 2);
+    if (t3) t3.textContent = fmtHours(maxHours * 3 / 4);
+    if (t4) t4.textContent = fmtHours(maxHours);
+    var yForHours = function(h) { return 200 - (h / maxHours) * 160; };
+
+    var timeHTML = '';
+    if (timeData.length > 0) {
+      var timePoints = timeData.map(function(t) { return t.x + ',' + yForHours(t.avgMs / 3600000); });
+      timeHTML += '<polyline points="' + timePoints.join(' ') +
+                  '" fill="none" stroke="#0d5bff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>';
+      timeData.forEach(function(t) {
+        var y = yForHours(t.avgMs / 3600000);
+        timeHTML += '<circle cx="' + t.x + '" cy="' + y + '" r="2.5" fill="#0d5bff"/>';
+        timeHTML += '<text x="' + t.x + '" y="' + (y - 7) + '" text-anchor="middle" font-size="9" fill="#0d5bff">' + formatResolution(t.avgMs) + '</text>';
+      });
+    }
+    dates.forEach(function(d, i) {
+      timeHTML += '<text x="' + xPos[i] + '" y="220" text-anchor="middle" font-size="10" fill="#aaa">' + fmtLabel(d) + '</text>';
+    });
+    timeGroup.innerHTML = timeHTML;
   }
 
 });
