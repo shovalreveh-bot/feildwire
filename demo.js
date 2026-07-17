@@ -360,9 +360,7 @@ window.addEventListener('DOMContentLoaded', function () {
   /* ── Per-task data persistence ── */
   var taskDataMap = new Map();
 
-  function saveCurrentTaskData() {
-    var card = modalTaskCards[modalCurrentIdx];
-    if (!card) return;
+  function captureCurrentModalData() {
     var data = {};
 
     var descEl = document.querySelector('.modal-description');
@@ -379,13 +377,18 @@ window.addEventListener('DOMContentLoaded', function () {
       if (valueEl) data.attrs[row.dataset.attr] = valueEl.innerHTML;
     });
 
-    // Save any in-progress inline input value too
     document.querySelectorAll('.attr-inline-input').forEach(function (inp) {
       var row = inp.closest('[data-attr]');
       if (row && inp.value.trim()) data.attrs[row.dataset.attr] = inp.value.trim() + ' <i class="caret"></i>';
     });
 
-    taskDataMap.set(card, data);
+    return data;
+  }
+
+  function saveCurrentTaskData() {
+    var card = modalTaskCards[modalCurrentIdx];
+    if (!card) return;
+    taskDataMap.set(card, captureCurrentModalData());
   }
 
   function loadTaskData(card) {
@@ -481,12 +484,20 @@ window.addEventListener('DOMContentLoaded', function () {
     if (modalTitleInput && !modalTitleInput.hidden) titleText = modalTitleInput.value.trim();
     if (!titleText && modalTitleSpan) titleText = modalTitleSpan.textContent.trim();
 
+    // Snapshot everything the user typed/selected before we tear the modal down
+    var snapshot = captureCurrentModalData();
+
     var taskNum = document.querySelectorAll('.task-card').length + 1;
     var card = document.createElement('div');
     card.className = 'task-card';
     if (type === 'safety') {
       card.setAttribute('data-safety-id', 'st_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7));
     }
+    card.dataset.currentStatus = type === 'safety' ? 'Safety'
+      : type === 'p1' ? 'Priority 1'
+      : type === 'p3' ? 'Priority 3'
+      : 'Priority 2';
+
     var titleHTML = titleText
       ? '<div class="fw-task-title">' + titleText.replace(/</g, '&lt;') + '</div>'
       : '<div class="fw-task-title placeholder-title" data-empty-title>Enter title <span class="edit-material-icon material-symbols-outlined">edit</span></div>';
@@ -500,6 +511,10 @@ window.addEventListener('DOMContentLoaded', function () {
     var link = col.querySelector('.fw-safety-bottom-new-task');
     col.insertBefore(card, link || null);
     if (typeof ensureSelectBox === 'function') ensureSelectBox(card);
+
+    // Persist the snapshot so reopening this card restores what the user entered
+    taskDataMap.set(card, snapshot);
+
     syncCounts();
   }
 
