@@ -1582,17 +1582,23 @@ fw-button {
   align-items: center;
   gap: 6px;
   color: #0d5bff;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 28px;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
   cursor: pointer;
 }
 .modal-title-placeholder .edit-material-icon {
-  font-size: 18px;
+  font-size: 15px;
   color: #0d5bff;
 }
 .modal-title-placeholder:hover { text-decoration: underline; }
-.modal-title-placeholder[hidden] { display: none; }
+.modal-title-placeholder[hidden] { display: none !important; }
+
+/* Hover pencil next to the title must actually disappear when hidden */
+.task-name .title-edit[hidden],
+.task-name .title-no-edit[hidden] { display: none !important; }
+/* When the blue placeholder is visible, suppress the hover-pencil entirely */
+.task-name:has(.modal-title-placeholder:not([hidden])) .title-edit { display: none !important; }
 
 .modal-title-form {
   display: inline-flex;
