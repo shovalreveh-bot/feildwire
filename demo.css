@@ -1594,6 +1594,69 @@ fw-button {
 }
 .modal-title-input[hidden] { display: none; }
 
+/* Empty-title placeholder inside a task card */
+.task-card .placeholder-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #0d5bff;
+  font-weight: 500;
+  cursor: pointer;
+}
+.task-card .placeholder-title .edit-material-icon {
+  font-size: 15px;
+  color: #0d5bff;
+}
+.task-card .placeholder-title:hover {
+  text-decoration: underline;
+}
+
+/* Inline title editor inside a task card */
+.card-title-form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+.card-title-form input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 30px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #1a1d21;
+  border: 1.5px solid #0d5bff;
+  border-radius: 3px;
+  outline: none;
+  background: #ffffff;
+}
+.card-title-form .btn-confirm,
+.card-title-form .btn-cancel {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 30px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.card-title-form .btn-confirm {
+  background: #b8c9e6;
+}
+.card-title-form .btn-confirm:not(:disabled) {
+  background: #0d5bff;
+}
+.card-title-form .btn-confirm:disabled {
+  cursor: not-allowed;
+}
+.card-title-form .btn-cancel {
+  background: #e53935;
+}
+
 .edit-material-icon {
   font-size: 16px;
   line-height: 1;

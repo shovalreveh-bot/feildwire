@@ -479,18 +479,21 @@ window.addEventListener('DOMContentLoaded', function () {
     var titleText = '';
     if (modalTitleInput && !modalTitleInput.hidden) titleText = modalTitleInput.value.trim();
     if (!titleText && modalTitleSpan) titleText = modalTitleSpan.textContent.trim();
-    if (!titleText) titleText = 'New task';
+
     var taskNum = document.querySelectorAll('.task-card').length + 1;
     var card = document.createElement('div');
     card.className = 'task-card';
     if (type === 'safety') {
       card.setAttribute('data-safety-id', 'st_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7));
     }
+    var titleHTML = titleText
+      ? '<div class="fw-task-title">' + titleText.replace(/</g, '&lt;') + '</div>'
+      : '<div class="fw-task-title placeholder-title" data-empty-title>Enter title <span class="edit-material-icon material-symbols-outlined">edit</span></div>';
     card.innerHTML =
       '<div class="fw-pin-col">' + pinSVGForType(type) + '</div>' +
       '<div class="name">' +
         '<div class="heading truncate"><span class="task-data">#' + taskNum + ' | @SRE' + (type === 'safety' ? ' | בטיחות' : '') + '</span></div>' +
-        '<div class="fw-task-title">' + titleText.replace(/</g, '&lt;') + '</div>' +
+        titleHTML +
       '</div>';
 
     var link = col.querySelector('.fw-safety-bottom-new-task');
@@ -498,6 +501,67 @@ window.addEventListener('DOMContentLoaded', function () {
     if (typeof ensureSelectBox === 'function') ensureSelectBox(card);
     syncCounts();
   }
+
+  /* ── Inline edit for empty-title placeholder ── */
+  function openInlineTitleEdit(placeholder) {
+    var name = placeholder.closest('.name');
+    if (!name) return;
+
+    var form = document.createElement('div');
+    form.className = 'card-title-form';
+
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Enter title';
+
+    var confirmBtn = document.createElement('button');
+    confirmBtn.className = 'btn-confirm';
+    confirmBtn.type = 'button';
+    confirmBtn.innerHTML = '✓';
+    confirmBtn.disabled = true;
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.className = 'btn-cancel';
+    cancelBtn.type = 'button';
+    cancelBtn.innerHTML = '✕';
+
+    input.addEventListener('input', function () {
+      confirmBtn.disabled = input.value.trim() === '';
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && input.value.trim()) { e.preventDefault(); confirmBtn.click(); }
+      if (e.key === 'Escape') { e.preventDefault(); cancelBtn.click(); }
+    });
+    input.addEventListener('click', function (e) { e.stopPropagation(); });
+
+    cancelBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      form.replaceWith(placeholder);
+    });
+
+    confirmBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var title = input.value.trim();
+      if (!title) return;
+      var newTitle = document.createElement('div');
+      newTitle.className = 'fw-task-title';
+      newTitle.textContent = title;
+      form.replaceWith(newTitle);
+    });
+
+    form.appendChild(input);
+    form.appendChild(confirmBtn);
+    form.appendChild(cancelBtn);
+    placeholder.replaceWith(form);
+    input.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var placeholder = e.target.closest('.placeholder-title[data-empty-title]');
+    if (!placeholder) return;
+    e.stopPropagation();
+    openInlineTitleEdit(placeholder);
+  }, true);
 
   function closeModal() {
     saveCurrentTaskData();
