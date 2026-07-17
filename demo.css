@@ -1577,6 +1577,23 @@ fw-button {
   display: inline-flex;
 }
 
+.modal-title-input {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #1a1d21;
+  width: 100%;
+  max-width: 100%;
+  padding: 2px 8px;
+  border: 1px solid #0d5bff;
+  border-radius: 4px;
+  outline: none;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(13, 91, 255, 0.12);
+}
+.modal-title-input[hidden] { display: none; }
+
 .edit-material-icon {
   font-size: 16px;
   line-height: 1;

@@ -700,9 +700,12 @@ window.addEventListener('DOMContentLoaded', function () {
       // Drop directly into title-edit mode so the user can name the task
       if (modalTitleSpan && modalTitleInput) {
         modalTitleSpan.textContent = '';
+        if (modalTitleEditText) modalTitleEditText.textContent = '';
         modalTitleInput.value = '';
         modalTitleInput.placeholder = 'Enter task name';
         modalTitleSpan.hidden = true;
+        var _titleEditWrap = document.querySelector('[data-modal-title-edit]');
+        if (_titleEditWrap) _titleEditWrap.hidden = true;
         modalTitleInput.hidden = false;
         setTimeout(function () { modalTitleInput.focus(); }, 0);
       }
@@ -747,30 +750,55 @@ window.addEventListener('DOMContentLoaded', function () {
   /* ══════════════════════════════════════════
      TITLE INLINE EDIT
   ══════════════════════════════════════════ */
-  var pencilBtn = document.querySelector('[data-modal-edit-pencil]');
+  var pencilBtn      = document.querySelector('[data-modal-edit-pencil]');
+  var titleEditWrap  = document.querySelector('[data-modal-title-edit]');
 
-  if (pencilBtn && modalTitleSpan && modalTitleInput) {
-    pencilBtn.addEventListener('click', function () {
-      modalTitleInput.value = modalTitleSpan.textContent;
-      modalTitleSpan.hidden = true;
-      modalTitleInput.hidden = false;
-      modalTitleInput.focus();
-      modalTitleInput.select();
-    });
+  function openTitleEditor() {
+    if (!modalTitleInput || !modalTitleSpan) return;
+    modalTitleInput.value = modalTitleSpan.textContent.trim();
+    modalTitleSpan.hidden = true;
+    if (titleEditWrap) titleEditWrap.hidden = true;
+    modalTitleInput.hidden = false;
+    modalTitleInput.focus();
+    modalTitleInput.select();
+  }
 
-    function saveTitle() {
-      var val = modalTitleInput.value.trim();
-      if (val) modalTitleSpan.textContent = val;
-      modalTitleInput.hidden = true;
-      modalTitleSpan.hidden  = false;
+  function saveTitle() {
+    if (!modalTitleInput) return;
+    var val = modalTitleInput.value.trim();
+    if (val) {
+      if (modalTitleSpan)     modalTitleSpan.textContent     = val;
+      if (modalTitleEditText) modalTitleEditText.textContent = val;
+      // Also update the underlying task card if this modal is bound to one
+      var card = modalTaskCards[modalCurrentIdx];
+      if (card) {
+        var titleEl = card.querySelector('.fw-task-title');
+        if (titleEl) titleEl.textContent = val;
+      }
     }
+    modalTitleInput.hidden = true;
+    if (modalTitleSpan) modalTitleSpan.hidden = false;
+    if (titleEditWrap)  titleEditWrap.hidden  = false;
+  }
 
+  if (modalTitleInput) {
     modalTitleInput.addEventListener('blur', saveTitle);
     modalTitleInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter')  saveTitle();
-      if (e.key === 'Escape') { modalTitleInput.hidden = true; modalTitleSpan.hidden = false; }
+      if (e.key === 'Enter') { e.preventDefault(); saveTitle(); }
+      if (e.key === 'Escape') {
+        modalTitleInput.hidden = true;
+        if (modalTitleSpan) modalTitleSpan.hidden = false;
+        if (titleEditWrap)  titleEditWrap.hidden  = false;
+      }
     });
   }
+  if (pencilBtn) pencilBtn.addEventListener('click', openTitleEditor);
+  if (titleEditWrap) titleEditWrap.addEventListener('click', function (e) {
+    if (e.target === pencilBtn) return; // pencil already handles it
+    openTitleEditor();
+  });
+  // Clicking directly on the visible title also opens the editor
+  if (modalTitleSpan) modalTitleSpan.addEventListener('click', openTitleEditor);
 
   /* ══════════════════════════════════════════
      STATUS DROPDOWN
