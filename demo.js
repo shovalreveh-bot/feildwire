@@ -1008,6 +1008,7 @@ window.addEventListener('DOMContentLoaded', function () {
     shareBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       shareDropdown.hidden = !shareDropdown.hidden;
+      if (!shareDropdown.hidden) flashSharedSaved();
     });
 
     var shareBtnDefaultHTML = shareBtn.innerHTML;
