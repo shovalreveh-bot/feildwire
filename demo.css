@@ -1577,19 +1577,26 @@ fw-button {
   display: inline-flex;
 }
 
+/* Matches the original Fieldwire "Enter title" link exactly */
 .modal-title-placeholder {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-block;
   color: #0d5bff;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
   cursor: pointer;
+  font-family: Lato, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  -webkit-font-smoothing: antialiased;
 }
 .modal-title-placeholder .edit-material-icon {
-  font-size: 15px;
+  font-size: 14px;
   color: #0d5bff;
+  vertical-align: -2px;
+  margin-left: 4px;
 }
 .modal-title-placeholder:hover { text-decoration: underline; }
 .modal-title-placeholder[hidden] { display: none !important; }
