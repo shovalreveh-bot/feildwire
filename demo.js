@@ -447,8 +447,58 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  var pendingNewTaskType = null;
+
+  function pinSVGForType(type) {
+    if (type === 'safety') {
+      return '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><polygon points="30,6 56,54 4,54" fill="#FF4F4F"/></svg>';
+    }
+    if (type === 'p3') {
+      return '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M51.49,26.61C51.76,20.24 49.52,14.60 45.64,10.57C41.74,6.51 36.18,4.08 29.87,4.13C23.78,4.13 18.22,6.49 14.29,10.62C10.57,14.54 8.33,20.04 8.5,26.63C8.5,34.97 15.72,45.85 30,59.31C44.64,45.34 51.87,34.47 51.49,26.61Z" fill="#FFD149"/></svg>';
+    }
+    var color = type === 'p1' ? '#FF4F4F' : '#FA8B34';
+    return '<svg class="fw-shape" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect x="9.5" y="9.5" width="41" height="41" fill="' + color + '" stroke="#1A1D21" stroke-opacity="0.25"/></svg>';
+  }
+
+  function columnForType(type) {
+    if (type === 'safety') return document.querySelector('.safety-column');
+    var e2e = priorityE2E && priorityE2E[type];
+    if (!e2e) return null;
+    var header = document.querySelector('[data-e2e="' + e2e + '"]');
+    return header && header.closest('.column');
+  }
+
+  function commitPendingNewTask() {
+    if (!pendingNewTaskType) return;
+    var type = pendingNewTaskType;
+    pendingNewTaskType = null;
+
+    var col = columnForType(type);
+    if (!col) return;
+
+    var titleText = (modalTitleSpan && modalTitleSpan.textContent.trim()) || 'New task';
+    var taskNum = document.querySelectorAll('.task-card').length + 1;
+    var card = document.createElement('div');
+    card.className = 'task-card';
+    if (type === 'safety') {
+      card.setAttribute('data-safety-id', 'st_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7));
+    }
+    card.innerHTML =
+      '<div class="fw-pin-col">' + pinSVGForType(type) + '</div>' +
+      '<div class="name">' +
+        '<div class="heading truncate"><span class="task-data">#' + taskNum + ' | @SRE' + (type === 'safety' ? ' | בטיחות' : '') + '</span></div>' +
+        '<div class="fw-task-title">' + titleText.replace(/</g, '&lt;') + '</div>' +
+      '</div>';
+
+    var link = col.querySelector('.fw-safety-bottom-new-task');
+    col.insertBefore(card, link || null);
+    if (typeof ensureSelectBox === 'function') ensureSelectBox(card);
+    syncCounts();
+  }
+
   function closeModal() {
     saveCurrentTaskData();
+    commitPendingNewTask();
     if (backdrop) backdrop.hidden = true;
   }
 
@@ -481,6 +531,7 @@ window.addEventListener('DOMContentLoaded', function () {
   }
 
   function openModalForCard(card) {
+    pendingNewTaskType = null;
     modalTaskCards  = Array.from(document.querySelectorAll('.board .task-card'));
     modalCurrentIdx = modalTaskCards.indexOf(card);
 
@@ -637,19 +688,22 @@ window.addEventListener('DOMContentLoaded', function () {
       taskTypeMenu.hidden = true;
       var type = opt.dataset.taskType;
 
-      // Titles that match the style of existing cards
       var titles = {
         safety: 'משימת בטיחות חדשה',
         p1: 'New Priority 1 task',
         p2: 'New Priority 2 task',
         p3: 'New Priority 3 task'
       };
+      pendingNewTaskType = type;
       openTaskModal(titles[type] || 'New task', type);
     });
   });
 
   document.querySelectorAll('[data-mobile-new-task]').forEach(function (btn) {
-    btn.addEventListener('click', function () { openTaskModal('New task', 'p2'); });
+    btn.addEventListener('click', function () {
+      pendingNewTaskType = 'p2';
+      openTaskModal('New task', 'p2');
+    });
   });
 
   /* ══════════════════════════════════════════
