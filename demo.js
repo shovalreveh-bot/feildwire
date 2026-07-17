@@ -476,7 +476,10 @@ window.addEventListener('DOMContentLoaded', function () {
     var col = columnForType(type);
     if (!col) return;
 
-    var titleText = (modalTitleSpan && modalTitleSpan.textContent.trim()) || 'New task';
+    var titleText = '';
+    if (modalTitleInput && !modalTitleInput.hidden) titleText = modalTitleInput.value.trim();
+    if (!titleText && modalTitleSpan) titleText = modalTitleSpan.textContent.trim();
+    if (!titleText) titleText = 'New task';
     var taskNum = document.querySelectorAll('.task-card').length + 1;
     var card = document.createElement('div');
     card.className = 'task-card';
@@ -530,24 +533,11 @@ window.addEventListener('DOMContentLoaded', function () {
     return 'p2';
   }
 
-  function openModalForCard(card) {
-    pendingNewTaskType = null;
-    modalTaskCards  = Array.from(document.querySelectorAll('.board .task-card'));
-    modalCurrentIdx = modalTaskCards.indexOf(card);
-
-    var metaEl  = card.querySelector('.task-data');
-    var titleEl = card.querySelector('.fw-task-title');
-    var metaText  = metaEl  ? metaEl.textContent.trim()  : '';
-    var titleText = titleEl ? titleEl.textContent.trim() : 'New task';
-    if (titleText === 'Enter title') titleText = 'New task';
-
+  function resetModalContents(metaText) {
     if (modalMetaEl) modalMetaEl.textContent = metaText || '#? | @SRE';
-
-    // Reset checklist & activity for each task
     if (checklistEl)  checklistEl.innerHTML  = '';
     if (activityFeed) activityFeed.innerHTML = '';
 
-    // Reset attributes to defaults
     document.querySelectorAll('[data-attr-value]').forEach(function (el) {
       var row = el.closest('[data-attr]');
       if (!row) return;
@@ -559,20 +549,16 @@ window.addEventListener('DOMContentLoaded', function () {
       el.hidden = false;
     });
 
-    // Remove any in-progress inline attribute inputs
     document.querySelectorAll('.attr-inline-input').forEach(function (inp) { inp.remove(); });
 
-    // Reset description textarea
     var descEl = document.querySelector('.modal-description');
     if (descEl) descEl.value = '';
 
-    // Reset photo and file previews
     var photosPreviewEl = document.querySelector('[data-photos-preview]');
     if (photosPreviewEl) photosPreviewEl.innerHTML = '';
     var filesPreviewEl = document.querySelector('[data-files-preview]');
     if (filesPreviewEl) filesPreviewEl.innerHTML = '';
 
-    // Reset location picker to defaults
     var floorTextEl = document.querySelector('[data-floor-text]');
     var roomTextEl  = document.querySelector('[data-room-text]');
     var floorBtnEl  = document.querySelector('[data-location-dropdown="floor"]');
@@ -585,8 +571,21 @@ window.addEventListener('DOMContentLoaded', function () {
     if (roomBtnEl)   roomBtnEl.classList.remove('has-value', 'is-open');
     if (floorMenuEl) floorMenuEl.hidden = true;
     if (roomMenuEl)  roomMenuEl.hidden  = true;
+  }
 
-    // Show Completed / Verified only from the second visit onwards
+  function openModalForCard(card) {
+    pendingNewTaskType = null;
+    modalTaskCards  = Array.from(document.querySelectorAll('.board .task-card'));
+    modalCurrentIdx = modalTaskCards.indexOf(card);
+
+    var metaEl  = card.querySelector('.task-data');
+    var titleEl = card.querySelector('.fw-task-title');
+    var metaText  = metaEl  ? metaEl.textContent.trim()  : '';
+    var titleText = titleEl ? titleEl.textContent.trim() : 'New task';
+    if (titleText === 'Enter title') titleText = 'New task';
+
+    resetModalContents(metaText);
+
     var sd = document.querySelector('[data-status-dropdown]');
     if (sd) sd.classList.toggle('show-advanced', !!card.dataset.visited);
     card.dataset.visited = 'true';
@@ -688,14 +687,25 @@ window.addEventListener('DOMContentLoaded', function () {
       taskTypeMenu.hidden = true;
       var type = opt.dataset.taskType;
 
-      var titles = {
-        safety: 'משימת בטיחות חדשה',
-        p1: 'New Priority 1 task',
-        p2: 'New Priority 2 task',
-        p3: 'New Priority 3 task'
-      };
       pendingNewTaskType = type;
-      openTaskModal(titles[type] || 'New task', type);
+      // Detach from any previously-open card so nothing is treated as "the current task"
+      modalTaskCards = [];
+      modalCurrentIdx = -1;
+
+      // Clear every panel back to its defaults before showing the modal
+      var nextTaskNum = document.querySelectorAll('.task-card').length + 1;
+      resetModalContents('#' + nextTaskNum + ' | @SRE');
+      openTaskModal('', type);
+
+      // Drop directly into title-edit mode so the user can name the task
+      if (modalTitleSpan && modalTitleInput) {
+        modalTitleSpan.textContent = '';
+        modalTitleInput.value = '';
+        modalTitleInput.placeholder = 'Enter task name';
+        modalTitleSpan.hidden = true;
+        modalTitleInput.hidden = false;
+        setTimeout(function () { modalTitleInput.focus(); }, 0);
+      }
     });
   });
 
