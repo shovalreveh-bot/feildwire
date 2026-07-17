@@ -1017,6 +1017,18 @@ window.addEventListener('DOMContentLoaded', function () {
       shareDropdown.hidden = !shareDropdown.hidden;
     });
 
+    var shareBtnDefaultHTML = shareBtn.innerHTML;
+    var shareSavedTimer = null;
+    function flashSharedSaved() {
+      shareBtn.innerHTML = '✓ Saved';
+      shareBtn.classList.add('is-saved');
+      if (shareSavedTimer) clearTimeout(shareSavedTimer);
+      shareSavedTimer = setTimeout(function () {
+        shareBtn.innerHTML = shareBtnDefaultHTML;
+        shareBtn.classList.remove('is-saved');
+      }, 2000);
+    }
+
     shareDropdown.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-share-action]');
       if (!btn || btn.disabled) return;
@@ -1031,6 +1043,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }, 1500);
       }
       if (action !== 'clipboard') shareDropdown.hidden = true;
+      flashSharedSaved();
     });
 
     document.addEventListener('click', function (e) {
