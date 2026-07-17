@@ -1577,22 +1577,73 @@ fw-button {
   display: inline-flex;
 }
 
-.modal-title-input {
-  font-family: inherit;
+.modal-title-placeholder {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0d5bff;
   font-size: 20px;
   font-weight: 700;
   line-height: 28px;
-  color: #1a1d21;
-  width: 100%;
+  cursor: pointer;
+}
+.modal-title-placeholder .edit-material-icon {
+  font-size: 18px;
+  color: #0d5bff;
+}
+.modal-title-placeholder:hover { text-decoration: underline; }
+.modal-title-placeholder[hidden] { display: none; }
+
+.modal-title-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   max-width: 100%;
-  padding: 2px 8px;
-  border: 1px solid #0d5bff;
-  border-radius: 4px;
+  vertical-align: middle;
+}
+.modal-title-form[hidden] { display: none; }
+
+.modal-title-input {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #1a1d21;
+  flex: 1 1 auto;
+  min-width: 260px;
+  max-width: 480px;
+  height: 34px;
+  padding: 4px 10px;
+  border: 1.5px solid #0d5bff;
+  border-radius: 3px;
   outline: none;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(13, 91, 255, 0.12);
 }
-.modal-title-input[hidden] { display: none; }
+.modal-title-form .btn-confirm,
+.modal-title-form .btn-cancel {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 34px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.modal-title-form .btn-confirm {
+  background: #b8c9e6;
+}
+.modal-title-form .btn-confirm:not(:disabled) {
+  background: #0d5bff;
+}
+.modal-title-form .btn-confirm:disabled {
+  cursor: not-allowed;
+}
+.modal-title-form .btn-cancel {
+  background: #e53935;
+}
 
 /* Empty-title placeholder inside a task card */
 .task-card .placeholder-title {

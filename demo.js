@@ -326,6 +326,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     if (modalTitleSpan)     modalTitleSpan.textContent     = title;
     if (modalTitleEditText) modalTitleEditText.textContent = title;
+    if (typeof showTitleView === 'function') showTitleView();
 
     document.querySelectorAll('[data-modal-status]').forEach(function (el) {
       el.textContent = cfg.label;
@@ -761,18 +762,10 @@ window.addEventListener('DOMContentLoaded', function () {
       resetModalContents('#' + nextTaskNum + ' | @SRE');
       openTaskModal('', type);
 
-      // Drop directly into title-edit mode so the user can name the task
-      if (modalTitleSpan && modalTitleInput) {
-        modalTitleSpan.textContent = '';
-        if (modalTitleEditText) modalTitleEditText.textContent = '';
-        modalTitleInput.value = '';
-        modalTitleInput.placeholder = 'Enter task name';
-        modalTitleSpan.hidden = true;
-        var _titleEditWrap = document.querySelector('[data-modal-title-edit]');
-        if (_titleEditWrap) _titleEditWrap.hidden = true;
-        modalTitleInput.hidden = false;
-        setTimeout(function () { modalTitleInput.focus(); }, 0);
-      }
+      // Empty-title state → shows the blue "Enter title" placeholder
+      if (modalTitleSpan)     modalTitleSpan.textContent     = '';
+      if (modalTitleEditText) modalTitleEditText.textContent = '';
+      showTitleView();
     });
   });
 
@@ -814,17 +807,38 @@ window.addEventListener('DOMContentLoaded', function () {
   /* ══════════════════════════════════════════
      TITLE INLINE EDIT
   ══════════════════════════════════════════ */
-  var pencilBtn      = document.querySelector('[data-modal-edit-pencil]');
-  var titleEditWrap  = document.querySelector('[data-modal-title-edit]');
+  var pencilBtn         = document.querySelector('[data-modal-edit-pencil]');
+  var titleEditWrap     = document.querySelector('[data-modal-title-edit]');
+  var titlePlaceholder  = document.querySelector('[data-modal-title-placeholder]');
+  var titleForm         = document.querySelector('[data-modal-title-form]');
+  var titleConfirmBtn   = document.querySelector('[data-modal-title-confirm]');
+  var titleCancelBtn    = document.querySelector('[data-modal-title-cancel]');
+
+  function showTitleView() {
+    if (titleForm) titleForm.hidden = true;
+    if (modalTitleSpan && modalTitleSpan.textContent.trim()) {
+      // Has title — show text + hover-pencil
+      modalTitleSpan.hidden = false;
+      if (titleEditWrap) titleEditWrap.hidden = false;
+      if (titlePlaceholder) titlePlaceholder.hidden = true;
+    } else {
+      // Empty — show blue "Enter title" placeholder
+      if (modalTitleSpan) modalTitleSpan.hidden = true;
+      if (titleEditWrap) titleEditWrap.hidden = true;
+      if (titlePlaceholder) titlePlaceholder.hidden = false;
+    }
+  }
 
   function openTitleEditor() {
-    if (!modalTitleInput || !modalTitleSpan) return;
-    modalTitleInput.value = modalTitleSpan.textContent.trim();
-    modalTitleSpan.hidden = true;
+    if (!modalTitleInput || !titleForm) return;
+    var current = modalTitleSpan ? modalTitleSpan.textContent.trim() : '';
+    modalTitleInput.value = current;
+    if (titleConfirmBtn) titleConfirmBtn.disabled = current === '';
+    if (modalTitleSpan) modalTitleSpan.hidden = true;
     if (titleEditWrap) titleEditWrap.hidden = true;
-    modalTitleInput.hidden = false;
-    modalTitleInput.focus();
-    modalTitleInput.select();
+    if (titlePlaceholder) titlePlaceholder.hidden = true;
+    titleForm.hidden = false;
+    setTimeout(function () { modalTitleInput.focus(); modalTitleInput.select(); }, 0);
   }
 
   function saveTitle() {
@@ -833,35 +847,44 @@ window.addEventListener('DOMContentLoaded', function () {
     if (val) {
       if (modalTitleSpan)     modalTitleSpan.textContent     = val;
       if (modalTitleEditText) modalTitleEditText.textContent = val;
-      // Also update the underlying task card if this modal is bound to one
       var card = modalTaskCards[modalCurrentIdx];
       if (card) {
         var titleEl = card.querySelector('.fw-task-title');
-        if (titleEl) titleEl.textContent = val;
+        if (titleEl) {
+          titleEl.classList.remove('placeholder-title');
+          titleEl.removeAttribute('data-empty-title');
+          titleEl.textContent = val;
+        }
       }
     }
-    modalTitleInput.hidden = true;
-    if (modalTitleSpan) modalTitleSpan.hidden = false;
-    if (titleEditWrap)  titleEditWrap.hidden  = false;
+    showTitleView();
   }
 
+  function cancelTitle() { showTitleView(); }
+
   if (modalTitleInput) {
-    modalTitleInput.addEventListener('blur', saveTitle);
+    modalTitleInput.addEventListener('input', function () {
+      if (titleConfirmBtn) titleConfirmBtn.disabled = modalTitleInput.value.trim() === '';
+    });
     modalTitleInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); saveTitle(); }
-      if (e.key === 'Escape') {
-        modalTitleInput.hidden = true;
-        if (modalTitleSpan) modalTitleSpan.hidden = false;
-        if (titleEditWrap)  titleEditWrap.hidden  = false;
-      }
+      if (e.key === 'Enter') { e.preventDefault(); if (modalTitleInput.value.trim()) saveTitle(); }
+      if (e.key === 'Escape') { e.preventDefault(); cancelTitle(); }
     });
   }
+  if (titleConfirmBtn) titleConfirmBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (modalTitleInput.value.trim()) saveTitle();
+  });
+  if (titleCancelBtn) titleCancelBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    cancelTitle();
+  });
   if (pencilBtn) pencilBtn.addEventListener('click', openTitleEditor);
   if (titleEditWrap) titleEditWrap.addEventListener('click', function (e) {
-    if (e.target === pencilBtn) return; // pencil already handles it
+    if (e.target === pencilBtn) return;
     openTitleEditor();
   });
-  // Clicking directly on the visible title also opens the editor
+  if (titlePlaceholder) titlePlaceholder.addEventListener('click', openTitleEditor);
   if (modalTitleSpan) modalTitleSpan.addEventListener('click', openTitleEditor);
 
   /* ══════════════════════════════════════════
