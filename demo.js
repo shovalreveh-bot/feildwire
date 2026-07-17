@@ -636,22 +636,15 @@ window.addEventListener('DOMContentLoaded', function () {
     opt.addEventListener('click', function () {
       taskTypeMenu.hidden = true;
       var type = opt.dataset.taskType;
-      var col;
 
-      if (type === 'safety') {
-        col = document.querySelector('.safety-column');
-      } else if (priorityE2E[type]) {
-        var header = document.querySelector('[data-e2e="' + priorityE2E[type] + '"]');
-        col = header && header.closest('.column');
-      }
-
-      if (col) {
-        var link = col.querySelector('.fw-safety-bottom-new-task');
-        if (link) {
-          col.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          link.click();
-        }
-      }
+      // Titles that match the style of existing cards
+      var titles = {
+        safety: 'משימת בטיחות חדשה',
+        p1: 'New Priority 1 task',
+        p2: 'New Priority 2 task',
+        p3: 'New Priority 3 task'
+      };
+      openTaskModal(titles[type] || 'New task', type);
     });
   });
 
